@@ -1,4 +1,4 @@
-grammar Hello;
+grammar syntax;
 
 options {
     language = Python3;
