@@ -109,14 +109,14 @@ block
 // Variable Declaration
 variable_declaration
     : DATA_TYPE IDENTIFIER (ASSIGN expression)?
-    | ARR_INT IDENTIFIER (ASSIGN intArray)?
-    | ARR_CHAR IDENTIFIER (ASSIGN charArray)?
+    | ARR_INT IDENTIFIER (ASSIGN int_Array)?
+    | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
     | ARR_STR IDENTIFIER (ASSIGN strArray)?
     ;  
 
 // Assignment
 assignment
-    : IDENTIFIER ASSIGN (expression | intArray | charArray | strArray)
+    : IDENTIFIER ASSIGN (expression | int_Array | char_Array | strArray)
     ;
      
 // Expressions
@@ -178,11 +178,11 @@ param_list
     
      
 // Array Definition
-intArray 
+int_Array 
     : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET		    # IntArray
     ;
 
-charArray
+char_Array
     : LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET	    # CharArray
     ;
 
