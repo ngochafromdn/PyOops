@@ -40,10 +40,14 @@ DATA_TYPE
     | TYPE_DEF
     ;
 
+// ARRAY TYPES
+ARR_INT : 'int[]';
+ARR_CHAR : 'char[]';
+ARR_STR : 'str[]';
+
 // Char & String with escape sequences
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
 STRING : '"' ( ~["\\\r\n] | '\\' . )* '"';
-
 
 // Delimiters
 SEMI : ';';
@@ -54,7 +58,6 @@ LPAREN : '(';
 RPAREN : ')';
 LBRACKET : '[';
 RBRACKET : ']';
-
 
 // Operators    
 ASSIGN : '=';
@@ -84,13 +87,12 @@ program
     : statement* EOF
     ;
 
-// Statement    
 // Statement 
 statement 
     : assignment SEMI                   # AssignStmt
-    | variable_declaration SEMI # VarDeclStmt
+    | variable_declaration SEMI         # VarDeclStmt
     | if_stmt                           # IfStmt
-    | while_stmt                                # WhileStmt
+    | while_stmt                        # WhileStmt
     | try_stmt                          # TryStmt
     | return_stmt SEMI                  # ReturnStmt
     | func_def                          # FuncStmt
@@ -98,8 +100,6 @@ statement
     | type_defStatement                 # NewTypeDef
     | print_stmt SEMI                   # PrintStmt
     ;
-
-
 
 // Block
 block
@@ -109,10 +109,14 @@ block
 // Variable Declaration
 variable_declaration
     : DATA_TYPE IDENTIFIER (ASSIGN expression)?
+    | ARR_INT IDENTIFIER (ASSIGN intArray)?
+    | ARR_CHAR IDENTIFIER (ASSIGN charArray)?
+    | ARR_STR IDENTIFIER (ASSIGN strArray)?
     ;  
+
 // Assignment
 assignment
-    : IDENTIFIER ASSIGN expression
+    : IDENTIFIER ASSIGN (expression | intArray | charArray | strArray)
     ;
      
 // Expressions
@@ -129,7 +133,6 @@ expression
     | NUMBER                                                    # NumberExpr
     | STRING                                                    # StringExpr
     | CHARACTER                                         # CharExpr
-    | array1                                                    # Array
     ;
 
 // If / While
@@ -175,10 +178,16 @@ param_list
     
      
 // Array Definition
-array1
-    : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET       # IntArray
-    | LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET  # CharArray
-    | LBRACKET (STRING (COMMA STRING)*)? RBRACKET         # StringArray
+intArray 
+    : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET		    # IntArray
+    ;
+
+charArray
+    : LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET	    # CharArray
+    ;
+
+strArray
+    : LBRACKET (STRING (COMMA STRING)*)? RBRACKET			# StringArray
     ;
 
 
