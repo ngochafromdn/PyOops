@@ -20,7 +20,6 @@ TRUE : 'true';
 FALSE : 'false';
 CONTINUE: 'continue';
 BREAK: 'break';
-VOID : 'void';
 
 // 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
 ARR_INT : 'int[]';
@@ -178,14 +177,13 @@ except_clause
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE (((INT | FLOAT | STR | CHAR) | ARR_TYPE) IDENTIFIER SEMI)* RBRACE
+    : TYPE_DEF IDENTIFIER LBRACE ((INT | FLOAT | STR | CHAR | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI)* RBRACE
     ;
 
     
 // Function
 func_def
-    : FUNC (INT | FLOAT | STR | CHAR| VOID)? IDENTIFIER LPAREN param_list? RPAREN block 
-   
+    : FUNC (INT | FLOAT | STR | CHAR)? IDENTIFIER LPAREN param_list? RPAREN block
     ;
      
 param_list
