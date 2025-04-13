@@ -26,7 +26,11 @@ ARR_INT : 'int[]';
 ARR_CHAR : 'char[]';
 ARR_STR : 'str[]';
 
-
+ARR_TYPE
+    : ARR_INT 
+    | ARR_CHAR 
+    | ARR_STR 
+    ;
 
 // 3. Primitive types
 INT : 'int';
@@ -35,6 +39,12 @@ STR : 'str';
 CHAR : 'char';
 TYPE_DEF : 'type';
 
+DATA_TYPE
+    : INT
+    | FLOAT
+    | STR
+    | CHAR
+    ;
 
 // 4. Literals
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
@@ -105,13 +115,11 @@ block
 
 // Variable Declaration
 variable_declaration
-    : (DATA_TYPE | IDENTIFIER) IDENTIFIER (ASSIGN expression)?
+    : (INT | FLOAT | STR | CHAR) IDENTIFIER (ASSIGN expression)?
     | ARR_INT IDENTIFIER (ASSIGN int_Array)?
     | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
     | ARR_STR IDENTIFIER (ASSIGN strArray)?
-    ;  
-
-
+    ;
 
 
 // Assignment
@@ -170,20 +178,7 @@ type_defStatement
     : TYPE_DEF IDENTIFIER LBRACE (((INT | FLOAT | STR | CHAR) | ARR_TYPE) IDENTIFIER SEMI)* RBRACE
     ;
 
-
-DATA_TYPE
-    : INT
-    | FLOAT
-    | STR
-    | CHAR
-    ;
-
-ARR_TYPE
-    : ARR_INT 
-    | ARR_CHAR 
-    | ARR_STR 
-    ;
-
+    
 // Function
 func_def
     : FUNC (DATA_TYPE)? IDENTIFIER LPAREN param_list? RPAREN block
@@ -216,7 +211,6 @@ continue_stmt
 break_stmt
     : BREAK SEMI
     ;
-
 
 
 
