@@ -1,18 +1,18 @@
-# Primitive Variable Declarations (with and without initialization)
+// Primitive Variable Declarations (with and without initialization)
 int i;
 float f = 0.0;
 char ch = 'z';
 str s = "initial";
-type CustomType;
+// type CustomType;
 
-# Edge values
+// Edge values
 int minInt = -2147483648;
 int maxInt = 2147483647;
 float pi = 3.14159;
 char newline = '\n';
 str emptyStr = "";
 
-# Array Declarations
+// Array Declarations
 int[] emptyInts = [];
 int[] smallInts = [1];
 int[] manyInts = [1, 2, 3, 4, 5];
@@ -21,25 +21,25 @@ char[] specialChars = ['\\', '\'', '\"'];
 str[] messages = ["Hi", "Welcome", "Goodbye"];
 str[] emptyStrArray = [];
 
-# Assignments to existing variables
+// Assignments to existing variables
 i = 42;
 f = 9.81;
 ch = 'A';
 s = "updated string";
 
-# Reassignment with valid data
+// Reassignment with valid data
 minInt = 0;
 maxInt = 100;
 pi = 3.0;
 newline = '\t';
 emptyStr = "not empty";
 
-# Reassignment of arrays
+// Reassignment of arrays
 emptyInts = [99];
 vowels = ['u', 'o', 'i'];
 messages = ["One", "Two", "Three"];
 
-# Mixed-case identifier test
+// Mixed-case identifier test
 int CamelCaseVar = 1;
 str snake_case_var = "value";
 CamelCaseVar = 2;

@@ -115,11 +115,12 @@ block
 
 // Variable Declaration
 variable_declaration
-    : (DATA_TYPE | IDENTIFIER) IDENTIFIER (ASSIGN expression)?
+    : (INT | FLOAT | STR | CHAR | IDENTIFIER) IDENTIFIER (ASSIGN expression)?
     | ARR_INT IDENTIFIER (ASSIGN int_Array)?
     | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
     | ARR_STR IDENTIFIER (ASSIGN strArray)?
-    ;  
+    ;
+
 
 // Assignment
 assignment
@@ -174,7 +175,9 @@ except_clause
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE ((DATA_TYPE | ARR_TYPE) IDENTIFIER SEMI)* RBRACE;
+    : TYPE_DEF IDENTIFIER LBRACE (((INT | FLOAT | STR | CHAR) | ARR_TYPE) IDENTIFIER SEMI)* RBRACE
+    ;
+
     
 // Function
 func_def
@@ -182,9 +185,9 @@ func_def
     ;
      
 param_list
-    : DATA_TYPE IDENTIFIER (COMMA DATA_TYPE IDENTIFIER)*
+    : (INT | FLOAT | STR | CHAR) IDENTIFIER (COMMA (INT | FLOAT | STR | CHAR) IDENTIFIER)*
     ;
-    
+
      
 // Array Definition
 int_Array 
