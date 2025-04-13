@@ -7,7 +7,7 @@ options {
 // —--------------LEXER—-------------------------------
 
 
-// 1. Keywords - đặt trước identifiers để ưu tiên nhận diện đúng từ khóa
+// 1. Keywords - placed before identifiers to prioritize correct keyword recognition
 IF : 'if';
 ELSE : 'else';
 WHILE : 'while';
@@ -22,7 +22,7 @@ CONTINUE: 'continue';
 BREAK: 'break';
 VOID : 'void';
 
-// 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
+// 2. Array types - placed before primitive types to avoid misunderstanding int[] as int and []
 ARR_INT : 'int[]';
 ARR_CHAR : 'char[]';
 ARR_STR : 'str[]';
@@ -41,14 +41,15 @@ DATA_TYPE
     | 'char'
     ;
 
+// 4. Newtype - Same as Struct
 TYPE_DEF : 'type';
 
-// 4. Literals
+// 5. Literals
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
 STRING : '"' ( ~["\\\r\n] | '\\' . )* '"' ;
 NUMBER : [0-9]+('.'[0-9]+)?;
 
-// 5. Operators (đặt các chuỗi dài trước chuỗi ngắn)
+// 6. Operators - place 2-character operators before 1-character ones
 LE : '<=';
 GE : '>=';
 EQ : '==';
@@ -64,7 +65,7 @@ AND : 'and';
 OR : 'or';
 NOT : '!';
 
-// 6. Delimiters
+// 7. Delimiters
 SEMI : ';';
 COMMA : ',';
 LBRACE : '{';
@@ -74,17 +75,15 @@ RPAREN : ')';
 LBRACKET : '[';
 RBRACKET : ']';
 
-// 7. Identifiers - đặt gần cuối để không chiếm keyword
+// 8. Identifiers - placed near the end to avoid mistaking keywords as identifiers
 IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]*;
 
-// 8. Comments
+// 9. Comments
 LINE_COMMENT : '//' ~[\r\n]* -> skip ;
 BLOCK_COMMENT : '---' ( . | '\r' | '\n' )*? '---' -> skip ;
 
-// 9. Whitespace
+// 10. Whitespace
 WS : [ \t\r\n]+ -> skip;
-
-
 
 // PARSER
 program
