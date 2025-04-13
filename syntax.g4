@@ -106,6 +106,8 @@ statement
     | block                             # BlockStmt
     | type_defStatement                 # NewTypeDef
     | print_stmt SEMI                   # PrintStmt
+    | continue_stmt                     # Continue
+    | break_stmt                        # Break
     ;
 
 // Block
@@ -147,11 +149,11 @@ expression
 
 // If / While
 if_stmt
-    : IF LPAREN expression RPAREN block (ELSE IF LPAREN expression RPAREN block)* (ELSE block)?
+    : IF LPAREN expression RPAREN block (ELSE IF LPAREN expression RPAREN block)*? (ELSE block)?
     ;   
     
 while_stmt
-    : WHILE LPAREN expression RPAREN block (continue_stmt | break_stmt)*
+    : WHILE LPAREN expression RPAREN block
     ;
 
 // Print
