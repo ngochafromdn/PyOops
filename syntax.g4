@@ -129,7 +129,6 @@ assignment
 // Expressions
 expression
     : '-' expression                                  # UnaryMinusExpr
-    | '+' expression                                  # UnaryPlusExpr
     | expression (MUL | DIV) expression                 # MulDivExpr
     | expression (ADD | SUB) expression                 # AddSubExpr
     | expression (LT | LE | GT | GE | EQ | NE) expression       # CompExpr
