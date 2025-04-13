@@ -4,6 +4,91 @@ options {
     language = Python3;
 }
 
+// —--------------LEXER—-------------------------------
+
+
+// 1. Keywords - đặt trước identifiers để ưu tiên nhận diện đúng từ khóa
+IF : 'if';
+ELSE : 'else';
+WHILE : 'while';
+FUNC: 'func';
+RETURN: 'return';
+PRINT: 'print';
+TRY: 'try';
+EXCEPT: 'except';
+TRUE : 'true';
+FALSE : 'false';
+CONTINUE: 'continue';
+BREAK: 'break';
+
+// 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
+ARR_INT : 'int[]';
+ARR_CHAR : 'char[]';
+ARR_STR : 'str[]';
+
+ARR_TYPE
+    : ARR_INT 
+    | ARR_CHAR 
+    | ARR_STR 
+    ;
+
+// 3. Primitive types
+INT : 'int';
+FLOAT : 'float';
+STR : 'str';
+CHAR : 'char';
+TYPE_DEF : 'type';
+
+DATA_TYPE
+    : INT
+    | FLOAT
+    | STR
+    | CHAR
+    ;
+
+// 4. Literals
+CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
+STRING : '"' ( ~["\\\r\n] | '\\' . )* '"' ;
+NUMBER : [0-9]+('.'[0-9]+)?;
+
+// 5. Operators (đặt các chuỗi dài trước chuỗi ngắn)
+LE : '<=';
+GE : '>=';
+EQ : '==';
+NE : '!=';
+LT : '<';
+GT : '>';
+ASSIGN : '=';
+ADD : '+';
+SUB : '-';
+MUL : '*';
+DIV : '/';
+AND : 'and';
+OR : 'or';
+NOT : '!';
+
+// 6. Delimiters
+SEMI : ';';
+COMMA : ',';
+LBRACE : '{';
+RBRACE : '}';
+LPAREN : '(';
+RPAREN : ')';
+LBRACKET : '[';
+RBRACKET : ']';
+
+// 7. Identifiers - đặt gần cuối để không chiếm keyword
+IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]*;
+
+// 8. Comments
+LINE_COMMENT : '//' ~[\r\n]* -> skip ;
+BLOCK_COMMENT : '---' ( . | '\r' | '\n' )*? '---' -> skip ;
+
+// 9. Whitespace
+WS : [ \t\r\n]+ -> skip;
+
+
+
 // PARSER
 program
     : statement* EOF
@@ -124,88 +209,6 @@ break_stmt
     : BREAK SEMI
     ;
 
-// —--------------LEXER—-------------------------------
-
-
-// 1. Keywords - đặt trước identifiers để ưu tiên nhận diện đúng từ khóa
-IF : 'if';
-ELSE : 'else';
-WHILE : 'while';
-FUNC: 'func';
-RETURN: 'return';
-PRINT: 'print';
-TRY: 'try';
-EXCEPT: 'except';
-TRUE : 'true';
-FALSE : 'false';
-CONTINUE: 'continue';
-BREAK: 'break';
-
-// 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
-ARR_INT : 'int[]';
-ARR_CHAR : 'char[]';
-ARR_STR : 'str[]';
-
-ARR_TYPE
-    : ARR_INT 
-    | ARR_CHAR 
-    | ARR_STR 
-    ;
-
-// 3. Primitive types
-INT : 'int';
-FLOAT : 'float';
-STR : 'str';
-CHAR : 'char';
-TYPE_DEF : 'type';
-
-DATA_TYPE
-    : INT
-    | FLOAT
-    | STR
-    | CHAR
-    ;
-
-// 4. Literals
-CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
-STRING : '"' ( ~["\\\r\n] | '\\' . )* '"' ;
-NUMBER : [0-9]+('.'[0-9]+)?;
-
-// 5. Operators (đặt các chuỗi dài trước chuỗi ngắn)
-LE : '<=';
-GE : '>=';
-EQ : '==';
-NE : '!=';
-LT : '<';
-GT : '>';
-ASSIGN : '=';
-ADD : '+';
-SUB : '-';
-MUL : '*';
-DIV : '/';
-AND : 'and';
-OR : 'or';
-NOT : '!';
-
-// 6. Delimiters
-SEMI : ';';
-COMMA : ',';
-LBRACE : '{';
-RBRACE : '}';
-LPAREN : '(';
-RPAREN : ')';
-LBRACKET : '[';
-RBRACKET : ']';
-
-// 7. Identifiers - đặt gần cuối để không chiếm keyword
-IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]*;
-
-// 8. Comments
-LINE_COMMENT : '//' ~[\r\n]* -> skip ;
-BLOCK_COMMENT : '---' ( . | '\r' | '\n' )*? '---' -> skip ;
-
-// 9. Whitespace
-WS : [ \t\r\n]+ -> skip;
 
 
 
