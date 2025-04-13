@@ -18,6 +18,9 @@ try:
 
     # Bắt đầu parse từ rule 'program'
     tree = parser.program()
+# In cây cú pháp ra màn hìn
+    print(tree.toStringTree(recog=parser))
+
 
     print("✅ Parse thành công!")
 
