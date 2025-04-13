@@ -26,11 +26,7 @@ ARR_INT : 'int[]';
 ARR_CHAR : 'char[]';
 ARR_STR : 'str[]';
 
-ARR_TYPE
-    : ARR_INT 
-    | ARR_CHAR 
-    | ARR_STR 
-    ;
+
 
 // 3. Primitive types
 INT : 'int';
