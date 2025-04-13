@@ -20,6 +20,7 @@ TRUE : 'true';
 FALSE : 'false';
 CONTINUE: 'continue';
 BREAK: 'break';
+VOID : 'void;
 
 // 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
 ARR_INT : 'int[]';
@@ -179,7 +180,7 @@ type_defStatement
     
 // Function
 func_def
-    : FUNC (DATA_TYPE)? IDENTIFIER LPAREN param_list? RPAREN block
+    : FUNC (DATA_TYPE | VOID )? IDENTIFIER LPAREN param_list? RPAREN block
     ;
      
 param_list
