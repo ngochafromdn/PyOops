@@ -185,6 +185,7 @@ type_defStatement
 // Function
 func_def
     : FUNC (INT | FLOAT | STR | CHAR| VOID)? IDENTIFIER LPAREN param_list? RPAREN block 
+   
     ;
      
 param_list
