@@ -19,10 +19,16 @@ FALSE : 'false';
 CONTINUE: 'continue';
 BREAK: 'break';
 
+// ARRAY TYPES
+ARR_INT : 'int[]';
+ARR_CHAR : 'char[]';
+ARR_STR : 'str[]';
 
-// Identifiers and literals
-IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]*;
-NUMBER : [0-9]+('.'[0-9]+)?;
+ARR_TYPE
+    : ARR_INT 
+    | ARR_CHAR 
+    | ARR_STR 
+    ;
 
 // DATA TYPES
 // Primitive
@@ -38,17 +44,6 @@ DATA_TYPE
     | STR
     | CHAR
     | TYPE_DEF
-    ;
-
-// ARRAY TYPES
-ARR_INT : 'int[]';
-ARR_CHAR : 'char[]';
-ARR_STR : 'str[]';
-
-ARR_TYPE
-    : ARR_INT 
-    | ARR_CHAR 
-    | ARR_STR 
     ;
 
 // Char & String with escape sequences
@@ -80,13 +75,17 @@ NE : '!=';
 AND : 'and';
 OR : 'or';
 NOT : '!';
-
-// Whitespace
-WS : [ \t\r\n]+ -> skip;
     
 // Comment
 LINE_COMMENT : '//' ~[\r\n]* -> skip ;
 BLOCK_COMMENT : '---' ( . | '\r' | '\n' )*? '---' -> skip ;
+
+// Identifiers and literals
+IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]*;
+NUMBER : [0-9]+('.'[0-9]+)?;
+
+// Whitespace
+WS : [ \t\r\n]+ -> skip;
 
 // PARSER
 program
