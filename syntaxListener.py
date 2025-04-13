@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.2
+# Generated from syntax.g4 by ANTLR 4.13.0
 from antlr4 import *
 if "." in __name__:
     from .syntaxParser import syntaxParser
@@ -230,15 +230,6 @@ class syntaxListener(ParseTreeListener):
 
     # Exit a parse tree produced by syntaxParser#NumberExpr.
     def exitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#UnaryPlusExpr.
-    def enterUnaryPlusExpr(self, ctx:syntaxParser.UnaryPlusExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#UnaryPlusExpr.
-    def exitUnaryPlusExpr(self, ctx:syntaxParser.UnaryPlusExprContext):
         pass
 
 
