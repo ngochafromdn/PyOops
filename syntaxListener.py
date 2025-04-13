@@ -152,30 +152,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#MulDivExpr.
-    def enterMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#MulDivExpr.
-    def exitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
-        pass
-
-
     # Enter a parse tree produced by syntaxParser#IdExpr.
     def enterIdExpr(self, ctx:syntaxParser.IdExprContext):
         pass
 
     # Exit a parse tree produced by syntaxParser#IdExpr.
     def exitIdExpr(self, ctx:syntaxParser.IdExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#NumberExpr.
-    def enterNumberExpr(self, ctx:syntaxParser.NumberExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#NumberExpr.
-    def exitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
         pass
 
 
@@ -194,6 +176,51 @@ class syntaxListener(ParseTreeListener):
 
     # Exit a parse tree produced by syntaxParser#CompExpr.
     def exitCompExpr(self, ctx:syntaxParser.CompExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#FalseExpr.
+    def enterFalseExpr(self, ctx:syntaxParser.FalseExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#FalseExpr.
+    def exitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#CharExpr.
+    def enterCharExpr(self, ctx:syntaxParser.CharExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#CharExpr.
+    def exitCharExpr(self, ctx:syntaxParser.CharExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#MulDivExpr.
+    def enterMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#MulDivExpr.
+    def exitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#NumberExpr.
+    def enterNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#NumberExpr.
+    def exitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#UnaryPlusExpr.
+    def enterUnaryPlusExpr(self, ctx:syntaxParser.UnaryPlusExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#UnaryPlusExpr.
+    def exitUnaryPlusExpr(self, ctx:syntaxParser.UnaryPlusExprContext):
         pass
 
 
@@ -224,21 +251,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#FalseExpr.
-    def enterFalseExpr(self, ctx:syntaxParser.FalseExprContext):
+    # Enter a parse tree produced by syntaxParser#UnaryMinusExpr.
+    def enterUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#FalseExpr.
-    def exitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#CharExpr.
-    def enterCharExpr(self, ctx:syntaxParser.CharExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#CharExpr.
-    def exitCharExpr(self, ctx:syntaxParser.CharExprContext):
+    # Exit a parse tree produced by syntaxParser#UnaryMinusExpr.
+    def exitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
         pass
 
 
