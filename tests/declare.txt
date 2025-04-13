@@ -3,7 +3,7 @@ int i;
 float f = 0.0;
 char ch = 'z';
 str s = "initial";
-// type CustomType;
+
 
 // Edge values
 int minInt = -2147483648;
