@@ -33,18 +33,14 @@ ARR_TYPE
     ;
 
 // 3. Primitive types
-INT : 'int';
-FLOAT : 'float';
-STR : 'str';
-CHAR : 'char';
-TYPE_DEF : 'type';
-
 DATA_TYPE
-    : INT
-    | FLOAT
-    | STR
-    | CHAR
+    : 'int'
+    | 'float'
+    | 'str'
+    | 'char'
     ;
+
+TYPE_DEF : 'type';
 
 // 4. Literals
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
@@ -117,7 +113,7 @@ block
 
 // Variable Declaration
 variable_declaration
-    : (INT | FLOAT | STR | CHAR) IDENTIFIER (ASSIGN expression)?
+    : DATA_TYPE IDENTIFIER (ASSIGN expression)?
     | ARR_INT IDENTIFIER (ASSIGN int_Array)?
     | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
     | ARR_STR IDENTIFIER (ASSIGN strArray)?
@@ -177,17 +173,17 @@ except_clause
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE ((INT | FLOAT | STR | CHAR | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI)* RBRACE
+    : TYPE_DEF IDENTIFIER LBRACE ((DATA_TYPE | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI)* RBRACE
     ;
 
     
 // Function
 func_def
-    : FUNC (INT | FLOAT | STR | CHAR)? IDENTIFIER LPAREN param_list? RPAREN block
+    : FUNC (DATA_TYPE)? IDENTIFIER LPAREN param_list? RPAREN block
     ;
      
 param_list
-    : (INT | FLOAT | STR | CHAR) IDENTIFIER (COMMA (INT | FLOAT | STR | CHAR) IDENTIFIER)*
+    : DATA_TYPE IDENTIFIER (COMMA DATA_TYPE IDENTIFIER)*
     ;
 
      
