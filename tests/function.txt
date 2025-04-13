@@ -1,0 +1,24 @@
+func int add(int a, int b) {
+    return a + b;
+}
+
+func float average(int x, int y) {
+    return (x + y) / 2;
+}
+
+func str greet(str name) {
+    return "Hello, " + name;
+}
+
+func int max(int a, int b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+func void printWelcome() {
+    print("Welcome to my language!");
+}
+
