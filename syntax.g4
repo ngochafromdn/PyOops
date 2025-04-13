@@ -109,11 +109,10 @@ block
 
 // Variable Declaration
 variable_declaration
-    : (INT | FLOAT | STR | CHAR | IDENTIFIER) IDENTIFIER (ASSIGN expression)?
-    | ARR_INT IDENTIFIER (ASSIGN int_Array)?
-    | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
-    | ARR_STR IDENTIFIER (ASSIGN strArray)?
+    : DATA_TYPE IDENTIFIER (ASSIGN expression)?
+    | ARRAY_TYPE IDENTIFIER (ASSIGN int_Array)?
     ;
+
 
 
 // Assignment
