@@ -1,0 +1,46 @@
+type newtype {
+	int x;
+	str y;
+	char z;
+}
+
+type newtype1 {
+	int x;
+	str[] y;
+}
+
+type newtype2 {
+	int[] x;
+	str[] y;
+}
+
+// hello		1234, ni hao
+//	Hello, nice to meet you.	
+// Exit a parse tree produced by hw2
+
+---
+for i in range (length):
+     pack = []
+     for j in range (7):
+     pack.append(lst[i + j*length])
+     o.append(pack)
+---
+
+---
+This is my program.
+
+Hello.
+
+123456789 */-%#@!
+---
+
+print('a')
+print('\\')
+print(123456)
+print(2*3 + 5)
+print(var_name)
+print(a and b)
+print(''		Hello, nice to meet you. \n '')
+print( 1 <= 2)
+print(!(1 == 2))
+print( ('' string '') )

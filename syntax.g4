@@ -45,6 +45,12 @@ ARR_INT : 'int[]';
 ARR_CHAR : 'char[]';
 ARR_STR : 'str[]';
 
+ARR_TYPE
+    : ARR_INT 
+    | ARR_CHAR 
+    | ARR_STR 
+    ;
+
 // Char & String with escape sequences
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
 STRING : '"' ( ~["\\\r\n] | '\\' . )* '"';
@@ -165,7 +171,7 @@ except_clause
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE (DATA_TYPE IDENTIFIER SEMI)* RBRACE;
+    : TYPE_DEF IDENTIFIER LBRACE ((DATA_TYPE | ARR_TYPE) IDENTIFIER SEMI)* RBRACE;
     
 // Function
 func_def
