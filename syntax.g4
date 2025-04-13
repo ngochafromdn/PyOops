@@ -20,7 +20,7 @@ TRUE : 'true';
 FALSE : 'false';
 CONTINUE: 'continue';
 BREAK: 'break';
-VOID : 'void;
+VOID : 'void';
 
 // 2. Array types - trước primitive types để tránh 'int' ăn mất 'int[]'
 ARR_INT : 'int[]';
