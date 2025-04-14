@@ -4,3 +4,9 @@ try {
     print("caught an error");
 }
 
+try {
+    print int i;
+} except {
+    print("caught an error");
+}
+
