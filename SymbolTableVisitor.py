@@ -97,11 +97,23 @@ class SymbolTableVisitor(syntaxVisitor):
         return None
 
     # If, While, Try blocks all open new scopes
-    def visitIfStmt(self, ctx: syntaxParser.IfStmtContext):
-        self.visit(ctx.expression())
-        self.visit(ctx.block(0))
-        if ctx.ELSE():
-            self.visit(ctx.block(-1))
+    def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
+        expressions = ctx.expression()
+        blocks = ctx.block()
+
+        # 1. Visit if condition + if block
+        self.visit(expressions[0])
+        self.visit(blocks[0])
+
+        # 2. Visit else-if conditions + blocks (nếu có)
+        num_else_if = len(expressions) - 1  # phần còn lại là else-if
+        for i in range(1, len(expressions)):
+            self.visit(expressions[i])
+            self.visit(blocks[i])
+
+        # 3. Visit else block nếu có
+        if len(blocks) > len(expressions):
+            self.visit(blocks[-1])  # block cuối cùng là else
         return None
 
     def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
