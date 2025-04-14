@@ -4,55 +4,65 @@ from syntaxParser import syntaxParser
 
 class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
+        # Initialize the global symbol table (top-level scope)
         self.global_scope = {}
-        self.scopes = [self.global_scope]  # Stack of scopes
+        # Stack to keep track of nested scopes (functions, blocks, etc.)
+        self.scopes = [self.global_scope]
         self.current_function = None
 
+    # Utility: Get the current scope from top of stack
     def current_scope(self):
         return self.scopes[-1]
 
+    # Utility: Enter a new scope by pushing an empty dictionary onto the stack
     def push_scope(self):
         self.scopes.append({})
-    
+
+    # Utility: Exit the current scope
     def pop_scope(self):
         self.scopes.pop()
 
+    # Define a new symbol in the current scope
     def define(self, name, value):
         if name in self.current_scope():
             print(f"[Warning] Redeclaration of '{name}' in current scope.")
         self.current_scope()[name] = value
 
+    # Lookup a symbol from the top scope down to the global
     def lookup(self, name):
         for scope in reversed(self.scopes):
             if name in scope:
                 return scope[name]
         return None
 
-    # Visit entire program
+    # Visit the entire program (entry point)
     def visitProgram(self, ctx: syntaxParser.ProgramContext):
         for stmt in ctx.statement():
-            self.visit(stmt)
+            self.visit(stmt)  # Visit each top-level statement
         return self.global_scope
 
-    # Variable declaration
+    # Visit a variable declaration statement
     def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
         var_decl = ctx.variable_declaration()
-        data_type = var_decl.DATA_TYPE() or var_decl.ARR_TYPE().getText()
+        data_type_token = var_decl.DATA_TYPE() 
+        data_type = data_type_token.getText() if data_type_token else "unknown"
         identifier = var_decl.IDENTIFIER().getText()
-        self.define(identifier, {'type': data_type.getText()})
+        self.define(identifier, {'type': data_type})  # Record type info in symbol table
         return self.visitChildren(ctx)
 
-    # Assignment
+    # Visit an assignment statement
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
         name = ctx.assignment().IDENTIFIER().getText()
         if not self.lookup(name):
             print(f"[Error] Variable '{name}' assigned before declaration.")
         return self.visitChildren(ctx)
 
-    # New type definition (struct-like)
+    # Visit a new type definition (e.g., struct definition)
     def visitNewTypeDef(self, ctx: syntaxParser.NewTypeDefContext):
         typename = ctx.IDENTIFIER().getText()
         fields = {}
+
+        # Extract field types and names from the custom type block
         for field in ctx.children:
             if hasattr(field, 'DATA_TYPE') or hasattr(field, 'ARR_TYPE'):
                 type_token = field.DATA_TYPE() or field.ARR_TYPE()
@@ -60,93 +70,111 @@ class SymbolTableVisitor(syntaxVisitor):
                     type_name = type_token.getText()
                     name = field.IDENTIFIER().getText()
                     fields[name] = type_name
+
+        # Define the new type in the global scope
         self.define(typename, {'type': 'struct', 'fields': fields})
         return self.visitChildren(ctx)
 
-    # Function definition
+    # Visit a function definition
     def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
         func_name = ctx.IDENTIFIER().getText()
         return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else 'void'
         params = []
 
+        # Extract parameters (name and type)
         if ctx.param_list():
             for i in range(len(ctx.param_list().IDENTIFIER())):
                 param_name = ctx.param_list().IDENTIFIER(i).getText()
                 param_type = ctx.param_list().DATA_TYPE(i).getText()
                 params.append({'name': param_name, 'type': param_type})
 
+        # Record function signature in the symbol table
         self.define(func_name, {
             'type': 'function',
             'return_type': return_type,
             'params': params
         })
 
-        # Enter function scope
+        # Create new scope for function body
         self.push_scope()
+
+        # Add parameters to the function scope
         for param in params:
             self.define(param['name'], {'type': param['type']})
+
+        # Visit the function body block
         self.visit(ctx.block())
+
+        # Exit function scope
         self.pop_scope()
         return None
 
-    # Block (new scope)
+    # Visit a block (surrounded by braces), which opens a new scope
     def visitBlockStmt(self, ctx: syntaxParser.BlockStmtContext):
         self.push_scope()
         self.visit(ctx.block())
         self.pop_scope()
         return None
 
-    # If, While, Try blocks all open new scopes
+    # Visit a conditional if-elseif-else structure
     def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
         expressions = ctx.expression()
         blocks = ctx.block()
 
-        # 1. Visit if condition + if block
+        # Visit 'if' condition and block
         self.visit(expressions[0])
         self.visit(blocks[0])
 
-        # 2. Visit else-if conditions + blocks (nếu có)
-        num_else_if = len(expressions) - 1  # phần còn lại là else-if
+        # Visit any 'else-if' conditions and blocks
         for i in range(1, len(expressions)):
             self.visit(expressions[i])
             self.visit(blocks[i])
 
-        # 3. Visit else block nếu có
+        # Visit optional 'else' block
         if len(blocks) > len(expressions):
-            self.visit(blocks[-1])  # block cuối cùng là else
+            self.visit(blocks[-1])
         return None
 
+    # Visit a while-loop
     def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
-        self.visit(ctx.expression())  # Điều kiện while
-        self.visit(ctx.block())       # Thân vòng lặp
+        self.visit(ctx.expression())  # Visit loop condition
+        self.visit(ctx.block())       # Visit loop body
         return None
 
+    # Visit a try-except block
     def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
-        self.visit(ctx.block(0))  # try block
-        self.visit(ctx.except_clause().block())  # except block
+        try_block = ctx.block(0)
+        except_block = ctx.block(1)
+
+        print("👉 Executing try block:")
+        self.visit(try_block)
+
+        print("👉 Exception caught, executing except block:")
+        self.visit(except_block)
+
         return None
 
-    # Print the symbol table
+
+
+
+
+    # Print all defined symbols for debugging
     def printSymbols(self):
-        # Print global symbols
         print("Global Scope:")
         self.print_scope(self.global_scope)
 
-        # Check and print other scopes (functions, blocks, etc.)
         for idx, scope in enumerate(self.scopes[1:], 1):
             print(f"Scope {idx}:")
             self.print_scope(scope)
 
-        # Debugging output to check scope contents
         print("Debugging scopes:")
         for idx, scope in enumerate(self.scopes):
             print(f"Scope {idx} contents: {scope}")
 
+    # Helper: Print a single scope
     def print_scope(self, scope):
-        """ Helper method to print symbols in a given scope """
         if not scope:
             print("  (empty scope)")
         else:
             for name, value in scope.items():
                 print(f"  {name}: {value}")
-

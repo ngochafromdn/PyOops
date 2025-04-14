@@ -314,15 +314,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#except_clause.
-    def enterExcept_clause(self, ctx:syntaxParser.Except_clauseContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#except_clause.
-    def exitExcept_clause(self, ctx:syntaxParser.Except_clauseContext):
-        pass
-
-
     # Enter a parse tree produced by syntaxParser#type_defStatement.
     def enterType_defStatement(self, ctx:syntaxParser.Type_defStatementContext):
         pass

@@ -22,23 +22,19 @@ CONTINUE: 'continue';
 BREAK: 'break';
 VOID : 'void';
 
-// 2. Array types - placed before primitive types to avoid misunderstanding int[] as int and []
-ARR_INT : 'int[]';
-ARR_CHAR : 'char[]';
-ARR_STR : 'str[]';
 
-ARR_TYPE
-    : ARR_INT 
-    | ARR_CHAR 
-    | ARR_STR 
-    ;
 
-// 3. Primitive types
+
+
+// Data types
 DATA_TYPE
     : 'int'
     | 'float'
     | 'str'
     | 'char'
+    | 'int[]'
+    | 'char[]'
+    | 'str[]'
     ;
 
 // 4. Newtype - Same as Struct
@@ -114,9 +110,6 @@ block
 // Variable Declaration
 variable_declaration
     : DATA_TYPE IDENTIFIER (ASSIGN expression)?
-    | ARR_INT IDENTIFIER (ASSIGN int_Array)?
-    | ARR_CHAR IDENTIFIER (ASSIGN char_Array)?
-    | ARR_STR IDENTIFIER (ASSIGN strArray)?
     ;
 
 
@@ -163,12 +156,10 @@ return_stmt
     
 // Try / Except
 try_stmt
-    : TRY block (except_clause)
+    : 'try' block ('except' block)  
     ;
     
-except_clause
-    : EXCEPT block
-    ;
+
      
 // New type (Struct)
 type_defStatement
@@ -176,7 +167,7 @@ type_defStatement
     ;
 
 type_def_list
-    : (DATA_TYPE | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI
+    : (DATA_TYPE) IDENTIFIER SEMI
     ;
     
      

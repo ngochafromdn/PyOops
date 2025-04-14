@@ -179,11 +179,6 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#except_clause.
-    def visitExcept_clause(self, ctx:syntaxParser.Except_clauseContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by syntaxParser#type_defStatement.
     def visitType_defStatement(self, ctx:syntaxParser.Type_defStatementContext):
         return self.visitChildren(ctx)
