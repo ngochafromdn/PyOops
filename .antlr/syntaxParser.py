@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.2
+# Generated from d://uni//6 SPRING 25//Programming Language Paradigms//Project//PyOops//syntax.g4 by ANTLR 4.13.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -221,7 +221,7 @@ class syntaxParser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.13.2")
+        self.checkVersion("4.13.1")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
@@ -247,14 +247,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_program
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterProgram" ):
-                listener.enterProgram(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitProgram" ):
-                listener.exitProgram(self)
 
 
 
@@ -314,14 +306,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Type_defStatementContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNewTypeDef" ):
-                listener.enterNewTypeDef(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNewTypeDef" ):
-                listener.exitNewTypeDef(self)
-
 
     class IfStmtContext(StatementContext):
 
@@ -332,14 +316,6 @@ class syntaxParser ( Parser ):
         def if_stmt(self):
             return self.getTypedRuleContext(syntaxParser.If_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfStmt" ):
-                listener.enterIfStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfStmt" ):
-                listener.exitIfStmt(self)
 
 
     class PrintStmtContext(StatementContext):
@@ -354,14 +330,6 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrintStmt" ):
-                listener.enterPrintStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrintStmt" ):
-                listener.exitPrintStmt(self)
-
 
     class WhileStmtContext(StatementContext):
 
@@ -372,14 +340,6 @@ class syntaxParser ( Parser ):
         def while_stmt(self):
             return self.getTypedRuleContext(syntaxParser.While_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterWhileStmt" ):
-                listener.enterWhileStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitWhileStmt" ):
-                listener.exitWhileStmt(self)
 
 
     class AssignStmtContext(StatementContext):
@@ -394,14 +354,6 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignStmt" ):
-                listener.enterAssignStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignStmt" ):
-                listener.exitAssignStmt(self)
-
 
     class VarDeclStmtContext(StatementContext):
 
@@ -415,14 +367,6 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVarDeclStmt" ):
-                listener.enterVarDeclStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVarDeclStmt" ):
-                listener.exitVarDeclStmt(self)
-
 
     class TryStmtContext(StatementContext):
 
@@ -433,14 +377,6 @@ class syntaxParser ( Parser ):
         def try_stmt(self):
             return self.getTypedRuleContext(syntaxParser.Try_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTryStmt" ):
-                listener.enterTryStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTryStmt" ):
-                listener.exitTryStmt(self)
 
 
     class FuncStmtContext(StatementContext):
@@ -453,14 +389,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Func_defContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncStmt" ):
-                listener.enterFuncStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncStmt" ):
-                listener.exitFuncStmt(self)
-
 
     class BlockStmtContext(StatementContext):
 
@@ -471,14 +399,6 @@ class syntaxParser ( Parser ):
         def block(self):
             return self.getTypedRuleContext(syntaxParser.BlockContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlockStmt" ):
-                listener.enterBlockStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlockStmt" ):
-                listener.exitBlockStmt(self)
 
 
     class BreakContext(StatementContext):
@@ -491,14 +411,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Break_stmtContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBreak" ):
-                listener.enterBreak(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBreak" ):
-                listener.exitBreak(self)
-
 
     class ContinueContext(StatementContext):
 
@@ -509,14 +421,6 @@ class syntaxParser ( Parser ):
         def continue_stmt(self):
             return self.getTypedRuleContext(syntaxParser.Continue_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterContinue" ):
-                listener.enterContinue(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitContinue" ):
-                listener.exitContinue(self)
 
 
     class ReturnStmtContext(StatementContext):
@@ -530,14 +434,6 @@ class syntaxParser ( Parser ):
 
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterReturnStmt" ):
-                listener.enterReturnStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitReturnStmt" ):
-                listener.exitReturnStmt(self)
 
 
 
@@ -664,14 +560,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_block
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlock" ):
-                listener.enterBlock(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlock" ):
-                listener.exitBlock(self)
-
 
 
 
@@ -748,14 +636,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_variable_declaration
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVariable_declaration" ):
-                listener.enterVariable_declaration(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVariable_declaration" ):
-                listener.exitVariable_declaration(self)
 
 
 
@@ -881,14 +761,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_assignment
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignment" ):
-                listener.enterAssignment(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignment" ):
-                listener.exitAssignment(self)
-
 
 
 
@@ -960,14 +832,6 @@ class syntaxParser ( Parser ):
         def STRING(self):
             return self.getToken(syntaxParser.STRING, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringExpr" ):
-                listener.enterStringExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringExpr" ):
-                listener.exitStringExpr(self)
-
 
     class TrueExprContext(ExpressionContext):
 
@@ -978,14 +842,6 @@ class syntaxParser ( Parser ):
         def TRUE(self):
             return self.getToken(syntaxParser.TRUE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrueExpr" ):
-                listener.enterTrueExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrueExpr" ):
-                listener.exitTrueExpr(self)
-
 
     class IdExprContext(ExpressionContext):
 
@@ -995,14 +851,6 @@ class syntaxParser ( Parser ):
 
         def IDENTIFIER(self):
             return self.getToken(syntaxParser.IDENTIFIER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIdExpr" ):
-                listener.enterIdExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIdExpr" ):
-                listener.exitIdExpr(self)
 
 
     class LogicExprContext(ExpressionContext):
@@ -1021,14 +869,6 @@ class syntaxParser ( Parser ):
             return self.getToken(syntaxParser.AND, 0)
         def OR(self):
             return self.getToken(syntaxParser.OR, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLogicExpr" ):
-                listener.enterLogicExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLogicExpr" ):
-                listener.exitLogicExpr(self)
 
 
     class CompExprContext(ExpressionContext):
@@ -1056,14 +896,6 @@ class syntaxParser ( Parser ):
         def NE(self):
             return self.getToken(syntaxParser.NE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCompExpr" ):
-                listener.enterCompExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCompExpr" ):
-                listener.exitCompExpr(self)
-
 
     class FalseExprContext(ExpressionContext):
 
@@ -1074,14 +906,6 @@ class syntaxParser ( Parser ):
         def FALSE(self):
             return self.getToken(syntaxParser.FALSE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFalseExpr" ):
-                listener.enterFalseExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFalseExpr" ):
-                listener.exitFalseExpr(self)
-
 
     class CharExprContext(ExpressionContext):
 
@@ -1091,14 +915,6 @@ class syntaxParser ( Parser ):
 
         def CHARACTER(self):
             return self.getToken(syntaxParser.CHARACTER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharExpr" ):
-                listener.enterCharExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharExpr" ):
-                listener.exitCharExpr(self)
 
 
     class MulDivExprContext(ExpressionContext):
@@ -1118,14 +934,6 @@ class syntaxParser ( Parser ):
         def DIV(self):
             return self.getToken(syntaxParser.DIV, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMulDivExpr" ):
-                listener.enterMulDivExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMulDivExpr" ):
-                listener.exitMulDivExpr(self)
-
 
     class NumberExprContext(ExpressionContext):
 
@@ -1135,14 +943,6 @@ class syntaxParser ( Parser ):
 
         def NUMBER(self):
             return self.getToken(syntaxParser.NUMBER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNumberExpr" ):
-                listener.enterNumberExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNumberExpr" ):
-                listener.exitNumberExpr(self)
 
 
     class NotExprContext(ExpressionContext):
@@ -1161,14 +961,6 @@ class syntaxParser ( Parser ):
         def RPAREN(self):
             return self.getToken(syntaxParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNotExpr" ):
-                listener.enterNotExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNotExpr" ):
-                listener.exitNotExpr(self)
-
 
     class ParenExprContext(ExpressionContext):
 
@@ -1183,14 +975,6 @@ class syntaxParser ( Parser ):
 
         def RPAREN(self):
             return self.getToken(syntaxParser.RPAREN, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParenExpr" ):
-                listener.enterParenExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParenExpr" ):
-                listener.exitParenExpr(self)
 
 
     class AddSubExprContext(ExpressionContext):
@@ -1210,14 +994,6 @@ class syntaxParser ( Parser ):
         def SUB(self):
             return self.getToken(syntaxParser.SUB, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAddSubExpr" ):
-                listener.enterAddSubExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAddSubExpr" ):
-                listener.exitAddSubExpr(self)
-
 
     class UnaryMinusExprContext(ExpressionContext):
 
@@ -1230,14 +1006,6 @@ class syntaxParser ( Parser ):
         def expression(self):
             return self.getTypedRuleContext(syntaxParser.ExpressionContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterUnaryMinusExpr" ):
-                listener.enterUnaryMinusExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitUnaryMinusExpr" ):
-                listener.exitUnaryMinusExpr(self)
 
 
 
@@ -1479,14 +1247,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_if_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIf_stmt" ):
-                listener.enterIf_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIf_stmt" ):
-                listener.exitIf_stmt(self)
-
 
 
 
@@ -1574,14 +1334,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_while_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterWhile_stmt" ):
-                listener.enterWhile_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitWhile_stmt" ):
-                listener.exitWhile_stmt(self)
-
 
 
 
@@ -1633,14 +1385,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_print_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrint_stmt" ):
-                listener.enterPrint_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrint_stmt" ):
-                listener.exitPrint_stmt(self)
-
 
 
 
@@ -1683,14 +1427,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_return_stmt
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterReturn_stmt" ):
-                listener.enterReturn_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitReturn_stmt" ):
-                listener.exitReturn_stmt(self)
 
 
 
@@ -1735,14 +1471,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_try_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTry_stmt" ):
-                listener.enterTry_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTry_stmt" ):
-                listener.exitTry_stmt(self)
-
 
 
 
@@ -1784,14 +1512,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_except_clause
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExcept_clause" ):
-                listener.enterExcept_clause(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExcept_clause" ):
-                listener.exitExcept_clause(self)
 
 
 
@@ -1843,14 +1563,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_type_defStatement
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterType_defStatement" ):
-                listener.enterType_defStatement(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitType_defStatement" ):
-                listener.exitType_defStatement(self)
 
 
 
@@ -1917,14 +1629,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_type_def_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterType_def_list" ):
-                listener.enterType_def_list(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitType_def_list" ):
-                listener.exitType_def_list(self)
-
 
 
 
@@ -1990,14 +1694,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_func_def
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunc_def" ):
-                listener.enterFunc_def(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunc_def" ):
-                listener.exitFunc_def(self)
 
 
 
@@ -2077,14 +1773,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_param_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParam_list" ):
-                listener.enterParam_list(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParam_list" ):
-                listener.exitParam_list(self)
-
 
 
 
@@ -2159,14 +1847,6 @@ class syntaxParser ( Parser ):
                 return self.getTokens(syntaxParser.COMMA)
             else:
                 return self.getToken(syntaxParser.COMMA, i)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIntArray" ):
-                listener.enterIntArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIntArray" ):
-                listener.exitIntArray(self)
 
 
 
@@ -2249,14 +1929,6 @@ class syntaxParser ( Parser ):
             else:
                 return self.getToken(syntaxParser.COMMA, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharArray" ):
-                listener.enterCharArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharArray" ):
-                listener.exitCharArray(self)
-
 
 
     def char_Array(self):
@@ -2338,14 +2010,6 @@ class syntaxParser ( Parser ):
             else:
                 return self.getToken(syntaxParser.COMMA, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringArray" ):
-                listener.enterStringArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringArray" ):
-                listener.exitStringArray(self)
-
 
 
     def strArray(self):
@@ -2405,14 +2069,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_continue_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterContinue_stmt" ):
-                listener.enterContinue_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitContinue_stmt" ):
-                listener.exitContinue_stmt(self)
-
 
 
 
@@ -2450,14 +2106,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_break_stmt
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBreak_stmt" ):
-                listener.enterBreak_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBreak_stmt" ):
-                listener.exitBreak_stmt(self)
 
 
 

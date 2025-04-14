@@ -172,9 +172,12 @@ except_clause
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE ((DATA_TYPE | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI)* RBRACE
+    : TYPE_DEF IDENTIFIER LBRACE type_def_list* RBRACE
     ;
 
+type_def_list
+    : (DATA_TYPE | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI
+    ;
     
 // Function
 func_def

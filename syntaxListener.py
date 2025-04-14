@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.0
+# Generated from syntax.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .syntaxParser import syntaxParser
@@ -329,6 +329,15 @@ class syntaxListener(ParseTreeListener):
 
     # Exit a parse tree produced by syntaxParser#type_defStatement.
     def exitType_defStatement(self, ctx:syntaxParser.Type_defStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#type_def_list.
+    def enterType_def_list(self, ctx:syntaxParser.Type_def_listContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#type_def_list.
+    def exitType_def_list(self, ctx:syntaxParser.Type_def_listContext):
         pass
 
 
