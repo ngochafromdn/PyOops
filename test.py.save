@@ -1,0 +1,13 @@
+import antlr4
+from antlr4 import *
+from syntaxLexer import syntaxLexer
+from syntaxParser import syntaxParser
+from syntaxListener import syntaxListener  # Import syntaxListener (generated from ANTLR)
+
+# Hỏi tên file trong thư mục tests/
+file_name = input("Nhập tên file trong thư mục tests/ (vd: function.txt): ")
+file_path = f"tests/{file_name}"
+
+class TreePrinter(syntaxListener):
+    def enterProgram(self, ctx):
+   

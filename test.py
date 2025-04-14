@@ -3,6 +3,7 @@ from antlr4 import *
 from antlr4.tree.Trees import Trees
 from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
+from SymbolTableVisitor import SymbolTableVisitor
 
 # Hỏi tên file trong thư mục tests/
 file_name = input("Nhập tên file trong thư mục tests/ (vd: function.txt): ")
@@ -37,6 +38,11 @@ try:
     print_tree(tree, parser)
 
     print("✅ Parse thành công!")
+
+    # Assume `tree` is the parse tree from syntaxParser
+    visitor = SymbolTableVisitor()
+    visitor.visit(tree)
+    visitor.printSymbols()
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")
