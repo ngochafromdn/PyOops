@@ -116,9 +116,9 @@ class SymbolTableVisitor(syntaxVisitor):
             self.visit(blocks[-1])  # block cuối cùng là else
         return None
 
-    def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
-        self.visit(ctx.expression())
-        self.visit(ctx.block())
+    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
+        self.visit(ctx.expression())  # Điều kiện while
+        self.visit(ctx.block())       # Thân vòng lặp
         return None
 
     def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
