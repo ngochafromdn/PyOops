@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.0
+# Generated from syntax.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .syntaxParser import syntaxParser
@@ -189,8 +189,8 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#func_def.
-    def visitFunc_def(self, ctx:syntaxParser.Func_defContext):
+    # Visit a parse tree produced by syntaxParser#type_def_list.
+    def visitType_def_list(self, ctx:syntaxParser.Type_def_listContext):
         return self.visitChildren(ctx)
 
 

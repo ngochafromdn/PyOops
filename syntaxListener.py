@@ -341,15 +341,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#func_def.
-    def enterFunc_def(self, ctx:syntaxParser.Func_defContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#func_def.
-    def exitFunc_def(self, ctx:syntaxParser.Func_defContext):
-        pass
-
-
     # Enter a parse tree produced by syntaxParser#param_list.
     def enterParam_list(self, ctx:syntaxParser.Param_listContext):
         pass

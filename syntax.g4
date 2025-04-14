@@ -98,7 +98,7 @@ statement
     | while_stmt                        # WhileStmt
     | try_stmt                          # TryStmt
     | return_stmt SEMI                  # ReturnStmt
-    | func_def                          # FuncStmt
+    | FUNC (DATA_TYPE | VOID )? IDENTIFIER LPAREN param_list? RPAREN block    # FuncStmt          
     | block                             # BlockStmt
     | type_defStatement                 # NewTypeDef
     | print_stmt SEMI                   # PrintStmt
@@ -179,10 +179,6 @@ type_def_list
     : (DATA_TYPE | ARR_INT | ARR_CHAR | ARR_STR) IDENTIFIER SEMI
     ;
     
-// Function
-func_def
-    : FUNC (DATA_TYPE | VOID )? IDENTIFIER LPAREN param_list? RPAREN block
-    ;
      
 param_list
     : DATA_TYPE IDENTIFIER (COMMA DATA_TYPE IDENTIFIER)*

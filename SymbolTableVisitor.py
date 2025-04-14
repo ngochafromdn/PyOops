@@ -113,3 +113,28 @@ class SymbolTableVisitor(syntaxVisitor):
         self.visit(ctx.block(0))  # try block
         self.visit(ctx.except_clause().block())  # except block
         return None
+
+    # Print the symbol table
+    def printSymbols(self):
+        # Print global symbols
+        print("Global Scope:")
+        self.print_scope(self.global_scope)
+
+        # Check and print other scopes (functions, blocks, etc.)
+        for idx, scope in enumerate(self.scopes[1:], 1):
+            print(f"Scope {idx}:")
+            self.print_scope(scope)
+
+        # Debugging output to check scope contents
+        print("Debugging scopes:")
+        for idx, scope in enumerate(self.scopes):
+            print(f"Scope {idx} contents: {scope}")
+
+    def print_scope(self, scope):
+        """ Helper method to print symbols in a given scope """
+        if not scope:
+            print("  (empty scope)")
+        else:
+            for name, value in scope.items():
+                print(f"  {name}: {value}")
+
