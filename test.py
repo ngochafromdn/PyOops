@@ -3,6 +3,7 @@ from antlr4 import *
 from antlr4.tree.Trees import Trees
 from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
+from symbolTable import SymbolTableVisitor
 
 # Hỏi tên file trong thư mục tests/
 file_name = input("Nhập tên file trong thư mục tests/ (vd: function.txt): ")
@@ -31,6 +32,9 @@ try:
 
     # Bắt đầu parse từ rule 'program'
     tree = parser.program()
+    visitor = SymbolTableVisitor()
+    visitor.visit(tree)
+    visitor.printSymbolTable()
 
     # In cây cú pháp theo dạng cây thụ
     print("Parse Tree:")

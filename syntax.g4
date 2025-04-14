@@ -127,19 +127,19 @@ assignment
      
 // Expressions
 expression
-    : '-' expression                                  # UnaryMinusExpr
-    | expression (MUL | DIV) expression                 # MulDivExpr
-    | expression (ADD | SUB) expression                 # AddSubExpr
+    : '-' expression                                            # UnaryMinusExpr
+    | expression (MUL | DIV) expression                         # MulDivExpr
+    | expression (ADD | SUB) expression                         # AddSubExpr
     | expression (LT | LE | GT | GE | EQ | NE) expression       # CompExpr
-    | expression (AND | OR) expression                  # LogicExpr
-    | NOT LPAREN  expression RPAREN                     # NotExpr
-    | LPAREN expression RPAREN                          # ParenExpr
+    | expression (AND | OR) expression                          # LogicExpr
+    | NOT LPAREN  expression RPAREN                             # NotExpr
+    | LPAREN expression RPAREN                                  # ParenExpr
     | TRUE                                                      # TrueExpr
     | FALSE                                                     # FalseExpr
     | IDENTIFIER                                                # IdExpr
     | NUMBER                                                    # NumberExpr
     | STRING                                                    # StringExpr
-    | CHARACTER                                         # CharExpr
+    | CHARACTER                                                 # CharExpr
     ;
 
 // If / While

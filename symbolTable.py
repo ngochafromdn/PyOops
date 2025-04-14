@@ -1,43 +1,141 @@
-import dataclass, field
 
-class Symbol: 
-    def __init__(self, name, value, scope, address, attribute, type, lineNum):
-        self.name = name
-        self.value = value
-        self.scope = scope
-        self.address = address
-        self.attribute = attribute
-        self.type = type
-        self.lineNum = lineNum
+# //                       _oo0oo_
+# //                      o8888888o
+# //                      88" . "88
+# //                      (| -_- |)
+# //                      0\  =  /0
+# //                    ___/`---'\___
+# //                  .' \\|     |// '.
+# //                 / \\|||  :  |||// \
+# //                / _||||| -:- |||||- \
+# //               |   | \\\  -  /// |   |
+# //               | \_|  ''\---/''  |_/ |
+# //               \  .-\__  '-'  ___/-. /
+# //             ___'. .'  /--.--\  `. .'___
+# //          ."" '<  `.___\_<|>_/___.' >' "".
+# //         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+# //         \  \ `_.   \_ __\ /__ _/   .-` /  /
+# //     =====`-.____`.___ \_____/___.-`___.-'=====
+# //                       `=---='
+# //
+# //
+# //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# //
+# //               佛祖保佑         永无BUG
+
+
+from antlr4 import *
+from syntaxVisitor import syntaxVisitor
+from syntaxParser import syntaxParser
+
+class SymbolTableVisitor(syntaxVisitor):
+    def __init__(self):
+        self.global_scope = {}
+        self.scopes = [self.global_scope]  # Stack of scopes
+        self.current_function = None
+
+    def current_scope(self):
+        return self.scopes[-1]
+
+    def push_scope(self):
+        self.scopes.append({})
     
-class SymbolTable:
-    symbols: List[Symbol] = field(default_factory=list)
-    def add(self, token):
-    def update(self, token):
-    def delete (self, token):
-    def search(self, token):
-    def get_type_if_duplicate(self, token):
-        """gets the type of prev token if the given token
-        is a duplicate IDENTIFIER.
+    def pop_scope(self):
+        self.scopes.pop()
 
-        Args:
-            token (Token): object of sly Token.
+    def define(self, name, value):
+        if name in self.current_scope():
+            print(f"[Warning] Redeclaration of '{name}' in current scope.")
+        self.current_scope()[name] = value
 
-        Returns:
-            str: token type if it's exist.
-        """
-        symbol_type = [s.type for s in self.symbols if s.value == token.value and s.type.startswith('IDENTIFIER')]
-        return symbol_type[0] if symbol_type else ''
+    def lookup(self, name):
+        for scope in reversed(self.scopes):
+            if name in scope:
+                return scope[name]
+        return None
 
-    def __str__(self):
-        """this function make a table to show the symbol table in to the cli.
+    # Visit entire program
+    def visitProgram(self, ctx: syntaxParser.ProgramContext):
+        for stmt in ctx.statement():
+            self.visit(stmt)
+        return self.global_scope
 
-        Returns:
-            str: symbol table as string.
-        """
-        return tabulate(
-            [(i, s.type, s.value) for i, s in enumerate(self.symbols)],
-            headers=['#', 'token type', 'value'],
-            tablefmt='psql'
-        )
-    
+    # Variable declaration
+    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
+        var_decl = ctx.variable_declaration()
+        data_type = var_decl.DATA_TYPE() or var_decl.ARR_TYPE().getText()
+        identifier = var_decl.IDENTIFIER().getText()
+        self.define(identifier, {'type': data_type.getText()})
+        return self.visitChildren(ctx)
+
+    # Assignment
+    def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
+        name = ctx.assignment().IDENTIFIER().getText()
+        if not self.lookup(name):
+            print(f"[Error] Variable '{name}' assigned before declaration.")
+        return self.visitChildren(ctx)
+
+    # New type definition (struct-like)
+    def visitNewTypeDef(self, ctx: syntaxParser.NewTypeDefContext):
+        typename = ctx.IDENTIFIER().getText()
+        fields = {}
+        for field in ctx.children:
+            if hasattr(field, 'DATA_TYPE') or hasattr(field, 'ARR_TYPE'):
+                type_token = field.DATA_TYPE() or field.ARR_TYPE()
+                if type_token:
+                    type_name = type_token.getText()
+                    name = field.IDENTIFIER().getText()
+                    fields[name] = type_name
+        self.define(typename, {'type': 'struct', 'fields': fields})
+        return self.visitChildren(ctx)
+
+    # Function definition
+    def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
+        func_name = ctx.IDENTIFIER().getText()
+        return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else 'void'
+        params = []
+
+        if ctx.param_list():
+            for i in range(len(ctx.param_list().IDENTIFIER())):
+                param_name = ctx.param_list().IDENTIFIER(i).getText()
+                param_type = ctx.param_list().DATA_TYPE(i).getText()
+                params.append({'name': param_name, 'type': param_type})
+
+        self.define(func_name, {
+            'type': 'function',
+            'return_type': return_type,
+            'params': params
+        })
+
+        # Enter function scope
+        self.push_scope()
+        for param in params:
+            self.define(param['name'], {'type': param['type']})
+        self.visit(ctx.block())
+        self.pop_scope()
+        return None
+
+    # Block (new scope)
+    def visitBlockStmt(self, ctx: syntaxParser.BlockStmtContext):
+        self.push_scope()
+        self.visit(ctx.block())
+        self.pop_scope()
+        return None
+
+    # If, While, Try blocks all open new scopes
+    def visitIfStmt(self, ctx: syntaxParser.IfStmtContext):
+        self.visit(ctx.expression())
+        self.visit(ctx.block(0))
+        if ctx.ELSE():
+            self.visit(ctx.block(-1))
+        return None
+
+    def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
+        self.visit(ctx.expression())
+        self.visit(ctx.block())
+        return None
+
+    def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
+        self.visit(ctx.block(0))  # try block
+        self.visit(ctx.except_clause().block())  # except block
+        return None
