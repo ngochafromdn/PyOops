@@ -163,7 +163,7 @@ try_stmt
      
 // New type (Struct)
 type_defStatement
-    : TYPE_DEF IDENTIFIER LBRACE type_def_list* RBRACE
+    : TYPE_DEF IDENTIFIER LBRACE type_def_list+ RBRACE
     ;
 
 type_def_list

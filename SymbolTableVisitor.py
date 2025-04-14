@@ -64,8 +64,8 @@ class SymbolTableVisitor(syntaxVisitor):
 
         # Extract field types and names from the custom type block
         for field in ctx.children:
-            if hasattr(field, 'DATA_TYPE') or hasattr(field, 'ARR_TYPE'):
-                type_token = field.DATA_TYPE() or field.ARR_TYPE()
+            if hasattr(field, 'DATA_TYPE'):
+                type_token = field.DATA_TYPE()
                 if type_token:
                     type_name = type_token.getText()
                     name = field.IDENTIFIER().getText()
