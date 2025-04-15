@@ -6,7 +6,6 @@ options {
 
 // —--------------LEXER—-------------------------------
 
-
 // 1. Keywords - placed before identifiers to prioritize correct keyword recognition
 IF : 'if';
 ELSE : 'else';
@@ -21,10 +20,6 @@ FALSE : 'false';
 CONTINUE: 'continue';
 BREAK: 'break';
 VOID : 'void';
-
-
-
-
 
 // Data types
 DATA_TYPE
@@ -81,7 +76,8 @@ BLOCK_COMMENT : '---' ( . | '\r' | '\n' )*? '---' -> skip ;
 // 10. Whitespace
 WS : [ \t\r\n]+ -> skip;
 
-// PARSER
+// —--------------PARSER—-------------------------------
+
 program
     : statement* EOF
     ;
@@ -159,15 +155,13 @@ try_stmt
     : 'try' block ('except' block)  
     ;
     
-
-     
 // New type (Struct)
 type_defStatement
     : TYPE_DEF IDENTIFIER LBRACE type_def_list+ RBRACE
     ;
 
 type_def_list
-    : (DATA_TYPE) IDENTIFIER SEMI
+    : DATA_TYPE IDENTIFIER SEMI
     ;
     
      
@@ -188,7 +182,6 @@ char_Array
 strArray
     : LBRACKET (STRING (COMMA STRING)*)? RBRACKET			# StringArray
     ;
-
 
 // Continue / Break
 continue_stmt

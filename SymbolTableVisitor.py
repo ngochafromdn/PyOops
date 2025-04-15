@@ -58,18 +58,17 @@ class SymbolTableVisitor(syntaxVisitor):
         return self.visitChildren(ctx)
 
     # Visit a new type definition (e.g., struct definition)
-    def visitNewTypeDef(self, ctx: syntaxParser.NewTypeDefContext):
+    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
         typename = ctx.IDENTIFIER().getText()
         fields = {}
 
         # Extract field types and names from the custom type block
-        for field in ctx.children:
-            if hasattr(field, 'DATA_TYPE'):
-                type_token = field.DATA_TYPE()
-                if type_token:
-                    type_name = type_token.getText()
-                    name = field.IDENTIFIER().getText()
-                    fields[name] = type_name
+        for field in ctx.type_def_list():
+            type_token = field.DATA_TYPE()
+            if type_token:
+                type_name = type_token.getText()
+                name = field.IDENTIFIER().getText()
+                fields[name] = type_name
 
         # Define the new type in the global scope
         self.define(typename, {'type': 'struct', 'fields': fields})
@@ -153,10 +152,6 @@ class SymbolTableVisitor(syntaxVisitor):
         self.visit(except_block)
 
         return None
-
-
-
-
 
     # Print all defined symbols for debugging
     def printSymbols(self):
