@@ -141,7 +141,7 @@ class SymbolTableVisitor(syntaxVisitor):
         return None
 
     # Visit a try-except block
-    def visit_tryStmt(self, ctx: syntaxParser.TryStmtContext):
+    def visitTry_Stmt(self, ctx: syntaxParser.TryStmtContext):
         blocks = ctx.block()
         # try_block = ctx.block(0)
         # except_block = ctx.block(1)
