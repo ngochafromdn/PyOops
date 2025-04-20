@@ -1,5 +1,10 @@
+import logging
 from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
+
+# Setup logger
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class ExpressionAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
@@ -7,50 +12,87 @@ class ExpressionAnalyzer(syntaxVisitor):
 
     def visitNumberExpr(self, ctx: syntaxParser.NumberExprContext):
         text = ctx.NUMBER().getText()
-        return float(text) if '.' in text else int(text)
+        try:
+            return float(text) if '.' in text else int(text)
+        except ValueError:
+            logger.error(f"Invalid number: {text}")
+            return None
 
     def visitStringExpr(self, ctx: syntaxParser.StringExprContext):
-        return bytes(ctx.STRING().getText()[1:-1], "utf-8").decode("unicode_escape")
+        raw = ctx.STRING().getText()
+        return bytes(raw[1:-1], "utf-8").decode("unicode_escape")
 
     def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
-        return bytes(ctx.getText()[1:-1], "utf-8").decode("unicode_escape")
+        raw = ctx.getText()
+        return bytes(raw[1:-1], "utf-8").decode("unicode_escape")
 
     def visitIdExpr(self, ctx: syntaxParser.IdExprContext):
         name = ctx.IDENTIFIER().getText()
         value = self.symbol_table.get(name)
         if value is None:
-            print(f"[Error] Undefined variable '{name}'")
+            logger.error(f"[Error] Undefined variable '{name}'")
+            return None
         return value
 
     def visitAddSubExpr(self, ctx: syntaxParser.AddSubExprContext):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
+
+        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
+            logger.error("Addition/Subtraction requires numeric operands")
+            return None
+
         return left + right if op == '+' else left - right
 
     def visitMulDivExpr(self, ctx: syntaxParser.MulDivExprContext):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
-        if op == '/' and right == 0:
-            print("I have error: Division by zero error!")
+
+        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
+            logger.error("Multiplication/Division requires numeric operands")
             return None
+
+        if op == '/' and right == 0:
+            logger.error("Division by zero error!")
+            return None
+
         return left * right if op == '*' else left / right
 
     def visitLogicExpr(self, ctx: syntaxParser.LogicExprContext):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
+
+        if not isinstance(left, bool) or not isinstance(right, bool):
+            logger.error("Logical operations require boolean operands")
+            return None
+
         return left and right if op == 'and' else left or right
 
     def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
-        return eval(f"{repr(left)} {op} {repr(right)}")
+
+        allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
+        if op not in allowed_ops:
+            logger.error(f"Unsupported comparison operator: {op}")
+            return None
+
+        try:
+            return eval(f"{repr(left)} {op} {repr(right)}")
+        except Exception as e:
+            logger.error(f"Comparison error: {e}")
+            return None
 
     def visitNotExpr(self, ctx: syntaxParser.NotExprContext):
-        return not self.visit(ctx.expression())
+        value = self.visit(ctx.expression())
+        if not isinstance(value, bool):
+            logger.error("Logical NOT requires a boolean operand")
+            return None
+        return not value
 
     def visitParenExpr(self, ctx: syntaxParser.ParenExprContext):
         return self.visit(ctx.expression())
@@ -62,14 +104,41 @@ class ExpressionAnalyzer(syntaxVisitor):
         return False
 
     def visitUnaryMinusExpr(self, ctx: syntaxParser.UnaryMinusExprContext):
-        return -self.visit(ctx.expression())
+        value = self.visit(ctx.expression())
+        if not isinstance(value, (int, float)):
+            logger.error("Unary minus requires a numeric operand")
+            return None
+        return -value
 
     def visitIntArray(self, ctx: syntaxParser.IntArrayContext):
-        return [int(num.getText()) for num in ctx.NUMBER()]
+        result = []
+        for num in ctx.NUMBER():
+            try:
+                result.append(int(num.getText()))
+            except ValueError:
+                logger.warning(f"Invalid integer: {num.getText()}")
+        return result
 
     def visitCharArray(self, ctx: syntaxParser.CharArrayContext):
-        return [bytes(char.getText()[1:-1], "utf-8").decode("unicode_escape") for char in ctx.CHARACTER()]
+        result = []
+        for char in ctx.CHARACTER():
+            try:
+                decoded = bytes(char.getText()[1:-1], "utf-8").decode("unicode_escape")
+                result.append(decoded)
+            except Exception as e:
+                logger.warning(f"Invalid character: {char.getText()} ({e})")
+        return result
 
     def visitStringArray(self, ctx: syntaxParser.StringArrayContext):
-        return [bytes(string.getText()[1:-1], "utf-8").decode("unicode_escape") for string in ctx.STRING()]
+        result = []
+        for string in ctx.STRING():
+            try:
+                decoded = bytes(string.getText()[1:-1], "utf-8").decode("unicode_escape")
+                result.append(decoded)
+            except Exception as e:
+                logger.warning(f"Invalid string: {string.getText()} ({e})")
+        return result
 
+    # Optional: if you want to support `null`
+    def visitNullExpr(self, ctx):
+        return None
