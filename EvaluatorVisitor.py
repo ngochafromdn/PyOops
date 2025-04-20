@@ -53,7 +53,9 @@ class EvaluatorVisitor(syntaxVisitor):
 
     def visitFalseExpr(self, ctx: syntaxParser.FalseExprContext):
         return False
-
-    def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
-        return ctx.getText()[1:-1]  # strip the quotes
-
+    
+    def visitMulDivExpr(self, ctx: syntaxParser.MulDivExprContext):
+        left = self.visit(ctx.expression(0))
+        right = self.visit(ctx.expression(1))
+        op = ctx.getChild(1).getText()
+        return left * right if op == '*' else left / right  # or // if you want integer division
