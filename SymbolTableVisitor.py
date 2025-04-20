@@ -118,7 +118,7 @@ class SymbolTableVisitor(syntaxVisitor):
         self.pop_scope()
         return None
 
-    visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
+    def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
         # Visit the return expression
         self.visit(ctx.expression())
         return None
