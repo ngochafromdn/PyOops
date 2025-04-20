@@ -9,6 +9,7 @@ class SemanticAnalyzer(SymbolTableVisitor):
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
         symbol = self.lookup(name)
+        
         if symbol is None:
             print(f"[Error] Variable '{name}' not declared before assignment.")
         elif symbol['type'] != value_type:
