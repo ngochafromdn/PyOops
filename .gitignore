@@ -1,0 +1,10 @@
+# Byte-compiled
+__pycache__/
+
+
+# ANTLR generated files
+*.bak
+
+
+# Mac system files
+.DS_Store
