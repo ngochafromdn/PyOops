@@ -1,10 +1,9 @@
-import antlr4
 from antlr4 import *
-from antlr4.tree.Trees import Trees
 from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
 from SymbolTableVisitor import SymbolTableVisitor
 from SemanticAnalyzer import SemanticAnalyzer
+from SyntaxErrorHandling import SyntaxErrorHandling
 
 # Hỏi tên file trong thư mục tests/
 file_name = input("Nhập tên file trong thư mục tests/ (vd: function.txt): ")
@@ -30,20 +29,25 @@ try:
     lexer = syntaxLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = syntaxParser(stream)
+    
+    # Remove all default error listeners
+    parser.removeErrorListeners()
+    custom_listener = SyntaxErrorHandling()
+    parser.addErrorListener(custom_listener)
 
     # Bắt đầu parse từ rule 'program'
     tree = parser.program()
 
     # In cây cú pháp theo dạng cây thụ
-    print("Parse Tree:")
-    print_tree(tree, parser)
+    # print("Parse Tree:")
+    # print_tree(tree, parser)
 
     print("✅ Parse thành công!")
 
     # Assume `tree` is the parse tree from syntaxParser
     visitor = SymbolTableVisitor()
     visitor.visit(tree)
-    visitor.printSymbols()
+    # visitor.printSymbols()
     
     analyzer = SemanticAnalyzer()
     analyzer.visit(tree)

@@ -162,8 +162,7 @@ type_defStatement
 
 type_def_list
     : DATA_TYPE IDENTIFIER SEMI
-    ;
-    
+    ; 
      
 param_list
     : DATA_TYPE IDENTIFIER (COMMA DATA_TYPE IDENTIFIER)*

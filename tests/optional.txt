@@ -14,6 +14,8 @@ type newtype2 {
 	str[] y;
 }
 
+newtype.x = 2;
+
 // hello		1234, ni hao
 //	Hello, nice to meet you.	
 // Exit a parse tree produced by hw2
