@@ -1,7 +1,7 @@
-from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
+from SymbolTableVisitor import SymbolTableVisitor
 
-class SemanticAnalyzer(syntaxVisitor):
+class SemanticAnalyzer(SymbolTableVisitor):
     def __init__(self):
         super().__init__()
 
@@ -9,6 +9,7 @@ class SemanticAnalyzer(syntaxVisitor):
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
         symbol = self.lookup(name)
+        
         if symbol is None:
             print(f"[Error] Variable '{name}' not declared before assignment.")
         elif symbol['type'] != value_type:
