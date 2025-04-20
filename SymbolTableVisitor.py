@@ -118,6 +118,11 @@ class SymbolTableVisitor(syntaxVisitor):
         self.pop_scope()
         return None
 
+    visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
+        # Visit the return expression
+        self.visit(ctx.expression())
+        return None
+
     # Visit a conditional if-elseif-else structure
     def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
         expressions = ctx.expression()
