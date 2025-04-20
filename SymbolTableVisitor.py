@@ -1,6 +1,8 @@
 from antlr4 import *
 from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
+from EvaluatorVisitor import EvaluatorVisitor
+
 
 class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
@@ -9,6 +11,7 @@ class SymbolTableVisitor(syntaxVisitor):
         # Stack to keep track of nested scopes (functions, blocks, etc.)
         self.scopes = [self.global_scope]
         self.current_function = None
+        self.evaluator = EvaluatorVisitor(self.global_scope)
 
     # Utility: Get the current scope from top of stack
     def current_scope(self):
@@ -174,3 +177,7 @@ class SymbolTableVisitor(syntaxVisitor):
         else:
             for name, value in scope.items():
                 print(f"  {name}: {value}")
+
+    def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
+        self.evaluator.visit(ctx.print_stmt())
+        return None
