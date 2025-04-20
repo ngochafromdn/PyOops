@@ -6,8 +6,8 @@ str s = "initial";
 int a = "???";
 float b = 1;
 char c = 1;
-str d = 'c'
-str e = 0.1
+str d = 'c';
+str e = 0.1;
 
 func int max(int a, int b) {
     if (a > b) {
@@ -17,12 +17,9 @@ func int max(int a, int b) {
     }
 }
 
-int x = 10;
-while (x = 10) {
-    x = x + 1;
-}
 
-if (x + 2 = 5) {
+int x = 5;
+if (x + 2) {
     print(x);
 }
 
