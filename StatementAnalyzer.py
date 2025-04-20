@@ -4,6 +4,7 @@ from SymbolTableVisitor import SymbolTableVisitor
 class StatementAnalyzer(SymbolTableVisitor):
     def __init__(self):
         super().__init__()
+        self.function_return_stack = []
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
         name = ctx.assignment().IDENTIFIER().getText()
@@ -26,7 +27,7 @@ class StatementAnalyzer(SymbolTableVisitor):
             value_type = self.visit(var_decl.expression())
             if value_type != declared_type:
                 print(f"[Type Error] Mismatched types in declaration of '{name}': expected '{declared_type}', got '{value_type}'")
-
+    
     def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
         func_name = ctx.IDENTIFIER().getText()
         return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else "void"
@@ -45,18 +46,22 @@ class StatementAnalyzer(SymbolTableVisitor):
         })
 
         self.push_scope()
+        self.function_return_stack.append(return_type)
         for param in params:
             self.define(param['name'], {'type': param['type']})
         self.visit(ctx.block())
+        self.function_return_stack.pop()
         self.pop_scope()
 
-    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
-        pass
-    
+
     def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
         expr_type = self.visit(ctx.expression())
-        # You can store the expected return type in a stack if nested functions exist
+        if self.function_return_stack:
+            expected = self.function_return_stack[-1]
+            if expected != expr_type:
+                print(f"[Type Error] Return type mismatch: expected '{expected}', got '{expr_type}'")
         return expr_type
+    
 
     def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
         for expr in ctx.expression():
@@ -84,3 +89,5 @@ class StatementAnalyzer(SymbolTableVisitor):
         self.visit(ctx.block(1))  # except block
         return None
     
+    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
+        pass
