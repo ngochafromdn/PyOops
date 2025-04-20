@@ -5,17 +5,15 @@ class ExpressionAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
         self.symbol_table = symbol_table
 
-    def visitPrint_stmt(self, ctx: syntaxParser.Print_stmtContext):
-        value = self.visit(ctx.expression())
-        print(f"🖨️ Output: {value}")
-        return value
-
-    # Example handlers below. You need one for each expression rule.
     def visitNumberExpr(self, ctx: syntaxParser.NumberExprContext):
-        return float(ctx.NUMBER().getText()) if '.' in ctx.NUMBER().getText() else int(ctx.NUMBER().getText())
+        text = ctx.NUMBER().getText()
+        return float(text) if '.' in text else int(text)
 
     def visitStringExpr(self, ctx: syntaxParser.StringExprContext):
         return bytes(ctx.STRING().getText()[1:-1], "utf-8").decode("unicode_escape")
+
+    def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
+        return bytes(ctx.getText()[1:-1], "utf-8").decode("unicode_escape")
 
     def visitIdExpr(self, ctx: syntaxParser.IdExprContext):
         name = ctx.IDENTIFIER().getText()
@@ -30,6 +28,15 @@ class ExpressionAnalyzer(syntaxVisitor):
         op = ctx.getChild(1).getText()
         return left + right if op == '+' else left - right
 
+    def visitMulDivExpr(self, ctx: syntaxParser.MulDivExprContext):
+        left = self.visit(ctx.expression(0))
+        right = self.visit(ctx.expression(1))
+        op = ctx.getChild(1).getText()
+        if op == '/' and right == 0:
+            print("I have error: Division by zero error!")
+            return None
+        return left * right if op == '*' else left / right
+
     def visitLogicExpr(self, ctx: syntaxParser.LogicExprContext):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
@@ -40,7 +47,7 @@ class ExpressionAnalyzer(syntaxVisitor):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
-        return eval(f"{left} {op} {right}")
+        return eval(f"{repr(left)} {op} {repr(right)}")
 
     def visitNotExpr(self, ctx: syntaxParser.NotExprContext):
         return not self.visit(ctx.expression())
@@ -53,21 +60,16 @@ class ExpressionAnalyzer(syntaxVisitor):
 
     def visitFalseExpr(self, ctx: syntaxParser.FalseExprContext):
         return False
-    
-    def visitMulDivExpr(self, ctx: syntaxParser.MulDivExprContext):
-        left = self.visit(ctx.expression(0))
-        right = self.visit(ctx.expression(1))
-        op = ctx.getChild(1).getText()
-        
-        # Kiểm tra nếu phép chia cho 0
-        if op == '/' and right == 0:
-            print("I have error: Division by zero error!")
-        
-        # Thực hiện phép toán theo phép toán
-        if op == '*':
-            return left * right
-        elif op == '/':
-            return left / right  # hoặc // nếu bạn muốn chia nguyên
-    
-    def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
-        return ctx.getText()[1:-1]  # strip the quotes
+
+    def visitUnaryMinusExpr(self, ctx: syntaxParser.UnaryMinusExprContext):
+        return -self.visit(ctx.expression())
+
+    def visitIntArray(self, ctx: syntaxParser.IntArrayContext):
+        return [int(num.getText()) for num in ctx.NUMBER()]
+
+    def visitCharArray(self, ctx: syntaxParser.CharArrayContext):
+        return [bytes(char.getText()[1:-1], "utf-8").decode("unicode_escape") for char in ctx.CHARACTER()]
+
+    def visitStringArray(self, ctx: syntaxParser.StringArrayContext):
+        return [bytes(string.getText()[1:-1], "utf-8").decode("unicode_escape") for string in ctx.STRING()]
+
