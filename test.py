@@ -3,6 +3,7 @@ from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
 from SymbolTableVisitor import SymbolTableVisitor
 from StatementAnalyzer import StatementAnalyzer
+from ExpressionAnalyzer import ExpressionAnalyzer
 from SemanticAnalyzer import SemanticAnalyzer
 from SyntaxErrorHandling import SyntaxErrorHandling
 
@@ -17,7 +18,7 @@ def print_tree(node, parser, indent=0):
         print("  " * indent + text)
     else:
         rule_name = parser.ruleNames[node.getRuleIndex()]
-        print("  " * indent + f"{rule_name}:{indent}")
+        print("  " * indent + f"{rule_name}:")
         for i in range(node.getChildCount()):
             child = node.getChild(i)
             print_tree(child, parser, indent + 1)
@@ -30,7 +31,7 @@ try:
     lexer = syntaxLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = syntaxParser(stream)
-    
+
     # Remove all default error listeners
     parser.removeErrorListeners()
     custom_listener = SyntaxErrorHandling()
@@ -40,18 +41,30 @@ try:
     tree = parser.program()
 
     # In cây cú pháp theo dạng cây thụ
-    # print("Parse Tree:")
-    # print_tree(tree, parser)
+    print("Parse Tree:")
+    print_tree(tree, parser)
 
-    print("✅ Parse thành công!")
+    print("\n✅ Parse thành công!")
 
-    # Assume `tree` is the parse tree from syntaxParser
-    visitor = SymbolTableVisitor()
-    visitor.visit(tree)
-    # visitor.printSymbols()
-    
-    analyzer = SemanticAnalyzer()
-    analyzer.visit(tree)
+    # **Kiểm tra Symbol Table** (Xây dựng bảng ký hiệu)
+    symbol_table_visitor = SymbolTableVisitor()
+    symbol_table_visitor.visit(tree)
+    print("\n✅ Xây dựng bảng ký hiệu thành công!")
+
+    # **Kiểm tra ngữ nghĩa**
+    semantic_analyzer = SemanticAnalyzer()
+    semantic_analyzer.visit(tree)
+    print("\n✅ Phân tích ngữ nghĩa thành công!")
+
+    # **Phân tích biểu thức** (Expression analysis)
+    expression_analyzer = ExpressionAnalyzer(symbol_table_visitor.getSymbolTable())
+    expression_analyzer.visit(tree)
+    print("\n✅ Phân tích biểu thức thành công!")
+
+    # **Phân tích câu lệnh** (Statement analysis)
+    statement_analyzer = StatementAnalyzer(symbol_table_visitor.getSymbolTable())
+    statement_analyzer.visit(tree)
+    print("\n✅ Phân tích câu lệnh thành công!")
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")
