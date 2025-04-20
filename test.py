@@ -4,6 +4,7 @@ from antlr4.tree.Trees import Trees
 from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
 from SymbolTableVisitor import SymbolTableVisitor
+from SemanticAnalyzer import SemanticAnalyzer
 
 # Hỏi tên file trong thư mục tests/
 file_name = input("Nhập tên file trong thư mục tests/ (vd: function.txt): ")
@@ -43,6 +44,9 @@ try:
     visitor = SymbolTableVisitor()
     visitor.visit(tree)
     visitor.printSymbols()
+    
+    analyzer = SemanticAnalyzer()
+    analyzer.visit(tree)
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")
