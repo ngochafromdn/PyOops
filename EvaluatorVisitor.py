@@ -59,3 +59,6 @@ class EvaluatorVisitor(syntaxVisitor):
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
         return left * right if op == '*' else left / right  # or // if you want integer division
+    
+    def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
+        return ctx.getText()[1:-1]  # strip the quotes
