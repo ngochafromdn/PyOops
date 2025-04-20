@@ -2,6 +2,7 @@ from antlr4 import *
 from syntaxLexer import syntaxLexer
 from syntaxParser import syntaxParser
 from SymbolTableVisitor import SymbolTableVisitor
+from StatementAnalyzer import StatementAnalyzer
 from SemanticAnalyzer import SemanticAnalyzer
 from SyntaxErrorHandling import SyntaxErrorHandling
 

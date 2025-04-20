@@ -1,7 +1,7 @@
 from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
 
-class EvaluatorVisitor(syntaxVisitor):
+class ExpressionAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
         self.symbol_table = symbol_table
 
@@ -58,7 +58,16 @@ class EvaluatorVisitor(syntaxVisitor):
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
         op = ctx.getChild(1).getText()
-        return left * right if op == '*' else left / right  # or // if you want integer division
+        
+        # Kiểm tra nếu phép chia cho 0
+        if op == '/' and right == 0:
+            print("I have error: Division by zero error!")
+        
+        # Thực hiện phép toán theo phép toán
+        if op == '*':
+            return left * right
+        elif op == '/':
+            return left / right  # hoặc // nếu bạn muốn chia nguyên
     
     def visitCharExpr(self, ctx: syntaxParser.CharExprContext):
         return ctx.getText()[1:-1]  # strip the quotes

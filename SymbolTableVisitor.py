@@ -1,8 +1,7 @@
 from antlr4 import *
 from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
-from EvaluatorVisitor import EvaluatorVisitor
-
+from ExpressionAnalyzer import ExpressionAnalyzer
 
 class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
@@ -11,7 +10,7 @@ class SymbolTableVisitor(syntaxVisitor):
         # Stack to keep track of nested scopes (functions, blocks, etc.)
         self.scopes = [self.global_scope]
         self.current_function = None
-        self.evaluator = EvaluatorVisitor(self.global_scope)
+        self.evaluator = ExpressionAnalyzer(self.global_scope)
 
     # Utility: Get the current scope from top of stack
     def current_scope(self):
