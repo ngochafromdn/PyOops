@@ -1,7 +1,7 @@
-from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
+from SymbolTableVisitor import SymbolTableVisitor
 
-class SemanticAnalyzer(syntaxVisitor):
+class SemanticAnalyzer(SymbolTableVisitor):
     def __init__(self):
         super().__init__()
 
@@ -57,14 +57,14 @@ class SemanticAnalyzer(syntaxVisitor):
     def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
         for expr in ctx.expression():
             condition_type = self.visit(expr)
-            if condition_type != 'bool':
-                self.errors.append(f"[Type Error] Condition in if/elif must be 'bool', got '{condition_type}'.")
+            if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
+                print(f"[Type Error] Condition in if/elif must be 'bool' or comparison expression.")
         return self.visitChildren(ctx)
 
     def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
         condition_type = self.visit(ctx.expression())
-        if condition_type != 'bool':
-            self.errors.append(f"[Type Error] While-loop condition must be 'bool', got '{condition_type}'.")
+        if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
+            print(f"[Type Error] While-loop condition must be 'bool' or comparison expression.")
         return self.visitChildren(ctx)
     
     def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
