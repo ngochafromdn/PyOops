@@ -5,22 +5,18 @@ from ExpressionAnalyzer import ExpressionAnalyzer
 
 class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
-        # Initialize the global symbol table (top-level scope)
         self.global_scope = {}
-        # Stack to keep track of nested scopes (functions, blocks, etc.)
         self.scopes = [self.global_scope]
-        self.current_function = None
-        self.evaluator = ExpressionAnalyzer(self.global_scope)
 
-    # Utility: Get the current scope from top of stack
+    # Get the current scope from top of stack
     def current_scope(self):
         return self.scopes[-1]
 
-    # Utility: Enter a new scope by pushing an empty dictionary onto the stack
+    # Enter a new scope by pushing an empty dictionary onto the stack
     def push_scope(self):
         self.scopes.append({})
 
-    # Utility: Exit the current scope
+    # Exit the current scope
     def pop_scope(self):
         self.scopes.pop()
 
@@ -50,13 +46,6 @@ class SymbolTableVisitor(syntaxVisitor):
         data_type = data_type_token.getText() if data_type_token else "unknown"
         identifier = var_decl.IDENTIFIER().getText()
         self.define(identifier, {'type': data_type})  # Record type info in symbol table
-        return self.visitChildren(ctx)
-
-    # Visit an assignment statement
-    def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
-        name = ctx.assignment().IDENTIFIER().getText()
-        if not self.lookup(name):
-            print(f"[Error] Variable '{name}' assigned before declaration.")
         return self.visitChildren(ctx)
 
     # Visit a new type definition (e.g., struct definition)
@@ -110,57 +99,6 @@ class SymbolTableVisitor(syntaxVisitor):
         self.pop_scope()
         return None
 
-    # Visit a block (surrounded by braces), which opens a new scope
-    def visitBlockStmt(self, ctx: syntaxParser.BlockStmtContext):
-        self.push_scope()
-        self.visit(ctx.block())
-        self.pop_scope()
-        return None
-
-    def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
-        # Visit the return expression
-        self.visit(ctx.expression())
-        return None
-
-    # Visit a conditional if-elseif-else structure
-    def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
-        expressions = ctx.expression()
-        blocks = ctx.block()
-
-        # Visit 'if' condition and block
-        self.visit(expressions[0])
-        self.visit(blocks[0])
-
-        # Visit any 'else-if' conditions and blocks
-        for i in range(1, len(expressions)):
-            self.visit(expressions[i])
-            self.visit(blocks[i])
-
-        # Visit optional 'else' block
-        if len(blocks) > len(expressions):
-            self.visit(blocks[-1])
-        return None
-
-    # Visit a while-loop
-    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
-        self.visit(ctx.expression())  # Visit loop condition
-        self.visit(ctx.block())       # Visit loop body
-        return None
-
-    # Visit a try-except block
-    def visitTry_Stmt(self, ctx: syntaxParser.TryStmtContext):
-        blocks = ctx.block()
-        # try_block = ctx.block(0)
-        # except_block = ctx.block(1)
-
-        print("👉 Executing try block:")
-        self.visit(blocks[0])  # Visit the try block
-
-        print("👉 Exception caught, executing except block:")
-        self.visit(blocks[1])  # Visit the except block
-
-        return None
-
     # Print all defined symbols for debugging
     def printSymbols(self):
         print("Global Scope:")
@@ -181,7 +119,3 @@ class SymbolTableVisitor(syntaxVisitor):
         else:
             for name, value in scope.items():
                 print(f"  {name}: {value}")
-
-    def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
-        self.evaluator.visit(ctx.print_stmt())
-        return None
