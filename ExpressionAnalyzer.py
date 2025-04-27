@@ -10,22 +10,19 @@ class ExpressionAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
         self.symbol_table = symbol_table
 
-
+    def visitStringArray(self, ctx: syntaxParser.StringArrayContext):
+        if ctx.strArray().getText():
+            return "str[]"
+    
+    def visitCharArray(self, ctx: syntaxParser.CharArrayContext):
+        if ctx.char_Array().getText():
+            return "char[]"
+    
     def visitIntArray(self, ctx: syntaxParser.IntArrayContext):
-        # print(f"array expression: {ctx.getText()}")
-        # print("ctx", ctx.int_Array())
-        # if ctx.LBRACKET() and ctx.RBRACKET():
         if ctx.int_Array().getText():
             return "int[]"
-        #     elements = ctx.NUMBER()
-        #     if elements: 
-        #         return "int[]"
-        #     else: 
-        #         return "int[]"
-        # return "unknown"
             
     def visitNumberExpr(self, ctx: syntaxParser.NumberExprContext):
-        # print(10)
         text = ctx.NUMBER().getText()
 
         if '.' in text:

@@ -174,15 +174,15 @@ param_list
      
 // Array Definition
 int_Array 
-    : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET		    
+    : LBRACKET (NUMBER (COMMA NUMBER)*) RBRACKET		    
     ;
 
 char_Array
-    : LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET	    
+    : LBRACKET (CHARACTER (COMMA CHARACTER)*) RBRACKET	    
     ;
 
 strArray
-    : LBRACKET (STRING (COMMA STRING)*)? RBRACKET			
+    : LBRACKET (STRING (COMMA STRING)*) RBRACKET			
     ;
 
 // Continue / Break
