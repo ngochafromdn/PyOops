@@ -2,14 +2,14 @@ from syntaxParser import syntaxParser
 from SymbolTableVisitor import SymbolTableVisitor
 
 class StatementAnalyzer(SymbolTableVisitor):
-    def __init__(self):
+    def __init__(self, symbol_table):
         super().__init__()
         self.function_return_stack = []
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
-        symbol = self.lookup(name)
+        symbol = self.symbol_table.lookup(name)
         
         if symbol is None:
             print(f"[Error] Variable '{name}' not declared before assignment.")
