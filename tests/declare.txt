@@ -44,3 +44,7 @@ int CamelCaseVar = 1;
 str snake_case_var = "value";
 CamelCaseVar = 2;
 snake_case_var = "new";
+
+// Error
+
+q =  q + 1;
