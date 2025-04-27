@@ -8,18 +8,24 @@ class StatementAnalyzer(syntaxVisitor):
         self.symbol_table = symbol_table
         self.expr_analyzer = ExpressionAnalyzer(symbol_table)
 
-    def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
+    def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext, line=None, column=None):
+        line = ctx.start.line if line is None else line
+        column = ctx.start.column if column is None else column
+
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
         symbol = self.symbol_table.lookup(name)
         
         if symbol is None:
-            print(f"[Error] Variable '{name}' not declared before assignment.")
+            print(f"[Error] Line {line}, Column {column}: Variable '{name}' not declared before assignment.")
         elif symbol['type'] != value_type:
-            print(f"[Type Error] Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
+            print(f"[Type Error] Line {line}, Column {column}: Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
         return value_type
 
-    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
+    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext, line=None, column=None):
+        line = ctx.start.line if line is None else line
+        column = ctx.start.column if column is None else column
+
         var_decl = ctx.variable_declaration()
         declared_type = var_decl.DATA_TYPE().getText()
         identifier = var_decl.IDENTIFIER().getText()
@@ -31,7 +37,7 @@ class StatementAnalyzer(syntaxVisitor):
             print("Value:", var_decl.expression().getText(), "Type:", value_type)
 
             if value_type != declared_type:
-                print(f"[Type Error] Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
+                print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
 
         # return self.visitChildren(ctx) 
 
