@@ -1,7 +1,6 @@
 from antlr4 import *
 from syntaxVisitor import syntaxVisitor
 from syntaxParser import syntaxParser
-from ExpressionAnalyzer import ExpressionAnalyzer
 
 class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
@@ -38,66 +37,6 @@ class SymbolTableVisitor(syntaxVisitor):
         for stmt in ctx.statement():
             self.visit(stmt)  # Visit each top-level statement
         return self.global_scope
-
-    # Visit a variable declaration statement
-    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
-        var_decl = ctx.variable_declaration()
-        data_type_token = var_decl.DATA_TYPE() 
-        data_type = data_type_token.getText() if data_type_token else "unknown"
-        identifier = var_decl.IDENTIFIER().getText()
-        self.define(identifier, {'type': data_type})  # Record type info in symbol table
-        return self.visitChildren(ctx)
-
-    # Visit a new type definition (e.g., struct definition)
-    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
-        typename = ctx.IDENTIFIER().getText()
-        fields = {}
-
-        # Extract field types and names from the custom type block
-        for field in ctx.type_def_list():
-            type_token = field.DATA_TYPE()
-            if type_token:
-                type_name = type_token.getText()
-                name = field.IDENTIFIER().getText()
-                fields[name] = type_name
-
-        # Define the new type in the global scope
-        self.define(typename, {'type': 'struct', 'fields': fields})
-        return self.visitChildren(ctx)
-
-    # Visit a function definition
-    def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
-        func_name = ctx.IDENTIFIER().getText()
-        return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else 'void'
-        params = []
-
-        # Extract parameters (name and type)
-        if ctx.param_list():
-            for i in range(len(ctx.param_list().IDENTIFIER())):
-                param_name = ctx.param_list().IDENTIFIER(i).getText()
-                param_type = ctx.param_list().DATA_TYPE(i).getText()
-                params.append({'name': param_name, 'type': param_type})
-
-        # Record function signature in the symbol table
-        self.define(func_name, {
-            'type': 'function',
-            'return_type': return_type,
-            'params': params
-        })
-
-        # Create new scope for function body
-        self.push_scope()
-
-        # Add parameters to the function scope
-        for param in params:
-            self.define(param['name'], {'type': param['type']})
-
-        # Visit the function body block
-        self.visit(ctx.block())
-
-        # Exit function scope
-        self.pop_scope()
-        return None
 
     # Print all defined symbols for debugging
     def printSymbols(self):
