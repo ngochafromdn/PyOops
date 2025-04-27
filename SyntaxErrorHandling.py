@@ -5,5 +5,8 @@ class SyntaxErrorHandling(ErrorListener):
         super().__init__()
     
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        syntax_err = f"[Syntax Error] Line {line}, column {column}: {msg}"
-        print(syntax_err)    
+        if "token recognition error" in msg:
+            syntax_err = f"[Lexer Error] Line {line}, Column {column}: {msg}"
+        else:
+            syntax_err = f"[Syntax Error] Line {line}, Column {column}: {msg}"
+        print(syntax_err)

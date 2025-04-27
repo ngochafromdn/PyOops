@@ -27,22 +27,26 @@ try:
     # Mở file và tạo input stream
     input_stream = FileStream(file_path, encoding='utf-8')
 
-    # Khởi tạo lexer & parser
+   # Khởi tạo lexer & parser
     lexer = syntaxLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = syntaxParser(stream)
 
-    # Remove all default error listeners
-    parser.removeErrorListeners()
+# Remove all default error listeners
     custom_listener = SyntaxErrorHandling()
+
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(custom_listener)
+
+    parser.removeErrorListeners()
     parser.addErrorListener(custom_listener)
 
     # Bắt đầu parse từ rule 'program'
     tree = parser.program()
 
-    # In cây cú pháp theo dạng cây thụ
-    print("Parse Tree:")
-    print_tree(tree, parser)
+    # # In cây cú pháp theo dạng cây thụ
+    # print("Parse Tree:")
+    # print_tree(tree, parser)
 
     print("\n✅ Parse thành công!")
 
