@@ -27,12 +27,12 @@ try:
     # Mở file và tạo input stream
     input_stream = FileStream(file_path, encoding='utf-8')
 
-   # Khởi tạo lexer & parser
+     # Khởi tạo lexer & parser
     lexer = syntaxLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = syntaxParser(stream)
 
-# Remove all default error listeners
+    # Remove all default error listeners
     custom_listener = SyntaxErrorHandling()
 
     lexer.removeErrorListeners()
@@ -44,22 +44,25 @@ try:
     # Bắt đầu parse từ rule 'program'
     tree = parser.program()
 
-    # # In cây cú pháp theo dạng cây thụ
+    # In cây cú pháp theo dạng cây thụ
     # print("Parse Tree:")
     # print_tree(tree, parser)
 
     print("\n✅ Parse thành công!")
 
-    # **Kiểm tra Symbol Table** (Xây dựng bảng ký hiệu)
+    # *Kiểm tra Symbol Table* (Xây dựng bảng ký hiệu)
     symbol_table_visitor = SymbolTableVisitor()
     symbol_table_visitor.visit(tree)
     print("\n✅ Xây dựng bảng ký hiệu thành công!")
 
-    # **Kiểm tra ngữ nghĩa**
-    semantic_analyzer = SemanticAnalyzer()
-    semantic_analyzer.visit(tree)
-    print("\n✅ Phân tích ngữ nghĩa thành công!")
-
+    # *Kiểm tra ngữ nghĩa*
+    # semantic_analyzer = SemanticAnalyzer()
+    # semantic_analyzer.visit(tree)
+    # print("\n✅ Phân tích ngữ nghĩa thành công!")
+    expr = ExpressionAnalyzer(symbol_table_visitor)
+    expr.visit(tree)
+    statement = StatementAnalyzer(symbol_table_visitor, expr)
+    statement.visit(tree)
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")
