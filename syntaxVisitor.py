@@ -124,8 +124,23 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by syntaxParser#CharArray.
+    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by syntaxParser#MulDivExpr.
     def visitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#IntArray.
+    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#StringArray.
+    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
         return self.visitChildren(ctx)
 
 
@@ -194,18 +209,18 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#IntArray.
-    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
+    # Visit a parse tree produced by syntaxParser#int_Array.
+    def visitInt_Array(self, ctx:syntaxParser.Int_ArrayContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#CharArray.
-    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+    # Visit a parse tree produced by syntaxParser#char_Array.
+    def visitChar_Array(self, ctx:syntaxParser.Char_ArrayContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#StringArray.
-    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
+    # Visit a parse tree produced by syntaxParser#strArray.
+    def visitStrArray(self, ctx:syntaxParser.StrArrayContext):
         return self.visitChildren(ctx)
 
 

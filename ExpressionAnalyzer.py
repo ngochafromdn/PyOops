@@ -12,8 +12,10 @@ class ExpressionAnalyzer(syntaxVisitor):
 
 
     def visitIntArray(self, ctx: syntaxParser.IntArrayContext):
-        print(f"array expression: {ctx.getText()}")
-        if ctx.LBRACKET() and ctx.RBRACKET():
+        # print(f"array expression: {ctx.getText()}")
+        # print("ctx", ctx.int_Array())
+        # if ctx.LBRACKET() and ctx.RBRACKET():
+        if ctx.int_Array().getText():
             return "int[]"
         #     elements = ctx.NUMBER()
         #     if elements: 

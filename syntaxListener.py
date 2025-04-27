@@ -215,12 +215,39 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by syntaxParser#CharArray.
+    def enterCharArray(self, ctx:syntaxParser.CharArrayContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#CharArray.
+    def exitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        pass
+
+
     # Enter a parse tree produced by syntaxParser#MulDivExpr.
     def enterMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
         pass
 
     # Exit a parse tree produced by syntaxParser#MulDivExpr.
     def exitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#IntArray.
+    def enterIntArray(self, ctx:syntaxParser.IntArrayContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#IntArray.
+    def exitIntArray(self, ctx:syntaxParser.IntArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#StringArray.
+    def enterStringArray(self, ctx:syntaxParser.StringArrayContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#StringArray.
+    def exitStringArray(self, ctx:syntaxParser.StringArrayContext):
         pass
 
 
@@ -341,30 +368,30 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#IntArray.
-    def enterIntArray(self, ctx:syntaxParser.IntArrayContext):
+    # Enter a parse tree produced by syntaxParser#int_Array.
+    def enterInt_Array(self, ctx:syntaxParser.Int_ArrayContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#IntArray.
-    def exitIntArray(self, ctx:syntaxParser.IntArrayContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#CharArray.
-    def enterCharArray(self, ctx:syntaxParser.CharArrayContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#CharArray.
-    def exitCharArray(self, ctx:syntaxParser.CharArrayContext):
+    # Exit a parse tree produced by syntaxParser#int_Array.
+    def exitInt_Array(self, ctx:syntaxParser.Int_ArrayContext):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#StringArray.
-    def enterStringArray(self, ctx:syntaxParser.StringArrayContext):
+    # Enter a parse tree produced by syntaxParser#char_Array.
+    def enterChar_Array(self, ctx:syntaxParser.Char_ArrayContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#StringArray.
-    def exitStringArray(self, ctx:syntaxParser.StringArrayContext):
+    # Exit a parse tree produced by syntaxParser#char_Array.
+    def exitChar_Array(self, ctx:syntaxParser.Char_ArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#strArray.
+    def enterStrArray(self, ctx:syntaxParser.StrArrayContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#strArray.
+    def exitStrArray(self, ctx:syntaxParser.StrArrayContext):
         pass
 
 

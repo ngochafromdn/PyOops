@@ -27,18 +27,14 @@ try:
     # Mở file và tạo input stream
     input_stream = FileStream(file_path, encoding='utf-8')
 
-     # Khởi tạo lexer & parser
+    # Khởi tạo lexer & parser
     lexer = syntaxLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = syntaxParser(stream)
 
     # Remove all default error listeners
-    custom_listener = SyntaxErrorHandling()
-
-    lexer.removeErrorListeners()
-    lexer.addErrorListener(custom_listener)
-
     parser.removeErrorListeners()
+    custom_listener = SyntaxErrorHandling()
     parser.addErrorListener(custom_listener)
 
     # Bắt đầu parse từ rule 'program'
@@ -63,6 +59,11 @@ try:
     expr.visit(tree)
     statement = StatementAnalyzer(symbol_table_visitor, expr)
     statement.visit(tree)
+    
+    # Print symbol table
+    print("Symbol Table-------------------")    
+    symbol_table_visitor.printSymbols()
+
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")

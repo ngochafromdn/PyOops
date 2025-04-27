@@ -105,13 +105,13 @@ block
 
 // Variable Declaration
 variable_declaration
-    : DATA_TYPE IDENTIFIER (ASSIGN (expression | int_Array | char_Array | strArray))?
+    : DATA_TYPE IDENTIFIER (ASSIGN (expression))?
     ;
 
 
 // Assignment
 assignment
-    : IDENTIFIER ASSIGN (expression | int_Array | char_Array | strArray)
+    : IDENTIFIER ASSIGN (expression)
     ;
      
 // Expressions
@@ -129,6 +129,9 @@ expression
     | NUMBER                                                    # NumberExpr
     | STRING                                                    # StringExpr
     | CHARACTER                                         # CharExpr
+    | int_Array                                         # IntArray
+    | char_Array                                        # CharArray
+    | strArray                                          # StringArray
     ;
 
 // If / While
@@ -171,15 +174,15 @@ param_list
      
 // Array Definition
 int_Array 
-    : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET		    # IntArray
+    : LBRACKET (NUMBER (COMMA NUMBER)*)? RBRACKET		    
     ;
 
 char_Array
-    : LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET	    # CharArray
+    : LBRACKET (CHARACTER (COMMA CHARACTER)*)? RBRACKET	    
     ;
 
 strArray
-    : LBRACKET (STRING (COMMA STRING)*)? RBRACKET			# StringArray
+    : LBRACKET (STRING (COMMA STRING)*)? RBRACKET			
     ;
 
 // Continue / Break
@@ -190,6 +193,3 @@ continue_stmt
 break_stmt
     : BREAK SEMI
     ;
-
-
-
