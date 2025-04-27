@@ -1,15 +1,15 @@
 from syntaxParser import syntaxParser
+from syntaxVisitor import syntaxVisitor
 from SymbolTableVisitor import SymbolTableVisitor
 
-class StatementAnalyzer(SymbolTableVisitor):
-    def __init__(self):
+class StatementAnalyzer(syntaxVisitor):
+    def __init__(self, symbol_table):
         super().__init__()
-        self.function_return_stack = []
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
-        symbol = self.lookup(name)
+        symbol = self.symbol_table.lookup(name)
         
         if symbol is None:
             print(f"[Error] Variable '{name}' not declared before assignment.")
@@ -21,13 +21,13 @@ class StatementAnalyzer(SymbolTableVisitor):
         var_decl = ctx.variable_declaration()
         declared_type = var_decl.DATA_TYPE().getText()
         name = var_decl.IDENTIFIER().getText()
-        self.define(name, {'type': declared_type})
+        self.symbol_table.define(name, {'type': declared_type})
 
         if var_decl.expression():
             value_type = self.visit(var_decl.expression())
             if value_type != declared_type:
                 print(f"[Type Error] Mismatched types in declaration of '{name}': expected '{declared_type}', got '{value_type}'")
-    
+
     def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
         func_name = ctx.IDENTIFIER().getText()
         return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else "void"
@@ -46,22 +46,30 @@ class StatementAnalyzer(SymbolTableVisitor):
         })
 
         self.push_scope()
-        self.function_return_stack.append(return_type)
         for param in params:
-            self.define(param['name'], {'type': param['type']})
+            self.symbol_table.define(param['name'], {'type': param['type']})
         self.visit(ctx.block())
-        self.function_return_stack.pop()
         self.pop_scope()
-
-
+    
     def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
         expr_type = self.visit(ctx.expression())
-        if self.function_return_stack:
-            expected = self.function_return_stack[-1]
-            if expected != expr_type:
-                print(f"[Type Error] Return type mismatch: expected '{expected}', got '{expr_type}'")
+        # You can store the expected return type in a stack if nested functions exist
         return expr_type
-    
+
+    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
+        typename = ctx.IDENTIFIER().getText()
+        fields = {}
+        # Extract field types and names from the custom type block
+        for field in ctx.type_def_list():
+            type_token = field.DATA_TYPE()
+            if type_token:
+                type_name = type_token.getText()
+                name = field.IDENTIFIER().getText()
+                fields[name] = type_name
+
+        # Define the new type in the global scope
+        self.define(typename, {'type': 'struct', 'fields': fields})
+        return self.visitChildren(ctx)
 
     def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
         for expr in ctx.expression():
@@ -80,14 +88,8 @@ class StatementAnalyzer(SymbolTableVisitor):
         self.visit(ctx.expression())  # No type requirement for print
         return None
 
-    def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
-        self.visit(ctx.expression())  # You can add function return checks later
-        return None
-
     def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
         self.visit(ctx.block(0))  # try block
         self.visit(ctx.block(1))  # except block
         return None
     
-    def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
-        pass
