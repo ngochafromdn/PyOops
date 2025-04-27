@@ -9,7 +9,7 @@ class StatementAnalyzer(syntaxVisitor):
         self.expr_analyzer = ExpressionAnalyzer(symbol_table)
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):
-        print(6)
+        # print(6)
         name = ctx.assignment().IDENTIFIER().getText()
         value_type = self.visit(ctx.assignment().expression())
         symbol = self.symbol_table.lookup(name)

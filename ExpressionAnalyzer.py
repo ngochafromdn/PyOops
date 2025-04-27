@@ -23,7 +23,7 @@ class ExpressionAnalyzer(syntaxVisitor):
         # return "unknown"
             
     def visitNumberExpr(self, ctx: syntaxParser.NumberExprContext):
-        print(10)
+        # print(10)
         text = ctx.NUMBER().getText()
 
         if '.' in text:
