@@ -2,8 +2,8 @@ from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 from SymbolTableVisitor import SymbolTableVisitor
 
-class StatementAnalyzer(syntaxVisitor):
-    def __init__(self, symbol_table):
+class StatementAnalyzer(SyntaxAnalyzer):
+    def __init__(self):
         super().__init__()
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext):

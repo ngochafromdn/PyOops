@@ -56,17 +56,8 @@ try:
     semantic_analyzer.visit(tree)
     print("\n✅ Phân tích ngữ nghĩa thành công!")
 
-    # **Phân tích biểu thức** (Expression analysis)
-    expression_analyzer = ExpressionAnalyzer(symbol_table_visitor.getSymbolTable())
-    expression_analyzer.visit(tree)
-    print("\n✅ Phân tích biểu thức thành công!")
-
-    # **Phân tích câu lệnh** (Statement analysis)
-    statement_analyzer = StatementAnalyzer(symbol_table_visitor.getSymbolTable())
-    statement_analyzer.visit(tree)
-    print("\n✅ Phân tích câu lệnh thành công!")
 
 except FileNotFoundError:
     print("❌ Không tìm thấy file.")
 except Exception as e:
-    print(f"❌ Lỗi khi parse: {e}")
+    print(f"❌ Error: {e}")
