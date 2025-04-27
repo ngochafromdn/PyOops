@@ -105,7 +105,7 @@ block
 
 // Variable Declaration
 variable_declaration
-    : DATA_TYPE IDENTIFIER (ASSIGN expression)?
+    : DATA_TYPE IDENTIFIER (ASSIGN (expression | int_Array | char_Array | strArray))?
     ;
 
 

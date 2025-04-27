@@ -44,3 +44,36 @@ int CamelCaseVar = 1;
 str snake_case_var = "value";
 CamelCaseVar = 2;
 snake_case_var = "new";
+
+// Error
+m == 1;
+
+// Type mismatch during initialization
+int wrongType = "oops";  // Error
+char anotherWrong = "string"; // Error
+str yetAnotherWrong = 'c'; // Error
+
+// Wrong element type in array
+int[] badArray = [1, 2, "oops"]; // Error
+
+// Invalid character literals
+char invalidChar = 'ab'; // Error
+
+// Wrong data inside char array
+char[] invalidCharArray = ["string"]; // Error
+
+// Empty initialization on primitive
+int emptyInit = []; // Error
+
+// Undeclared variable assignment
+undeclaredVar = 10; // Error
+
+// Assignment type mismatch
+i = "hello"; // Error
+s = 42; // Error
+
+// Overflow Error (optional if you want)
+int huge = 9999999999999999; // Error
+
+// Void variable declaration
+void notAllowed; // Error
