@@ -22,3 +22,64 @@ func void printWelcome() {
     print("Welcome to my language!");
 }
 
+// Error
+func ahihi dongok()
+    {print("Welcome to my language!");}
+
+// ❌ Sai thiếu dấu ngoặc ()
+// Thiếu () sau tên function
+func int badFunc { 
+    return 0;
+}
+
+// ❌ Sai kiểu dữ liệu
+// Không khai báo kiểu dữ liệu tham số
+func int anotherFunc(a, b) {
+    return a + b;
+}
+
+// ❌ Dùng từ khóa không hợp lệ
+// 'function' thay vì 'func'
+function int wrongKeyword(int a, int b) {
+    return a + b;
+}
+
+// ❌ Thiếu dấu { mở thân hàm
+func int missingBrace(int a, int b)
+    return a + b;
+}
+
+// ❌ Thiếu return value
+func int noReturn(int a, int b) {
+    // thiếu return
+}
+
+// ❌ Sử dụng kiểu dữ liệu chưa khai báo
+func spaceship zoom(int a) {
+    return a;
+}
+
+// ❌ Dấu chấm phẩy thừa trong khai báo tham số
+func int extraSemicolon(int a;; int b) {
+    return a + b;
+}
+
+// ❌ Quên từ khóa func
+int missingFuncKeyword(int a, int b) {
+    return a + b;
+}
+
+// ❌ Sai cú pháp dấu phẩy tham số
+func int badComma(int a int b) {
+    return a + b;
+}
+
+// ❌ Truyền sai kiểu dữ liệu khi gọi hàm (nếu kiểm semantic)
+func int callError(int a) {
+    return greet(123); // gọi greet() nhưng truyền số thay vì chuỗi
+}
+
+// ❌ Dùng toán tử lạ
+func int strangeOp(int a, int b) {
+    return a $ b;
+}
