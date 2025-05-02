@@ -32,6 +32,33 @@ class SymbolTableVisitor(syntaxVisitor):
                 return scope[name]
         return None
 
+    def update(self, name, new_value):
+        for scope in reversed(self.scopes):
+            if name in scope:
+                symbol = scope[name]
+                if isinstance(symbol, dict):
+                    symbol['value'] = new_value
+                    return True
+                else:
+                    print(f"[Error] Symbol '{name}' does not support value update (not a dict).")
+                    return False
+        print(f"[Error] Symbol '{name}' not found for update.")
+        return False
+
+    # Get the current value of a symbol
+    def get_symbol_value(self, name):
+        symbol = self.lookup(name)
+        if symbol is not None and isinstance(symbol, dict) and 'value' in symbol:
+            return symbol['value']
+        return None
+
+    # Get the current type of a symbol
+    def get_symbol_type(self, name):
+        symbol = self.lookup(name)
+        if symbol is not None and isinstance(symbol, dict) and 'type' in symbol:
+            return symbol['type']
+        return None
+
     # Visit the entire program (entry point)
     def visitProgram(self, ctx: syntaxParser.ProgramContext):
         for stmt in ctx.statement():
@@ -58,3 +85,4 @@ class SymbolTableVisitor(syntaxVisitor):
         else:
             for name, value in scope.items():
                 print(f"  {name}: {value}")
+

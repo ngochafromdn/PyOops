@@ -12,15 +12,25 @@ class StatementAnalyzer(syntaxVisitor):
         line = ctx.start.line if line is None else line
         column = ctx.start.column if column is None else column
 
-        name = ctx.assignment().IDENTIFIER().getText()
-        value_type = self.visit(ctx.assignment().expression())
+        assign = ctx.assignment() 
+        name = ctx.assignment().IDENTIFIER().getText()        
+        # value_type = self.visit(ctx.assignment().expression())
         symbol = self.symbol_table.lookup(name)
         
         if symbol is None:
             print(f"[Error] Line {line}, Column {column}: Variable '{name}' not declared before assignment.")
-        elif symbol['type'] != value_type:
-            print(f"[Type Error] Line {line}, Column {column}: Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
-        return value_type
+        # elif symbol['type'] != value_type:
+        #     print(f"[Type Error] Line {line}, Column {column}: Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
+        # return value_type
+        else: 
+            if assign.expression(): 
+                value_type = self.expr_analyzer.visit(assign.expression())
+                print("Value:", assign.expression().getText(), "Type:", value_type)
+                if value_type != symbol['type']:
+                    print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
+                else: 
+                    self.symbol_table.update(name, assign.expression())
+
 
     def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext, line=None, column=None):
         line = ctx.start.line if line is None else line

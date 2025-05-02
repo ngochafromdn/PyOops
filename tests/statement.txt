@@ -1,3 +1,5 @@
+int i;
+i = 19;
 int[] dm = [];
 
 int[] huhu = [1]; 
