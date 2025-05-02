@@ -27,7 +27,7 @@ class StatementAnalyzer(syntaxVisitor):
                 value_type = self.expr_analyzer.visit(assign.expression())
                 print("Value:", assign.expression().getText(), "Type:", value_type)
                 if value_type != symbol['type']:
-                    print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
+                    print(f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'")
                 else: 
                     self.symbol_table.update(name, assign.expression())
 
