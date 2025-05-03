@@ -50,13 +50,13 @@ class ExpressionAnalyzer(syntaxVisitor):
 
     
 
-    # def visitIdExpr(self, ctx: syntaxParser.IdExprContext):
-    #     name = ctx.IDENTIFIER().getText()
-    #     value = self.symbol_table.get(name)
-    #     if value is None:
-    #         logger.error(f"[Error] Undefined variable '{name}'")
-    #         return None
-    #     return value
+    def visitIdExpr(self, ctx: syntaxParser.IdExprContext):
+        name = ctx.IDENTIFIER().getText()
+        value = self.symbol_table.lookup(name)
+        if value is None:
+            logger.error(f"[Error] Undefined variable '{name}'")
+            return None
+        return value
 
     # def visitAddSubExpr(self, ctx: syntaxParser.AddSubExprContext):
     #     left = self.visit(ctx.expression(0))
@@ -95,21 +95,24 @@ class ExpressionAnalyzer(syntaxVisitor):
 
     #     return left and right if op == 'and' else left or right
 
-    # def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
-    #     left = self.visit(ctx.expression(0))
-    #     right = self.visit(ctx.expression(1))
-    #     op = ctx.getChild(1).getText()
+    def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
+        left = self.visit(ctx.expression(0))['type']
+        right = self.visit(ctx.expression(1))
+        op = ctx.getChild(1).getText()
 
-    #     allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
-    #     if op not in allowed_ops:
-    #         logger.error(f"Unsupported comparison operator: {op}")
-    #         return None
+        allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
+        if op not in allowed_ops:
+            logger.error(f"Unsupported comparison operator: {op}")
+            return None
 
-    #     try:
-    #         return eval(f"{repr(left)} {op} {repr(right)}")
-    #     except Exception as e:
-    #         logger.error(f"Comparison error: {e}")
-    #         return None
+        try:
+            # print("LEFT: ", left)
+            # print("OP: ", op)
+            # print("RIGHT: ", right)
+            return eval(f"{repr(left)} {op} {repr(right)}")
+        except Exception as e:
+            logger.error(f"Comparison error: {e}")
+            return None
 
     # def visitNotExpr(self, ctx: syntaxParser.NotExprContext):
     #     value = self.visit(ctx.expression())

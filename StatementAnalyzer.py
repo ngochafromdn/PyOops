@@ -4,9 +4,10 @@ from SymbolTableVisitor import SymbolTableVisitor
 from ExpressionAnalyzer import ExpressionAnalyzer
 
 class StatementAnalyzer(syntaxVisitor):
-    def __init__(self, symbol_table, expr_analyzer):
+    def __init__(self, symbol_table):
         self.symbol_table = symbol_table
-        self.expr_analyzer = ExpressionAnalyzer(symbol_table)
+        # self.expr_analyzer = ExpressionAnalyzer(symbol_table)
+        self.expr_analyzer = ExpressionAnalyzer(self.symbol_table)
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext, line=None, column=None):
         line = ctx.start.line if line is None else line
@@ -22,9 +23,11 @@ class StatementAnalyzer(syntaxVisitor):
         # elif symbol['type'] != value_type:
         #     print(f"[Type Error] Line {line}, Column {column}: Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
         # return value_type
+        
         else: 
             if assign.expression(): 
                 value_type = self.expr_analyzer.visit(assign.expression())
+                print("Value:", assign.expression().getText(), "Type:", value_type)
                 if value_type != symbol['type']:
                     print(f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'")
                 else: 
@@ -43,9 +46,8 @@ class StatementAnalyzer(syntaxVisitor):
 
         if var_decl.expression():
             value_type = self.expr_analyzer.visit(var_decl.expression())
-            if var_decl.expression().getText():
-                self.symbol_table.update(identifier, var_decl.expression().getText())
-                
+            print("Value:", var_decl.expression().getText(), "Type:", value_type)
+
             if value_type != declared_type:
                 print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
 

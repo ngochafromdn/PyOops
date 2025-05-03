@@ -55,10 +55,11 @@ try:
     # semantic_analyzer = SemanticAnalyzer()
     # semantic_analyzer.visit(tree)
     # print("\n✅ Phân tích ngữ nghĩa thành công!")
-    expr = ExpressionAnalyzer(symbol_table_visitor)
-    expr.visit(tree)
-    statement = StatementAnalyzer(symbol_table_visitor, expr)
+    # expr = ExpressionAnalyzer(symbol_table_visitor)
+    
+    statement = StatementAnalyzer(symbol_table_visitor)
     statement.visit(tree)
+    # expr.visit(tree)
     
     # Print symbol table
     print("Symbol Table-------------------")    
