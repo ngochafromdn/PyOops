@@ -7,7 +7,7 @@ class StatementAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
         self.symbol_table = symbol_table
         # self.expr_analyzer = ExpressionAnalyzer(symbol_table)
-        self.expr_analyzer = ExpressionAnalyzer(self.symbol_table)
+        self.expr_analyzer = ExpressionAnalyzer(symbol_table)
 
     def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext, line=None, column=None):
         line = ctx.start.line if line is None else line
@@ -96,24 +96,82 @@ class StatementAnalyzer(syntaxVisitor):
     #     # Define the new type in the global scope
     #     self.symbol_table.define(typename, {'type': 'struct', 'fields': fields})
     #     return self.visitChildren(ctx)
-
-    def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
-        for expr in ctx.expression():
-            condition_type = self.expr_analyzer.visit(expr)
-            if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
-                print(f"[Type Error] Condition in if/elif must be 'bool' or comparison expression.")
-        # return self.visitChildren(ctx)
-
-    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
-        condition_type = self.expr_analyzer.visit(ctx.expression())
-        if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
-            print(f"[Type Error] While-loop condition must be 'bool' or comparison expression.")
     
-    def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
-        self.visit(ctx.expression())  # No type requirement for print
-        return None
+    def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext, line=None, column=None):
+        line = ctx.start.line if line is None else line
+        column = ctx.start.column if column is None else column
 
-    def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
-        self.visit(ctx.block(0))  # try block
-        self.visit(ctx.block(1))  # except block
-        return None
+        expressions = ctx.expression()  # conditions
+        blocks = ctx.block()            
+
+        # visit each block in if
+        for i in range(len(expressions)):
+            cond_expr = expressions[i]
+            cond_type = self.expr_analyzer.visit(cond_expr)
+            print("Value:", cond_expr.getText(), "Type:", cond_type)
+
+            if cond_type != 'bool':
+                print(f"[Type Error] Line {line}, Column {column}: Condition in if/elif must be 'bool'. Got '{cond_type}' instead.")
+            
+            
+            self.symbol_table.push_scope()
+            self.visit(blocks[i])
+            self.symbol_table.pop_scope()
+
+        # visit else block
+        if len(blocks) > len(expressions):
+            self.symbol_table.push_scope()
+            self.visit(blocks[-1])
+            self.symbol_table.pop_scope()
+
+    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext, line=None, column=None):
+        line = ctx.start.line if line is None else line
+        column = ctx.start.column if column is None else column
+
+        cond_type = self.expr_analyzer.visit(ctx.expression())
+        print("Value:", ctx.expression().getText(), "Type:", cond_type)
+
+        if cond_type != 'bool':
+            print(f"[Type Error] Line {line}, Column {column}: While-loop condition must be 'bool'. Got '{cond_type}' instead.")
+
+        self.symbol_table.push_scope()
+        self.visit(ctx.block())
+        self.symbol_table.pop_scope() 
+
+    def visitPrint_stmt(self, ctx: syntaxParser.Print_stmtContext):
+        expr_ctx = ctx.expression()
+        expr_type = self.expr_analyzer.visit(expr_ctx)
+
+        print("Value:", ctx.expression().getText(), "Type:", expr_type)
+
+    def visitTry_stmt(self, ctx: syntaxParser.Try_stmtContext):
+        try:
+            print("Entering try block") # print to debug
+            self.visit(ctx.block(0))  # try block
+        except Exception as e:
+            print(f"Exception caught in try block: {e}")
+            if ctx.block(1):  
+                print("Entering except block") # print to debug
+                self.visit(ctx.block(1))  # except block
+
+    # def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
+    #     for expr in ctx.expression():
+    #         condition_type = self.expr_analyzer.visit(expr)
+    #         if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
+    #             print(f"[Type Error] Condition in if/elif must be 'bool' or comparison expression.")
+
+
+    # def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
+    #     condition_type = self.expr_analyzer.visit(ctx.expression())
+    #     if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
+    #         print(f"[Type Error] While-loop condition must be 'bool' or comparison expression.")
+
+    # def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
+    #     self.visit(ctx.expression())  # No type requirement for print
+    #     return None
+
+    # def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
+    #     self.visit(ctx.block(0))  # try block
+    #     self.visit(ctx.block(1))  # except block
+    #     return None
+

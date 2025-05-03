@@ -155,7 +155,7 @@ return_stmt
     
 // Try / Except
 try_stmt
-    : 'try' block ('except' block)  
+    : TRY block (EXCEPT block)  
     ;
     
 // New type (Struct)

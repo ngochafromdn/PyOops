@@ -56,8 +56,43 @@ class ExpressionAnalyzer(syntaxVisitor):
         if value is None:
             logger.error(f"[Error] Undefined variable '{name}'")
             return None
-        return value
+        return value['type']
+    
+    def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
+        left_type = self.visit(ctx.expression(0))
+        right_type = self.visit(ctx.expression(1))
+        op = ctx.getChild(1).getText()
 
+        allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
+        if op not in allowed_ops:
+            logger.error(f"Unsupported comparison operator: {op}")
+            return None
+
+        if left_type != right_type:
+            logger.error(f"[Type Error] Cannot compare '{left_type}' with '{right_type}'")
+            return None
+
+        return 'bool'
+    
+    # def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
+    #     left = self.visit(ctx.expression(0))['type']
+    #     right = self.visit(ctx.expression(1))
+    #     op = ctx.getChild(1).getText()
+
+    #     allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
+    #     if op not in allowed_ops:
+    #         logger.error(f"Unsupported comparison operator: {op}")
+    #         return None
+
+    #     try:
+    #         # print("LEFT: ", left)
+    #         # print("OP: ", op)
+    #         # print("RIGHT: ", right)
+    #         return eval(f"{repr(left)} {op} {repr(right)}")
+    #     except Exception as e:
+    #         logger.error(f"Comparison error: {e}")
+    #         return None
+        
     # def visitAddSubExpr(self, ctx: syntaxParser.AddSubExprContext):
     #     left = self.visit(ctx.expression(0))
     #     right = self.visit(ctx.expression(1))
@@ -95,24 +130,7 @@ class ExpressionAnalyzer(syntaxVisitor):
 
     #     return left and right if op == 'and' else left or right
 
-    def visitCompExpr(self, ctx: syntaxParser.CompExprContext):
-        left = self.visit(ctx.expression(0))['type']
-        right = self.visit(ctx.expression(1))
-        op = ctx.getChild(1).getText()
 
-        allowed_ops = {'==', '!=', '<', '<=', '>', '>='}
-        if op not in allowed_ops:
-            logger.error(f"Unsupported comparison operator: {op}")
-            return None
-
-        try:
-            # print("LEFT: ", left)
-            # print("OP: ", op)
-            # print("RIGHT: ", right)
-            return eval(f"{repr(left)} {op} {repr(right)}")
-        except Exception as e:
-            logger.error(f"Comparison error: {e}")
-            return None
 
     # def visitNotExpr(self, ctx: syntaxParser.NotExprContext):
     #     value = self.visit(ctx.expression())
