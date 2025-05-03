@@ -3,7 +3,8 @@ int i;
 float f = 0.0;
 char ch = 'z';
 str s = "initial";
-
+i = 1;
+i = 2;
 
 // Edge values
 int minInt = -2147483648;

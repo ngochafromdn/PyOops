@@ -49,6 +49,7 @@ class SymbolTableVisitor(syntaxVisitor):
     def get_symbol_value(self, name):
         symbol = self.lookup(name)
         if symbol is not None and isinstance(symbol, dict) and 'value' in symbol:
+            print(symbol['value'] + "My value")
             return symbol['value']
         return None
 
@@ -83,6 +84,6 @@ class SymbolTableVisitor(syntaxVisitor):
         if not scope:
             print("  (empty scope)")
         else:
-            for name, value in scope.items():
-                print(f"  {name}: {value}")
+            for name_of_identifier, dict_value in scope.items():
+                print(f"  {name_of_identifier}: {dict_value}")
 

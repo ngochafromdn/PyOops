@@ -29,7 +29,7 @@ class StatementAnalyzer(syntaxVisitor):
                 if value_type != symbol['type']:
                     print(f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'")
                 else: 
-                    self.symbol_table.update(name, assign.expression())
+                    self.symbol_table.update(name, assign.expression().getText())
 
 
     def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext, line=None, column=None):
