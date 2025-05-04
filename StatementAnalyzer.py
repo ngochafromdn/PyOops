@@ -27,7 +27,6 @@ class StatementAnalyzer(syntaxVisitor):
         else: 
             if assign.expression(): 
                 value_type = self.expr_analyzer.visit(assign.expression())
-                print("Value:", assign.expression().getText(), "Type:", value_type)
                 if value_type != symbol['type']:
                     print(f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'")
                 else: 
@@ -46,7 +45,9 @@ class StatementAnalyzer(syntaxVisitor):
 
         if var_decl.expression():
             value_type = self.expr_analyzer.visit(var_decl.expression())
-            print("Value:", var_decl.expression().getText(), "Type:", value_type)
+            # print("Value:", var_decl.expression().getText(), "Type:", value_type)
+            if var_decl.expression().getText():
+                self.symbol_table.update(identifier, var_decl.expression().getText())
 
             if value_type != declared_type:
                 print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
