@@ -55,7 +55,7 @@ char anotherWrong = "string"; // Error
 str yetAnotherWrong = 'c'; // Error
 
 // Wrong element type in array
-int[] badArray = [1, 2, "oops"]; // Error
+int[] badArray = [1, 2, "oops"]; // Error, chua handle
 
 // Invalid character literals
 char invalidChar = 'ab'; // Error
@@ -74,7 +74,7 @@ i = "hello"; // Error
 s = 42; // Error
 
 // Overflow Error (optional if you want)
-int huge = 9999999999999999; // Error
+int huge = 9999999999999999; // Error -> Chua handle. handle sau bang runtime
 
 // Void variable declaration
 void notAllowed; // Error
