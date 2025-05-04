@@ -97,36 +97,32 @@ class StatementAnalyzer(syntaxVisitor):
     #     self.symbol_table.define(typename, {'type': 'struct', 'fields': fields})
     #     return self.visitChildren(ctx)
     
-    def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext, line=None, column=None):
-        line = ctx.start.line if line is None else line
-        column = ctx.start.column if column is None else column
+        def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
+            line = ctx.start.line
+            column = ctx.start.column
 
-        expressions = ctx.expression()  # conditions
-        blocks = ctx.block()            
+            expressions = ctx.expression()
+            blocks = ctx.block()
 
-        # visit each block in if
-        for i in range(len(expressions)):
-            cond_expr = expressions[i]
-            cond_type = self.expr_analyzer.visit(cond_expr)
-            print("Value:", cond_expr.getText(), "Type:", cond_type)
+            for i, cond_expr in enumerate(expressions):
+                cond_type = self.expr_analyzer.visit(cond_expr)
+                print("Value:", cond_expr.getText(), "Type:", cond_type)
 
-            if cond_type != 'bool':
-                print(f"[Type Error] Line {line}, Column {column}: Condition in if/elif must be 'bool'. Got '{cond_type}' instead.")
-            
-            
-            self.symbol_table.push_scope()
-            self.visit(blocks[i])
-            self.symbol_table.pop_scope()
+                if cond_type != 'bool':
+                    print(f"[Type Error] Line {line}, Column {column}: Condition in if/elif must be 'bool'. Got '{cond_type}' instead.")
 
-        # visit else block
-        if len(blocks) > len(expressions):
-            self.symbol_table.push_scope()
-            self.visit(blocks[-1])
-            self.symbol_table.pop_scope()
+                self.symbol_table.push_scope()
+                self.visit(blocks[i])
+                self.symbol_table.pop_scope()
 
-    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext, line=None, column=None):
-        line = ctx.start.line if line is None else line
-        column = ctx.start.column if column is None else column
+            if len(blocks) > len(expressions):
+                self.symbol_table.push_scope()
+                self.visit(blocks[-1])
+                self.symbol_table.pop_scope()
+
+    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
+        line = ctx.start.line
+        column = ctx.start.column
 
         cond_type = self.expr_analyzer.visit(ctx.expression())
         print("Value:", ctx.expression().getText(), "Type:", cond_type)
@@ -136,7 +132,7 @@ class StatementAnalyzer(syntaxVisitor):
 
         self.symbol_table.push_scope()
         self.visit(ctx.block())
-        self.symbol_table.pop_scope() 
+        self.symbol_table.pop_scope()
 
     def visitPrint_stmt(self, ctx: syntaxParser.Print_stmtContext):
         expr_ctx = ctx.expression()
