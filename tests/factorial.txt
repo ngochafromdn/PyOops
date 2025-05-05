@@ -1,0 +1,26 @@
+// Factorial function using recursion
+// This function calculates n! = n * (n-1) * (n-2) * ... * 1
+
+func int factorial(int n) {
+    // Base case: factorial of 0 or 1 is 1
+    if (n <= 1) {
+        return 1;
+    }
+    
+    // Recursive case: n! = n * (n-1)!
+    return n * factorial(n - 1);
+}
+
+// Test the factorial function
+print("Testing factorial function");
+print("factorial(0) = ");
+print(factorial(0));  // Should output 1
+
+print("factorial(1) = ");
+print(factorial(1));  // Should output 1
+
+print("factorial(5) = ");
+print(factorial(5));  // Should output 120
+
+print("factorial(10) = ");
+print(factorial(10)); // Should output 3628800
