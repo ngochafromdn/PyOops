@@ -1,0 +1,26 @@
+// Test Array Handling
+// This script tests int, char, and string arrays
+
+// Int array declaration and access
+int[] numbers = [1, 2, 3, 4, 5];
+print(numbers);
+print(numbers[0]);
+print(numbers[4]);
+
+// Char array declaration and access
+char[] vowels = ['a', 'e', 'i', 'o', 'u'];
+print(vowels);
+print(vowels[2]);
+
+// String array declaration and access
+str[] names = ["Alice", "Bob", "Charlie"];
+print(names);
+print(names[1]);
+
+// Test array in expressions
+int x = numbers[2] + numbers[3];
+print(x);
+
+// Test combining different types of arrays
+str message = names[0] + " knows " + vowels[1];
+print(message);

@@ -1,4 +1,4 @@
-# Fixed RuntimeVisitor.py - Key parts for handling return statements
+# Fixed RuntimeVisitor.py - with improved array handling
 from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 import sys
@@ -117,8 +117,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Just store function definition - this is already done in semantics phase
         return None
     
-    
-        # Fixed function call and return handling in RuntimeVisitor
+    # Fixed function call and return handling in RuntimeVisitor
     def visitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
@@ -215,21 +214,6 @@ class RuntimeVisitor(syntaxVisitor):
             
         return None
 
-    def visitPrintStmt(self, ctx:syntaxParser.PrintStmtContext):
-        # Get the expression directly
-        expr = None
-        if ctx.print_stmt() and ctx.print_stmt().expression():
-            expr = ctx.print_stmt().expression()
-        elif hasattr(ctx, 'expression') and ctx.expression():
-            expr = ctx.expression()
-        
-        if expr:
-            # Execute the expression and print the result
-            expr_value = self.visit(expr)
-            self.output.append(str(expr_value))
-        
-        return None
-
     # Make sure the if statement visitor correctly handles conditions and blocks
     def visitIfStmt(self, ctx:syntaxParser.IfStmtContext):
         if ctx is None:
@@ -264,7 +248,7 @@ class RuntimeVisitor(syntaxVisitor):
         
         return None
 
-# Add this comprehensive method for handling blocks
+    # Add this comprehensive method for handling blocks
     def visitBlock(self, ctx:syntaxParser.BlockContext):
         if ctx is None:
             return None
@@ -283,7 +267,6 @@ class RuntimeVisitor(syntaxVisitor):
                 break
                 
         return None
-    
     
     def visitWhileStmt(self, ctx:syntaxParser.WhileStmtContext):
         if ctx is None or ctx.while_stmt() is None:
@@ -339,6 +322,150 @@ class RuntimeVisitor(syntaxVisitor):
         self.break_flag = True
         return None
     
+    # Improved array handling methods
+    
+    # Fix for int arrays
+    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
+        if ctx is None:
+            return None
+            
+        result = []
+        # Get all NUMBER tokens - make sure ctx.NUMBER() is available
+        if hasattr(ctx, 'NUMBER') and callable(getattr(ctx, 'NUMBER')):
+            number_tokens = ctx.NUMBER()
+            for number_token in number_tokens:
+                text = number_token.getText()
+                # Convert to appropriate numeric type
+                if '.' in text:
+                    value = float(text)
+                else:
+                    value = int(text)
+                result.append(value)
+        else:
+            # Alternative approach - parse the array from text directly
+            text = ctx.getText()
+            if text.startswith('[') and text.endswith(']'):
+                content = text[1:-1].strip()
+                if content:
+                    items = content.split(',')
+                    for item in items:
+                        num_str = item.strip()
+                        if '.' in num_str:
+                            result.append(float(num_str))
+                        else:
+                            result.append(int(num_str))
+                            
+        return result
+    
+    # Fix for char arrays
+    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        if ctx is None:
+            return None
+                
+        # Process character array literals
+        result = []
+        
+        # Get all CHARACTER tokens
+        if hasattr(ctx, 'CHARACTER') and callable(getattr(ctx, 'CHARACTER')):
+            character_tokens = ctx.CHARACTER()
+            for char_token in character_tokens:
+                text = char_token.getText()
+                # Remove quotes from character literal
+                value = text[1:-1]  # Remove the surrounding quotes
+                result.append(value)
+        else:
+            # Alternative approach - parse from text directly
+            full_text = ctx.getText()
+            # Strip the outer brackets
+            if full_text.startswith('[') and full_text.endswith(']'):
+                content = full_text[1:-1].strip()
+                # Split by commas but respect quoted strings
+                if content:
+                    parts = []
+                    in_quotes = False
+                    current = ""
+                    for char in content:
+                        if char == "'" and (len(current) == 0 or current[-1] != '\\'):
+                            in_quotes = not in_quotes
+                            if not in_quotes:  # Just exited a quote
+                                parts.append(current)
+                                current = ""
+                            continue
+                        elif char == ',' and not in_quotes:
+                            # End of an item
+                            if current.strip():
+                                parts.append(current.strip())
+                            current = ""
+                        else:
+                            current += char
+                    
+                    # Add the last item if there is one
+                    if current.strip():
+                        parts.append(current.strip())
+                    
+                    # Process the parts
+                    for part in parts:
+                        if part.startswith("'") and part.endswith("'"):
+                            result.append(part[1:-1])  # Remove quotes
+                        else:
+                            result.append(part)
+        
+        return result
+    
+    # Fix for string arrays
+    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
+        if ctx is None:
+            return None
+            
+        # Process string array literals
+        result = []
+        
+        # Get all STRING tokens
+        if hasattr(ctx, 'STRING') and callable(getattr(ctx, 'STRING')):
+            string_tokens = ctx.STRING()
+            for string_token in string_tokens:
+                text = string_token.getText()
+                # Remove quotes
+                value = text[1:-1]
+                result.append(value)
+        else:
+            # Alternative approach - parse from text directly
+            text = ctx.getText()
+            if text.startswith('[') and text.endswith(']'):
+                content = text[1:-1].strip()
+                # Need to handle quoted strings properly
+                if content:
+                    parts = []
+                    in_quotes = False
+                    current = ""
+                    for char in content:
+                        if char == '"' and (len(current) == 0 or current[-1] != '\\'):
+                            in_quotes = not in_quotes
+                            if not in_quotes:  # Just exited a quote
+                                parts.append(current)
+                                current = ""
+                            continue
+                        elif char == ',' and not in_quotes:
+                            # End of an item
+                            if current.strip():
+                                parts.append(current.strip())
+                            current = ""
+                        else:
+                            current += char
+                    
+                    # Add the last item if there is one
+                    if current.strip():
+                        parts.append(current.strip())
+                    
+                    # Process the parts
+                    for part in parts:
+                        if part.startswith('"') and part.endswith('"'):
+                            result.append(part[1:-1])  # Remove quotes
+                        else:
+                            result.append(part)
+                
+        return result
+        
     def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
         if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
             return None
@@ -348,7 +475,6 @@ class RuntimeVisitor(syntaxVisitor):
         
         # Find the array in symbol table
         symbol = self.symbol_table.lookup(array_name)
-        print(symbol)
         if not symbol:
             self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
             return None
@@ -359,42 +485,34 @@ class RuntimeVisitor(syntaxVisitor):
         # If it's a string representation of a list, convert it to a proper list
         if isinstance(array_value, str) and array_value.startswith('[') and array_value.endswith(']'):
             try:
+                # Parse string format to actual list
                 content = array_value[1:-1].strip()
-                elements = []
-                
-                # Parse the array content character by character
-                i = 0
-                while i < len(content):
-                    # Skip whitespace
-                    if content[i].isspace():
-                        i += 1
-                        continue
-                    
-                    # Look for single quoted strings for character arrays
-                    if content[i] == "'":
-                        start = i
-                        i += 1
-                        # Find the closing quote
-                        while i < len(content) and content[i] != "'":
-                            i += 1
-                        if i < len(content):
-                            # Extract the character without quotes
-                            char_value = content[start+1:i]
-                            elements.append(char_value)
-                            i += 1
+                if not content:  # Empty array
+                    array_value = []
+                else:
+                    # Split by comma and convert elements based on array type
+                    items = content.split(',')
+                    array_value = []
+                    for item in items:
+                        item = item.strip()
+                        # Try to determine the type
+                        if item.startswith("'") and item.endswith("'"):
+                            # Char type
+                            array_value.append(item[1:-1])
+                        elif item.startswith('"') and item.endswith('"'):
+                            # String type
+                            array_value.append(item[1:-1])
                         else:
-                            # Unterminated string
-                            self.output.append(f"[Runtime Error] Unterminated string in array.")
-                            return None
-                    
-                    # Skip commas
-                    elif content[i] == ',':
-                        i += 1
-                    else:
-                        # For other types (numbers, etc.)
-                        i += 1
+                            # Number type
+                            try:
+                                if '.' in item:
+                                    array_value.append(float(item))
+                                else:
+                                    array_value.append(int(item))
+                            except ValueError:
+                                # If can't convert to number, keep as is
+                                array_value.append(item)
                 
-                array_value = elements
                 # Update the symbol table
                 self.symbol_table.update(array_name, {'value': array_value})
             except Exception as e:
@@ -549,126 +667,55 @@ class RuntimeVisitor(syntaxVisitor):
         if ctx is None:
             return None
             
-        # Handle simple case with just one add_expr
-        if len(ctx.add_expr()) == 1:
-            return self.visit(ctx.add_expr(0))
+        # Get all add_expr children
+        add_expressions = ctx.add_expr()
+        if not add_expressions or len(add_expressions) == 0:
+            return None
             
-        left = self.visit(ctx.add_expr(0))
-        right = self.visit(ctx.add_expr(1))
-        op = ctx.getChild(1).getText()
+        # If only one add_expr, just visit it
+        if len(add_expressions) == 1:
+            return self.visit(add_expressions[0])
         
-        if op == '==':
-            return left == right
-        elif op == '!=':
-            return left != right
-        elif op == '<':
-            return left < right
-        elif op == '<=':
-            return left <= right
-        elif op == '>':
-            return left > right
-        elif op == '>=':
-            return left >= right
-        else:
-            self.output.append(f"[Runtime Error] Unknown comparison operator: {op}")
-            return None
-    
-    def visitLogicExpr(self, ctx:syntaxParser.LogicExprContext):
-        if ctx is None:
-            return None
-            
-        # Handle simple case with just one comp_expr
-        if len(ctx.comp_expr()) == 1:
-            return self.visit(ctx.comp_expr(0))
-            
-        left = self.visit(ctx.comp_expr(0))
-        op = ctx.getChild(1).getText()
+        # Get comparison operators
+        operators = []
+        for i in range(ctx.getChildCount()):
+            child = ctx.getChild(i)
+            if child.getText() in ['<', '<=', '>', '>=', '==', '!=']:
+                operators.append(child.getText())
         
-        # Short-circuit evaluation
-        if op == 'and':
-            if not left:
-                return False
-            return bool(self.visit(ctx.comp_expr(1)))
-        else:  # op == 'or'
-            if left:
-                return True
-            return bool(self.visit(ctx.comp_expr(1)))
-    
-    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
-        if ctx is None:
-            return None
+        # Evaluate the first expression
+        left = self.visit(add_expressions[0])
+        
+        # Apply operators
+        for i in range(len(operators)):
+            op = operators[i]
+            right = self.visit(add_expressions[i+1])
             
-        # Process int array literals
-        result = []
-        for number_ctx in ctx.NUMBER():
-            text = number_ctx.getText()
-            if '.' in text:
-                value = float(text)
+            if op == '<':
+                result = left < right
+            elif op == '<=':
+                result = left <= right
+            elif op == '>':
+                result = left > right
+            elif op == '>=':
+                result = left >= right
+            elif op == '==':
+                result = left == right
+            elif op == '!=':
+                result = left != right
             else:
-                value = int(text)
-            result.append(value)
-        return result
-    
-    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
-        if ctx is None:
-            return None
+                self.output.append(f"[Runtime Error] Unknown comparison operator: {op}")
+                return None
                 
-        # Process character array literals
-        result = []
-        
-        # This is the critical part - need to get all CHARACTER tokens
-        # If ctx.CHARACTER() method exists and returns tokens:
-        if hasattr(ctx, 'CHARACTER') and callable(getattr(ctx, 'CHARACTER')):
-            character_tokens = ctx.CHARACTER()
-            for char_token in character_tokens:
-                text = char_token.getText()
-                # Remove quotes from character literal
-                value = text[1:-1]  # Remove the surrounding quotes
-                result.append(value)
-        else:
-            # Alternative approach - try to parse from text directly
-            full_text = ctx.getText()
-            # Strip the outer brackets
-            if full_text.startswith('[') and full_text.endswith(']'):
-                content = full_text[1:-1]
-                # Split by commas but respect quoted strings
-                in_quotes = False
-                current = ""
-                for char in content:
-                    if char == "'" and (len(current) == 0 or current[-1] != '\\'):
-                        in_quotes = not in_quotes
-                        # Skip the quote character itself
-                        continue
-                    elif char == ',' and not in_quotes:
-                        # End of an item
-                        if current.strip():
-                            result.append(current.strip())
-                        current = ""
-                    else:
-                        current += char
+            # Combine results for chained comparisons
+            if i < len(operators) - 1:
+                if not result:
+                    return False
+                left = right
+            else:
+                return result
                 
-                # Add the last item if there is one
-                if current.strip():
-                    result.append(current.strip())
-        
         return result
-    
-    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
-        if ctx is None:
-            return None
-            
-        # Process string array literals
-        result = []
-        for string_ctx in ctx.STRING():
-            text = string_ctx.getText()
-            # Remove quotes
-            value = text[1:-1]
-            result.append(value)
-        return result
-        
-    # Default method for any unimplemented visitor methods
-    def defaultResult(self):
-        return None
 
     def visitLogicExpr(self, ctx:syntaxParser.LogicExprContext):
         if ctx is None:
@@ -708,36 +755,7 @@ class RuntimeVisitor(syntaxVisitor):
                 result = result or right
         
         return result
-
-    def visitCompExpr(self, ctx:syntaxParser.CompExprContext):
-        if ctx is None:
-            return None
-            
-        # Get all add_expr children
-        add_expressions = ctx.add_expr()
-        if not add_expressions or len(add_expressions) == 0:
-            return None
-            
-        # If only one add_expr, just visit it
-        if len(add_expressions) == 1:
-            return self.visit(add_expressions[0])
-        
-        # Get comparison operators
-        operators = []
-        for i in range(ctx.getChildCount()):
-            child = ctx.getChild(i)
-            if child.getText() in ['<', '<=', '>', '>=', '==', '!=']:
-                operators.append(child.getText())
-        
-        # Evaluate the first expression
-        left = self.visit(add_expressions[0])
-        
-        # Apply operators
-        for i in range(len(operators)):
-            op = operators[i]
-            right = self.visit(add_expressions[i+1])
-            
-            if op == '<':
-                result = left < right
-            elif op == '<=':
-                result
+    
+    # Default method for any unimplemented visitor methods
+    def defaultResult(self):
+        return None
