@@ -1,0 +1,33 @@
+int i = 5;
+if (i < 20) {
+    int a = 1; 
+    a = 2; 
+    // print("a", a);
+    if (i != 5)  {
+        int b = 1; 
+        print("b", b);
+        i = i + 2;
+    }
+    else {
+        i = i + 5; 
+    }
+}
+
+int i = 0; 
+while (i < 10) {
+    if (i == 8) {
+        int a = 16;
+        break;
+    }
+    print(i);
+    i = i + 1;
+}
+
+int x = 5;
+if (x < 3) {
+    print("less than 3");
+} else if (x == 5) {
+    print("x equals 5");
+} else {
+    print("something else");
+}

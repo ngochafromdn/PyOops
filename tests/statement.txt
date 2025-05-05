@@ -1,0 +1,8 @@
+int i;
+i = 19;
+int[] dm = [];
+int[] meomeo = [1,2,"???"];
+int[] huhu = [1]; 
+int[] = ["huhu"];
+int[] = [2, "huhu", 1];
+char[] x = ["string"];
