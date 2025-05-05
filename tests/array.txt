@@ -1,1 +1,2 @@
 char[] vowels = ['a', 'e', 'i', 'o', 'u'];
+print(vowels[1]);
