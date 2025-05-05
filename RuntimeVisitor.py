@@ -608,6 +608,70 @@ class RuntimeVisitor(syntaxVisitor):
                         
         return result
     
+    def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
+        """Handle try-except statements by properly executing try and except blocks."""
+        if ctx is None:
+            return None
+            
+        # Access the try and except blocks properly
+        # Based on the grammar: try_stmt: TRY block EXCEPT block;
+        try:
+            # Save current output state
+            output_before_try = list(self.output)
+            return_value_before = self.return_value
+            break_flag_before = self.break_flag
+            continue_flag_before = self.continue_flag
+            
+            # Execute try block with exception handling
+            try:
+                # The first block should be the try block
+                # In the parse tree, the structure is likely:
+                # TRY (index 0) -> block (index 1) -> EXCEPT (index 2) -> block (index 3)
+                if hasattr(ctx, 'try_stmt'):
+                    # If try_stmt is nested inside the context
+                    try_block = ctx.try_stmt().block(0)
+                else:
+                    # Direct access
+                    try_block = ctx.block(0)
+                    
+                if try_block:
+                    self.visit(try_block)
+            except Exception as e:
+                # If an exception occurs, restore state
+                self.output = output_before_try
+                self.return_value = return_value_before
+                self.break_flag = break_flag_before
+                self.continue_flag = continue_flag_before
+                
+                # Then execute the except block
+                if hasattr(ctx, 'try_stmt'):
+                    except_block = ctx.try_stmt().block(1)
+                else:
+                    except_block = ctx.block(1)
+                    
+                if except_block:
+                    self.visit(except_block)
+        except Exception as e:
+            # If there's an error in how we're accessing blocks, report it
+            self.output.append(f"[Try-except error: {str(e)}]")
+            
+            # Attempt an alternative approach: using direct tree structure
+            try:
+                # Try by direct children
+                try_keyword = ctx.getChild(0)  # TRY keyword
+                try_block = ctx.getChild(1)    # try block
+                except_keyword = ctx.getChild(2)  # EXCEPT keyword
+                except_block = ctx.getChild(3)    # except block
+                
+                try:
+                    self.visit(try_block)
+                except Exception as ex:
+                    self.output.append("[Exception caught in try block]")
+                    self.visit(except_block)
+            except Exception as ex2:
+                self.output.append(f"[Alternative try-except approach failed: {str(ex2)}]")
+        
+        return None
     def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
         if ctx is None:
             return None
