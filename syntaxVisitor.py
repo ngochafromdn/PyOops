@@ -74,6 +74,11 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by syntaxParser#FuncCallStmt.
+    def visitFuncCallStmt(self, ctx:syntaxParser.FuncCallStmtContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by syntaxParser#block.
     def visitBlock(self, ctx:syntaxParser.BlockContext):
         return self.visitChildren(ctx)
@@ -89,18 +94,8 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#StringExpr.
-    def visitStringExpr(self, ctx:syntaxParser.StringExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#TrueExpr.
-    def visitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#IdExpr.
-    def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
+    # Visit a parse tree produced by syntaxParser#expression.
+    def visitExpression(self, ctx:syntaxParser.ExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -114,18 +109,8 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#FalseExpr.
-    def visitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#CharExpr.
-    def visitCharExpr(self, ctx:syntaxParser.CharExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#CharArray.
-    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+    # Visit a parse tree produced by syntaxParser#AddSubExpr.
+    def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
         return self.visitChildren(ctx)
 
 
@@ -134,18 +119,8 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#IntArray.
-    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#StringArray.
-    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by syntaxParser#NumberExpr.
-    def visitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+    # Visit a parse tree produced by syntaxParser#UnaryMinusExpr.
+    def visitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
         return self.visitChildren(ctx)
 
 
@@ -154,18 +129,78 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by syntaxParser#PrimaryExpr.
+    def visitPrimaryExpr(self, ctx:syntaxParser.PrimaryExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by syntaxParser#ParenExpr.
     def visitParenExpr(self, ctx:syntaxParser.ParenExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#AddSubExpr.
-    def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+    # Visit a parse tree produced by syntaxParser#TrueExpr.
+    def visitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by syntaxParser#UnaryMinusExpr.
-    def visitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
+    # Visit a parse tree produced by syntaxParser#FalseExpr.
+    def visitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#ArrayAccessExpr.
+    def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#FuncCallExpr.
+    def visitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#IdExpr.
+    def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#NumberExpr.
+    def visitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#StringExpr.
+    def visitStringExpr(self, ctx:syntaxParser.StringExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#CharExpr.
+    def visitCharExpr(self, ctx:syntaxParser.CharExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#IntArray.
+    def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#CharArray.
+    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#StringArray.
+    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#function_call.
+    def visitFunction_call(self, ctx:syntaxParser.Function_callContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#arg_list.
+    def visitArg_list(self, ctx:syntaxParser.Arg_listContext):
         return self.visitChildren(ctx)
 
 

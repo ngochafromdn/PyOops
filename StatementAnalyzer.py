@@ -1,174 +1,302 @@
+# Fixed StatementAnalyzer.py
 from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
-from SymbolTableVisitor import SymbolTableVisitor
 from ExpressionAnalyzer import ExpressionAnalyzer
+import logging
+
+logger = logging.getLogger(__name__)
 
 class StatementAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
+        super().__init__()
         self.symbol_table = symbol_table
-        # self.expr_analyzer = ExpressionAnalyzer(symbol_table)
         self.expr_analyzer = ExpressionAnalyzer(symbol_table)
+        self.current_function = None
+        self.in_loop = False
+        self.errors = []
 
-    def visitAssignStmt(self, ctx: syntaxParser.AssignStmtContext, line=None, column=None):
-        line = ctx.start.line if line is None else line
-        column = ctx.start.column if column is None else column
+    def visitProgram(self, ctx:syntaxParser.ProgramContext):
+        self.symbol_table.reset_to_global()
+        for stmt in ctx.statement():
+            self.visit(stmt)
+        return None
+    
+    def visitBlockStmt(self, ctx:syntaxParser.BlockStmtContext):
+        # Create a new scope for this block
+        self.symbol_table.push_scope("Block")
+        for stmt in ctx.block().statement():
+            self.visit(stmt)
+        self.symbol_table.pop_scope()
+        return None
 
-        assign = ctx.assignment() 
-        name = ctx.assignment().IDENTIFIER().getText()        
-        # value_type = self.visit(ctx.assignment().expression())
+    def visitAssignStmt(self, ctx:syntaxParser.AssignStmtContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        assign = ctx.assignment()
+        name = assign.IDENTIFIER().getText()
         symbol = self.symbol_table.lookup(name)
         
         if symbol is None:
-            print(f"[Error] Line {line}, Column {column}: Variable '{name}' not declared before assignment.")
-        # elif symbol['type'] != value_type:
-        #     print(f"[Type Error] Line {line}, Column {column}: Cannot assign '{value_type}' to variable '{name}' of type '{symbol['type']}'")
-        # return value_type
+            error = f"[Error] Line {line}, Column {column}: Variable '{name}' not declared before assignment."
+            self.errors.append(error)
+            logger.error(error)
+            return None
         
-        else: 
-            if assign.expression(): 
-                value_type = self.expr_analyzer.visit(assign.expression())
-                if value_type != symbol['type']:
-                    print(f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'")
-                else: 
-                    self.symbol_table.update(name, assign.expression().getText())
+        if assign.expression():
+            value_type = self.expr_analyzer.visit(assign.expression())
+            if value_type != symbol['type'] and value_type is not None:
+                error = f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'"
+                self.errors.append(error)
+                logger.error(error)
+            else:
+                self.symbol_table.update(name, {'value': assign.expression().getText()})
+        return None
 
-
-    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext, line=None, column=None):
-        line = ctx.start.line if line is None else line
-        column = ctx.start.column if column is None else column
-
+    def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
+        line = ctx.start.line
+        column = ctx.start.column
         var_decl = ctx.variable_declaration()
         declared_type = var_decl.DATA_TYPE().getText()
         identifier = var_decl.IDENTIFIER().getText()
+
+        try:
+            self.symbol_table.define(identifier, {'type': declared_type, 'value': None}, line, column)
+        except ValueError as e:
+            error = str(e)
+            self.errors.append(error)
+            logger.error(error)
+            return None
         
-        self.symbol_table.define(identifier, {'type': declared_type})  # Record type info in symbol table
-
         if var_decl.expression():
-            value_type = self.expr_analyzer.visit(var_decl.expression())
-            # print("Value:", var_decl.expression().getText(), "Type:", value_type)
-            if var_decl.expression().getText():
-                self.symbol_table.update(identifier, var_decl.expression().getText())
+            evaluated_type = self.expr_analyzer.visit(var_decl.expression())
+            if evaluated_type is not None:
+                if evaluated_type == declared_type or (declared_type.endswith('[]') and evaluated_type == declared_type[:-2]):
+                    self.symbol_table.update(identifier, {'value': var_decl.expression().getText()})
+                else:
+                    error = f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{evaluated_type}'"
+                    self.errors.append(error)
+                    logger.error(error)
+            else:
+                error = f"[Error] Line {line}, Column {column}: Invalid expression in variable declaration."
+                self.errors.append(error)
+                logger.error(error)
+        return None
 
-            if value_type != declared_type:
-                print(f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{value_type}'")
-
-        # return self.visitChildren(ctx) 
-
-    # def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
-    #     func_name = ctx.IDENTIFIER().getText()
-    #     return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else "void"
-    #     params = []
-
-    #     if ctx.param_list():
-    #         for i in range(len(ctx.param_list().IDENTIFIER())):
-    #             pname = ctx.param_list().IDENTIFIER(i).getText()
-    #             ptype = ctx.param_list().DATA_TYPE(i).getText()
-    #             params.append({'name': pname, 'type': ptype})
-
-    #     self.define(func_name, {
-    #         'type': 'function',
-    #         'return_type': return_type,
-    #         'params': params
-    #     })
-
-    #     self.push_scope()
-    #     for param in params:
-    #         self.symbol_table.define(param['name'], {'type': param['type']})
-    #     self.visit(ctx.block())
-    #     self.pop_scope()
-    #     return None
-    
-    # def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
-    #     expr_type = self.visit(ctx.expression())
-    #     # You can store the expected return type in a stack if nested functions exist
-    #     return expr_type
-
-    # def visitType_defStatement(self, ctx: syntaxParser.Type_defStatementContext):
-    #     typename = ctx.IDENTIFIER().getText()
-    #     fields = {}
-    #     # Extract field types and names from the custom type block
-    #     for field in ctx.type_def_list():
-    #         type_token = field.DATA_TYPE()
-    #         if type_token:
-    #             type_name = type_token.getText()
-    #             name = field.IDENTIFIER().getText()
-    #             fields[name] = type_name
-
-    #     # Define the new type in the global scope
-    #     self.symbol_table.define(typename, {'type': 'struct', 'fields': fields})
-    #     return self.visitChildren(ctx)
-    
-        def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
-            line = ctx.start.line
-            column = ctx.start.column
-
-            expressions = ctx.expression()
-            blocks = ctx.block()
-
-            for i, cond_expr in enumerate(expressions):
-                cond_type = self.expr_analyzer.visit(cond_expr)
-                print("Value:", cond_expr.getText(), "Type:", cond_type)
-
-                if cond_type != 'bool':
-                    print(f"[Type Error] Line {line}, Column {column}: Condition in if/elif must be 'bool'. Got '{cond_type}' instead.")
-
-                self.symbol_table.push_scope()
-                self.visit(blocks[i])
-                self.symbol_table.pop_scope()
-
-            if len(blocks) > len(expressions):
-                self.symbol_table.push_scope()
-                self.visit(blocks[-1])
-                self.symbol_table.pop_scope()
-
-    def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
+    def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
         line = ctx.start.line
         column = ctx.start.column
-
-        cond_type = self.expr_analyzer.visit(ctx.expression())
-        print("Value:", ctx.expression().getText(), "Type:", cond_type)
-
-        if cond_type != 'bool':
-            print(f"[Type Error] Line {line}, Column {column}: While-loop condition must be 'bool'. Got '{cond_type}' instead.")
-
-        self.symbol_table.push_scope()
+        
+        func_name = ctx.IDENTIFIER().getText()
+        return_type = ctx.DATA_TYPE().getText() if ctx.DATA_TYPE() else 'void'
+        
+        if self.symbol_table.lookup(func_name):
+            error = f"[Error] Line {line}, Column {column}: Function '{func_name}' already defined."
+            self.errors.append(error)
+            logger.error(error)
+            return None
+        
+        params = []
+        if ctx.param_list():
+            param_types = ctx.param_list().DATA_TYPE()
+            param_names = ctx.param_list().IDENTIFIER()
+            
+            for i in range(len(param_types)):
+                param_type = param_types[i].getText()
+                param_name = param_names[i].getText()
+                params.append({'type': param_type, 'name': param_name})
+        
+        self.symbol_table.reset_to_global()
+        self.symbol_table.define(func_name, {
+            'type': 'function',
+            'return_type': return_type,
+            'params': params,
+            'body': ctx.block()
+        }, line, column)
+        
+        old_function = self.current_function
+        self.current_function = func_name
+        
+        self.symbol_table.push_scope(f"Function {func_name}")
+        for param in params:
+            self.symbol_table.define(param['name'], {'type': param['type'], 'value': None})
+        
         self.visit(ctx.block())
+        
         self.symbol_table.pop_scope()
+        self.current_function = old_function
+        
+        return None
 
-    def visitPrint_stmt(self, ctx: syntaxParser.Print_stmtContext):
-        expr_ctx = ctx.expression()
-        expr_type = self.expr_analyzer.visit(expr_ctx)
+    def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        # Direct access the expression
+        expr = ctx.print_stmt().expression()
+        
+        if not expr:
+            error = f"[Error] Line {line}, Column {column}: Print statement requires an expression."
+            self.errors.append(error)
+            logger.error(error)
+            return None
 
-        print("Value:", ctx.expression().getText(), "Type:", expr_type)
+        expr_type = self.expr_analyzer.visit(expr)
+        if expr_type is None:
+            error = f"[Type Error] Line {line}, Column {column}: Invalid expression in print statement."
+            self.errors.append(error)
+            logger.error(error)
 
-    def visitTry_stmt(self, ctx: syntaxParser.Try_stmtContext):
-        try:
-            print("Entering try block") # print to debug
-            self.visit(ctx.block(0))  # try block
-        except Exception as e:
-            print(f"Exception caught in try block: {e}")
-            if ctx.block(1):  
-                print("Entering except block") # print to debug
-                self.visit(ctx.block(1))  # except block
+        return None
 
-    # def visitIf_stmt(self, ctx: syntaxParser.If_stmtContext):
-    #     for expr in ctx.expression():
-    #         condition_type = self.expr_analyzer.visit(expr)
-    #         if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
-    #             print(f"[Type Error] Condition in if/elif must be 'bool' or comparison expression.")
+    def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        if not self.current_function:
+            error = f"[Error] Line {line}, Column {column}: Return statement outside of function."
+            self.errors.append(error)
+            logger.error(error)
+            return None
+        
+        func_info = self.symbol_table.lookup(self.current_function)
+        if not func_info:
+            error = f"[Error] Line {line}, Column {column}: Cannot find function '{self.current_function}'."
+            self.errors.append(error)
+            logger.error(error)
+            return None
+        
+        return_type = func_info.get('return_type', 'void')
+        
+        # Access the expression directly
+        expr = ctx.return_stmt().expression() if hasattr(ctx, 'return_stmt') and ctx.return_stmt() else None
+        if not expr:
+            # If no expression but non-void function
+            if return_type != 'void':
+                error = f"[Type Error] Line {line}, Column {column}: Missing return value for non-void function '{self.current_function}'."
+                self.errors.append(error)
+                logger.error(error)
+            return None
+            
+        # Check expression type
+        expr_type = self.expr_analyzer.visit(expr)
+        if return_type == 'void':
+            error = f"[Type Error] Line {line}, Column {column}: Cannot return a value from a void function."
+            self.errors.append(error)
+            logger.error(error)
+        elif expr_type != return_type:
+            error = f"[Type Error] Line {line}, Column {column}: Return type mismatch: expected '{return_type}', got '{expr_type}'."
+            self.errors.append(error)
+            logger.error(error)
+            
+        return None
 
+    def visitIfStmt(self, ctx: syntaxParser.IfStmtContext):
+        # Extract and analyze condition directly from if_stmt rule
+        if_stmt_ctx = ctx.if_stmt()
+        if not if_stmt_ctx:
+            return None
+            
+        # Check all expressions in the if-else chain
+        for i in range(if_stmt_ctx.getChildCount()):
+            child = if_stmt_ctx.getChild(i)
+            if isinstance(child, syntaxParser.ExpressionContext):
+                condition_type = self.expr_analyzer.visit(child)
+                if condition_type != 'bool':
+                    line = child.start.line
+                    column = child.start.column
+                    error = f"[Type Error] Line {line}, Column {column}: If condition must be boolean, got '{condition_type}'"
+                    self.errors.append(error)
+                    logger.error(error)
+        
+        # Visit all blocks
+        for i in range(if_stmt_ctx.getChildCount()):
+            child = if_stmt_ctx.getChild(i)
+            if isinstance(child, syntaxParser.BlockContext):
+                self.symbol_table.push_scope("If Block")
+                self.visit(child)
+                self.symbol_table.pop_scope()
+                
+        return None
 
-    # def visitWhile_stmt(self, ctx: syntaxParser.While_stmtContext):
-    #     condition_type = self.expr_analyzer.visit(ctx.expression())
-    #     if condition_type != 'bool' or condition_type != syntaxParser.CompExprContext:
-    #         print(f"[Type Error] While-loop condition must be 'bool' or comparison expression.")
+    def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
+        if not ctx.while_stmt():
+            return None
+            
+        while_stmt_ctx = ctx.while_stmt()
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        # Check the condition directly
+        expr = while_stmt_ctx.expression()
+        if expr:
+            condition_type = self.expr_analyzer.visit(expr)
+            if condition_type != 'bool':
+                error = f"[Type Error] Line {line}, Column {column}: While condition must be boolean, got '{condition_type}'"
+                self.errors.append(error)
+                logger.error(error)
+        
+        # Set loop flag and visit the block
+        old_in_loop = self.in_loop
+        self.in_loop = True
+        
+        block = while_stmt_ctx.block()
+        if block:
+            self.symbol_table.push_scope("While Loop")
+            self.visit(block)
+            self.symbol_table.pop_scope()
+        
+        self.in_loop = old_in_loop
+        return None
 
-    # def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
-    #     self.visit(ctx.expression())  # No type requirement for print
-    #     return None
+    def visitContinue(self, ctx: syntaxParser.ContinueContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        if not self.in_loop:
+            error = f"[Error] Line {line}, Column {column}: Continue statement outside of loop."
+            self.errors.append(error)
+            logger.error(error)
+            
+        return None
 
-    # def visitTryStmt(self, ctx: syntaxParser.TryStmtContext):
-    #     self.visit(ctx.block(0))  # try block
-    #     self.visit(ctx.block(1))  # except block
-    #     return None
+    def visitBreak(self, ctx: syntaxParser.BreakContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        if not self.in_loop:
+            error = f"[Error] Line {line}, Column {column}: Break statement outside of loop."
+            self.errors.append(error)
+            logger.error(error)
+            
+        return None
 
+    def visitArrayAccessExpr(self, ctx: syntaxParser.ArrayAccessExprContext):
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        array_name = ctx.IDENTIFIER().getText()
+        array_info = self.symbol_table.lookup(array_name)
+        
+        if not array_info:
+            error = f"[Error] Line {line}, Column {column}: Undefined array '{array_name}'"
+            self.errors.append(error)
+            logger.error(error)
+            return None
+            
+        array_type = array_info.get('type', '')
+        if not array_type.endswith('[]'):
+            error = f"[Error] Line {line}, Column {column}: Variable '{array_name}' is not an array"
+            self.errors.append(error)
+            logger.error(error)
+            return None
+            
+        # Check the index expression
+        index_type = self.expr_analyzer.visit(ctx.expression())
+        if index_type != 'int':
+            error = f"[Type Error] Line {line}, Column {column}: Array index must be an integer, got '{index_type}'"
+            self.errors.append(error)
+            logger.error(error)
+            return None
+            
+        # Return the element type
+        return array_type[:-2]  # Remove the [] suffix

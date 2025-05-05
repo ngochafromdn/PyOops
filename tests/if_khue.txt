@@ -3,6 +3,7 @@ if (i < 20) {
     if (i != 15)  {
         int y = 2;
         i = i + 2;
+        print(y);
     }
     else {
         i = i + 5; 

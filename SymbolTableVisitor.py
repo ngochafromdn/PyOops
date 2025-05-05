@@ -6,84 +6,79 @@ class SymbolTableVisitor(syntaxVisitor):
     def __init__(self):
         self.global_scope = {}
         self.scopes = [self.global_scope]
+        self.all_scopes = [{'name': 'Global', 'symbols': self.global_scope}]
+        self.current_function = None
 
-    # Get the current scope from top of stack
+    # Lấy phạm vi hiện tại từ đỉnh ngăn xếp
+    @property
     def current_scope(self):
         return self.scopes[-1]
 
-    # Enter a new scope by pushing an empty dictionary onto the stack
-    def push_scope(self):
-        self.scopes.append({})
+    # Thêm phạm vi mới bằng cách đẩy một từ điển trống vào ngăn xếp
+    def push_scope(self, scope_name="Anonymous"):
+        new_scope = {}
+        self.scopes.append(new_scope)
+        self.all_scopes.append({'name': scope_name, 'symbols': new_scope})
 
-    # Exit the current scope
+    # Thoát khỏi phạm vi hiện tại
     def pop_scope(self):
-        self.scopes.pop()
+        if len(self.scopes) > 1:
+            self.scopes.pop()
+            # Không xóa khỏi all_scopes để giữ lại cho việc hiển thị
 
-    # Define a new symbol in the current scope
-    def define(self, name, value):
-        if name in self.current_scope():
-            print(f"[Warning] Redeclaration of '{name}' in current scope.")
-        self.current_scope()[name] = value
+    # Đặt lại về phạm vi toàn cục
+    def reset_to_global(self):
+        while len(self.scopes) > 1:
+            self.pop_scope()
 
-    # Lookup a symbol from the top scope down to the global
+    # Định nghĩa một ký hiệu mới trong phạm vi hiện tại
+    def define(self, name, value, line=None, column=None):
+        if name in self.current_scope:
+            raise ValueError(f"[Error] Line {line}, Column {column}: Redeclaration of '{name}' in current scope.")
+        self.current_scope[name] = value
+
+    # Tìm ký hiệu từ phạm vi trên xuống phạm vi toàn cục
     def lookup(self, name):
         for scope in reversed(self.scopes):
             if name in scope:
                 return scope[name]
         return None
 
-    def update(self, name, new_value):
+    # Cập nhật giá trị của một ký hiệu
+    def update(self, name, value):
         for scope in reversed(self.scopes):
             if name in scope:
-                symbol = scope[name]
-                if isinstance(symbol, dict):
-                    symbol['value'] = new_value
-                    return True
+                if isinstance(scope[name], dict):
+                    if isinstance(value, dict):
+                        scope[name].update(value)
+                    else:
+                        scope[name]['value'] = value
                 else:
-                    print(f"[Error] Symbol '{name}' does not support value update (not a dict).")
-                    return False
-        print(f"[Error] Symbol '{name}' not found for update.")
+                    scope[name] = value
+                return True
         return False
 
-    # Get the current value of a symbol
-    def get_symbol_value(self, name):
-        symbol = self.lookup(name)
-        if symbol is not None and isinstance(symbol, dict) and 'value' in symbol:
-            print(symbol['value'] + "My value")
-            return symbol['value']
-        return None
-
-    # Get the current type of a symbol
-    def get_symbol_type(self, name):
-        symbol = self.lookup(name)
-        if symbol is not None and isinstance(symbol, dict) and 'type' in symbol:
-            return symbol['type']
-        return None
-
-    # Visit the entire program (entry point)
-    def visitProgram(self, ctx: syntaxParser.ProgramContext):
-        for stmt in ctx.statement():
-            self.visit(stmt)  # Visit each top-level statement
-        return self.global_scope
-
-    # Print all defined symbols for debugging
+    # In tất cả các ký hiệu đã định nghĩa
     def printSymbols(self):
-        print("Global Scope:")
-        self.print_scope(self.global_scope)
+        print("=== Symbol Table ===")
+        for scope in self.all_scopes:
+            print(f"{scope['name']} Scope:")
+            if not scope['symbols']:
+                print("  (empty scope)")
+            else:
+                for name, value in scope['symbols'].items():
+                    print(f"  {name}: {value}")
 
-        for idx, scope in enumerate(self.scopes[1:], 1):
-            print(f"Scope {idx}:")
-            self.print_scope(scope)
+    # Update your SymbolTableVisitor class to handle function definitions
+    # Định nghĩa hàm đầy đủ với metadata cho runtime
+    def define_function(self, name, return_type, param_list, body_ctx):
+        if name in self.global_scope:
+            raise ValueError(f"Function '{name}' already defined.")
 
-        print("Debugging scopes:")
-        for idx, scope in enumerate(self.scopes):
-            print(f"Scope {idx} contents: {scope}")
-
-    # Helper: Print a single scope
-    def print_scope(self, scope):
-        if not scope:
-            print("  (empty scope)")
-        else:
-            for name_of_identifier, dict_value in scope.items():
-                print(f"  {name_of_identifier}: {dict_value}")
+        self.global_scope[name] = {
+            "type": "function",
+            "return_type": return_type,
+            "params": [{"type": t, "name": n} for t, n in param_list],
+            "body": body_ctx
+        }
 

@@ -1,0 +1,7 @@
+func void add(int a, int b) {
+    int c = 1;
+
+}
+
+int d = 1;
+print(d);

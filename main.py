@@ -69,4 +69,4 @@ if __name__ == "__main__":
         print("Usage: python runner.py <input_file>")
         sys.exit(1)
     
-    run_interpreter(sys.argv[1])
+    main(sys.argv[1])

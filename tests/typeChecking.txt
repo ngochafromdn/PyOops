@@ -19,9 +19,10 @@ func int max(int a, int b) {
 
 
 int x = 5;
-if (x + 2) {
+if (x > 1) {
     print(x);
 }
 
-max(2,3)
-max("huhu","hihi")
+max(2,3);
+print(max(2,3));
+max("huhu","hihi");
