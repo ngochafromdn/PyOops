@@ -357,186 +357,10 @@ class RuntimeVisitor(syntaxVisitor):
                             
         return result
     
-    # Fix for char arrays
-    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
-        if ctx is None:
-            return None
-                
-        # Process character array literals
-        result = []
-        
-        # Get all CHARACTER tokens
-        if hasattr(ctx, 'CHARACTER') and callable(getattr(ctx, 'CHARACTER')):
-            character_tokens = ctx.CHARACTER()
-            for char_token in character_tokens:
-                text = char_token.getText()
-                # Remove quotes from character literal
-                value = text[1:-1]  # Remove the surrounding quotes
-                result.append(value)
-        else:
-            # Alternative approach - parse from text directly
-            full_text = ctx.getText()
-            # Strip the outer brackets
-            if full_text.startswith('[') and full_text.endswith(']'):
-                content = full_text[1:-1].strip()
-                # Split by commas but respect quoted strings
-                if content:
-                    parts = []
-                    in_quotes = False
-                    current = ""
-                    for char in content:
-                        if char == "'" and (len(current) == 0 or current[-1] != '\\'):
-                            in_quotes = not in_quotes
-                            if not in_quotes:  # Just exited a quote
-                                parts.append(current)
-                                current = ""
-                            continue
-                        elif char == ',' and not in_quotes:
-                            # End of an item
-                            if current.strip():
-                                parts.append(current.strip())
-                            current = ""
-                        else:
-                            current += char
-                    
-                    # Add the last item if there is one
-                    if current.strip():
-                        parts.append(current.strip())
-                    
-                    # Process the parts
-                    for part in parts:
-                        if part.startswith("'") and part.endswith("'"):
-                            result.append(part[1:-1])  # Remove quotes
-                        else:
-                            result.append(part)
-        
-        return result
+
     
-    # Fix for string arrays
-    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
-        if ctx is None:
-            return None
-            
-        # Process string array literals
-        result = []
         
-        # Get all STRING tokens
-        if hasattr(ctx, 'STRING') and callable(getattr(ctx, 'STRING')):
-            string_tokens = ctx.STRING()
-            for string_token in string_tokens:
-                text = string_token.getText()
-                # Remove quotes
-                value = text[1:-1]
-                result.append(value)
-        else:
-            # Alternative approach - parse from text directly
-            text = ctx.getText()
-            if text.startswith('[') and text.endswith(']'):
-                content = text[1:-1].strip()
-                # Need to handle quoted strings properly
-                if content:
-                    parts = []
-                    in_quotes = False
-                    current = ""
-                    for char in content:
-                        if char == '"' and (len(current) == 0 or current[-1] != '\\'):
-                            in_quotes = not in_quotes
-                            if not in_quotes:  # Just exited a quote
-                                parts.append(current)
-                                current = ""
-                            continue
-                        elif char == ',' and not in_quotes:
-                            # End of an item
-                            if current.strip():
-                                parts.append(current.strip())
-                            current = ""
-                        else:
-                            current += char
-                    
-                    # Add the last item if there is one
-                    if current.strip():
-                        parts.append(current.strip())
-                    
-                    # Process the parts
-                    for part in parts:
-                        if part.startswith('"') and part.endswith('"'):
-                            result.append(part[1:-1])  # Remove quotes
-                        else:
-                            result.append(part)
-                
-        return result
-        
-    def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
-        if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
-            return None
-            
-        # Get array name and index
-        array_name = ctx.IDENTIFIER().getText()
-        
-        # Find the array in symbol table
-        symbol = self.symbol_table.lookup(array_name)
-        if not symbol:
-            self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
-            return None
-            
-        # Get the array value
-        array_value = symbol.get('value', None)
-        
-        # If it's a string representation of a list, convert it to a proper list
-        if isinstance(array_value, str) and array_value.startswith('[') and array_value.endswith(']'):
-            try:
-                # Parse string format to actual list
-                content = array_value[1:-1].strip()
-                if not content:  # Empty array
-                    array_value = []
-                else:
-                    # Split by comma and convert elements based on array type
-                    items = content.split(',')
-                    array_value = []
-                    for item in items:
-                        item = item.strip()
-                        # Try to determine the type
-                        if item.startswith("'") and item.endswith("'"):
-                            # Char type
-                            array_value.append(item[1:-1])
-                        elif item.startswith('"') and item.endswith('"'):
-                            # String type
-                            array_value.append(item[1:-1])
-                        else:
-                            # Number type
-                            try:
-                                if '.' in item:
-                                    array_value.append(float(item))
-                                else:
-                                    array_value.append(int(item))
-                            except ValueError:
-                                # If can't convert to number, keep as is
-                                array_value.append(item)
-                
-                # Update the symbol table
-                self.symbol_table.update(array_name, {'value': array_value})
-            except Exception as e:
-                self.output.append(f"[Runtime Error] Failed to parse array: {str(e)}")
-                return None
-        
-        # Ensure the value is a list
-        if not isinstance(array_value, list):
-            self.output.append(f"[Runtime Error] Variable '{array_name}' is not an array.")
-            return None
-            
-        # Calculate the index
-        index_value = self.visit(ctx.expression())
-        if not isinstance(index_value, int):
-            self.output.append(f"[Runtime Error] Array index must be an integer, got '{type(index_value).__name__}'.")
-            return None
-            
-        # Check for index out of bounds
-        if index_value < 0 or index_value >= len(array_value):
-            self.output.append(f"[Runtime Error] Index {index_value} out of bounds for array '{array_name}'.")
-            return None
-            
-        # Return the element at the index
-        return array_value[index_value]
+    
     
     def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
         if ctx is None or ctx.IDENTIFIER() is None:
@@ -610,34 +434,7 @@ class RuntimeVisitor(syntaxVisitor):
         value = self.visit(ctx.expression())
         return not bool(value)
     
-    def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
-        if ctx is None:
-            return None
-            
-        # Handle simple case with just one mul_expr
-        if len(ctx.mul_expr()) == 1:
-            return self.visit(ctx.mul_expr(0))
-            
-        left = self.visit(ctx.mul_expr(0))
-        right = self.visit(ctx.mul_expr(1))
-        op = ctx.getChild(1).getText()
-        
-        if op == '+':
-            # String concatenation
-            if isinstance(left, str) or isinstance(right, str):
-                return str(left) + str(right)
-            # Numeric addition
-            elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
-                return left + right
-            else:
-                self.output.append("[Runtime Error] Invalid operands for addition.")
-                return None
-        else:  # op == '-'
-            if isinstance(left, (int, float)) and isinstance(right, (int, float)):
-                return left - right
-            else:
-                self.output.append("[Runtime Error] Invalid operands for subtraction.")
-                return None
+    
     
     def visitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
         if ctx is None:
@@ -759,3 +556,247 @@ class RuntimeVisitor(syntaxVisitor):
     # Default method for any unimplemented visitor methods
     def defaultResult(self):
         return None
+
+
+    def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        if ctx is None:
+            return None
+                
+        # Process character array literals
+        result = []
+        
+        # Get all CHARACTER tokens - make sure ctx.CHARACTER() is available
+        if hasattr(ctx, 'CHARACTER') and callable(getattr(ctx, 'CHARACTER')):
+            character_tokens = ctx.CHARACTER()
+            for char_token in character_tokens:
+                text = char_token.getText()
+                # Remove quotes from character literal
+                value = text[1:-1]  # Remove the surrounding quotes
+                result.append(value)
+        else:
+            # Alternative approach - parse from text directly
+            full_text = ctx.getText()
+            # Strip the outer brackets
+            if full_text.startswith('[') and full_text.endswith(']'):
+                content = full_text[1:-1].strip()
+                if not content:
+                    return []
+                    
+                # Split by commas, but be careful with quoted characters
+                parts = []
+                current = ""
+                in_quotes = False
+                for char in content:
+                    if char == "'" and (len(current) == 0 or current[-1] != '\\'):
+                        in_quotes = not in_quotes
+                    elif char == ',' and not in_quotes:
+                        parts.append(current.strip())
+                        current = ""
+                        continue
+                    current += char
+                
+                # Add the last part
+                if current:
+                    parts.append(current.strip())
+                
+                # Process each part
+                for part in parts:
+                    if part.startswith("'") and part.endswith("'"):
+                        result.append(part[1:-1])
+                    else:
+                        result.append(part)
+                        
+        return result
+    
+    def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
+        if ctx is None:
+            return None
+                
+        # Process string array literals
+        result = []
+        
+        # Get all STRING tokens - make sure ctx.STRING() is available
+        if hasattr(ctx, 'STRING') and callable(getattr(ctx, 'STRING')):
+            string_tokens = ctx.STRING()
+            for string_token in string_tokens:
+                text = string_token.getText()
+                # Remove quotes from string literal
+                value = text[1:-1]  # Remove the surrounding quotes
+                result.append(value)
+        else:
+            # Alternative approach - parse from text directly
+            full_text = ctx.getText()
+            # Strip the outer brackets
+            if full_text.startswith('[') and full_text.endswith(']'):
+                content = full_text[1:-1].strip()
+                if not content:
+                    return []
+                    
+                # Split by commas, but be careful with quoted strings
+                parts = []
+                current = ""
+                in_quotes = False
+                for char in content:
+                    if char == '"' and (len(current) == 0 or current[-1] != '\\'):
+                        in_quotes = not in_quotes
+                    elif char == ',' and not in_quotes:
+                        parts.append(current.strip())
+                        current = ""
+                        continue
+                    current += char
+                
+                # Add the last part
+                if current:
+                    parts.append(current.strip())
+                
+                # Process each part
+                for part in parts:
+                    if part.startswith('"') and part.endswith('"'):
+                        result.append(part[1:-1])
+                    else:
+                        result.append(part)
+                        
+        return result
+        
+    def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+        if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
+            return None
+                
+        # Get array name and index
+        array_name = ctx.IDENTIFIER().getText()
+        
+        # Find the array in symbol table
+        symbol = self.symbol_table.lookup(array_name)
+        if not symbol:
+            self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
+            return None
+                
+        # Get the array value
+        array_value = symbol.get('value', None)
+        
+        # Ensure the value is a list
+        if not isinstance(array_value, list):
+            # If it's a string representation, try to convert it
+            if isinstance(array_value, str) and array_value.startswith('[') and array_value.endswith(']'):
+                try:
+                    # Simple string-to-list conversion
+                    array_type = symbol.get('type', '')
+                    content = array_value[1:-1].strip()
+                    
+                    if not content:  # Empty array
+                        array_value = []
+                    else:
+                        items = []
+                        # Parse based on array type
+                        if array_type == 'char[]':
+                            # Split by commas, handle quotes
+                            parts = []
+                            current = ""
+                            in_quotes = False
+                            for char in content:
+                                if char == "'" and (len(current) == 0 or current[-1] != '\\'):
+                                    in_quotes = not in_quotes
+                                elif char == ',' and not in_quotes:
+                                    parts.append(current.strip())
+                                    current = ""
+                                    continue
+                                current += char
+                            
+                            # Add the last part
+                            if current:
+                                parts.append(current.strip())
+                            
+                            # Process char values
+                            for part in parts:
+                                if part.startswith("'") and part.endswith("'"):
+                                    items.append(part[1:-1])
+                                else:
+                                    items.append(part)
+                        elif array_type == 'str[]':
+                            # Split by commas, handle quotes
+                            parts = []
+                            current = ""
+                            in_quotes = False
+                            for char in content:
+                                if char == '"' and (len(current) == 0 or current[-1] != '\\'):
+                                    in_quotes = not in_quotes
+                                elif char == ',' and not in_quotes:
+                                    parts.append(current.strip())
+                                    current = ""
+                                    continue
+                                current += char
+                            
+                            # Add the last part
+                            if current:
+                                parts.append(current.strip())
+                            
+                            # Process string values
+                            for part in parts:
+                                if part.startswith('"') and part.endswith('"'):
+                                    items.append(part[1:-1])
+                                else:
+                                    items.append(part)
+                        else:  # int[] or float[]
+                            # Simple split for numeric arrays
+                            for item in content.split(','):
+                                item = item.strip()
+                                if '.' in item:
+                                    items.append(float(item))
+                                else:
+                                    items.append(int(item))
+                        
+                        array_value = items
+                    
+                    # Update the symbol table with parsed array
+                    self.symbol_table.update(array_name, {'value': array_value})
+                except Exception as e:
+                    self.output.append(f"[Runtime Error] Failed to parse array: {str(e)}")
+                    return None
+            else:
+                self.output.append(f"[Runtime Error] Variable '{array_name}' is not an array.")
+                return None
+                
+        # Calculate the index
+        index_value = self.visit(ctx.expression())
+        if not isinstance(index_value, int):
+            self.output.append(f"[Runtime Error] Array index must be an integer, got '{type(index_value).__name__}'.")
+            return None
+                
+        # Check for index out of bounds
+        if index_value < 0 or index_value >= len(array_value):
+            self.output.append(f"[Runtime Error] Index {index_value} out of bounds for array '{array_name}'.")
+            return None
+                
+        # Get the element at the index
+        element = array_value[index_value]
+        
+        return element
+    
+    def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+        if ctx is None:
+            return None
+                
+        # Handle simple case with just one mul_expr
+        if len(ctx.mul_expr()) == 1:
+            return self.visit(ctx.mul_expr(0))
+                
+        left = self.visit(ctx.mul_expr(0))
+        right = self.visit(ctx.mul_expr(1))
+        op = ctx.getChild(1).getText()
+        
+        if op == '+':
+            # String concatenation - convert both operands to strings if either is a string
+            if isinstance(left, str) or isinstance(right, str):
+                return str(left) + str(right)
+            # Numeric addition
+            elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
+                return left + right
+            else:
+                self.output.append("[Runtime Error] Invalid operands for addition.")
+                return None
+        else:  # op == '-'
+            if isinstance(left, (int, float)) and isinstance(right, (int, float)):
+                return left - right
+            else:
+                self.output.append("[Runtime Error] Invalid operands for subtraction.")
+                return None

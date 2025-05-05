@@ -10,17 +10,25 @@ print(numbers[4]);
 // Char array declaration and access
 char[] vowels = ['a', 'e', 'i', 'o', 'u'];
 print(vowels);
-print(vowels[2]);
+print(vowels[2]);  // Should print 'i'
 
 // String array declaration and access
 str[] names = ["Alice", "Bob", "Charlie"];
 print(names);
-print(names[1]);
+print(names[1]);  // Should print "Bob"
 
 // Test array in expressions
 int x = numbers[2] + numbers[3];
-print(x);
+print(x);  // Should print 7 (3+4)
 
 // Test combining different types of arrays
 str message = names[0] + " knows " + vowels[1];
-print(message);
+print(message);  // Should print "Alice knows e"
+
+// Additional test for character array access
+print("First vowel: " + vowels[0]);  // Should print "First vowel: a"
+print("Last vowel: " + vowels[4]);   // Should print "Last vowel: u"
+
+// Test combining multiple array elements
+str combined = vowels[0] + vowels[1] + vowels[2];
+print("First three vowels: " + combined);  // Should print "First three vowels: aei"
