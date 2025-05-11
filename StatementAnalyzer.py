@@ -250,35 +250,6 @@ class StatementAnalyzer(syntaxVisitor):
                 
         return None
 
-    # def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
-    #     if not ctx.while_stmt():
-    #         return None
-            
-    #     while_stmt_ctx = ctx.while_stmt()
-    #     line = ctx.start.line
-    #     column = ctx.start.column
-        
-    #     # Check the condition directly
-    #     expr = while_stmt_ctx.expression()
-    #     if expr:
-    #         condition_type = self.expr_analyzer.visit(expr)
-    #         if condition_type != 'bool':
-    #             message = f"While condition must be boolean, got '{condition_type}'"
-    #             report_error(line, column, message, "Type Error")
-                
-    #     # Set loop flag and visit the block
-    #     old_in_loop = self.in_loop
-    #     self.in_loop = True
-        
-    #     block = while_stmt_ctx.block()
-    #     if block:
-    #         self.symbol_table.push_scope("While Loop")
-    #         self.visit(block)
-    #         self.symbol_table.pop_scope()
-        
-    #     self.in_loop = old_in_loop
-    #     return None
-    
     def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
         if not ctx.while_stmt():
             return None
@@ -292,10 +263,9 @@ class StatementAnalyzer(syntaxVisitor):
         if expr:
             condition_type = self.expr_analyzer.visit(expr)
             if condition_type != 'bool':
-                error = f"[Type Error] Line {line}, Column {column}: While condition must be boolean, got '{condition_type}'"
-                self.errors.append(error)
-                logger.error(error)
-                 
+                message = f"While condition must be boolean, got '{condition_type}'"
+                report_error(line, column, message, "Type Error")
+                
         # Set loop flag and visit the block
         old_in_loop = self.in_loop
         self.in_loop = True
@@ -308,6 +278,36 @@ class StatementAnalyzer(syntaxVisitor):
         
         self.in_loop = old_in_loop
         return None
+    
+    # def visitWhileStmt(self, ctx: syntaxParser.WhileStmtContext):
+    #     if not ctx.while_stmt():
+    #         return None
+            
+    #     while_stmt_ctx = ctx.while_stmt()
+    #     line = ctx.start.line
+    #     column = ctx.start.column
+        
+    #     # Check the condition directly
+    #     expr = while_stmt_ctx.expression()
+    #     if expr:
+    #         condition_type = self.expr_analyzer.visit(expr)
+    #         if condition_type != 'bool':
+    #             error = f"[Type Error] Line {line}, Column {column}: While condition must be boolean, got '{condition_type}'"
+    #             self.errors.append(error)
+    #             logger.error(error)
+                 
+    #     # Set loop flag and visit the block
+    #     old_in_loop = self.in_loop
+    #     self.in_loop = True
+        
+    #     block = while_stmt_ctx.block()
+    #     if block:
+    #         self.symbol_table.push_scope("While Loop")
+    #         self.visit(block)
+    #         self.symbol_table.pop_scope()
+        
+    #     self.in_loop = old_in_loop
+    #     return None
 
     # def visitVarDeclStmt(self, ctx: syntaxParser.VarDeclStmtContext):
     #     line = ctx.start.line
