@@ -2,8 +2,8 @@ from antlr4.error.ErrorListener import ErrorListener
 
 # ANSI color codes
 RED = "\033[91m"
-YELLOW = "\033[93m"
-CYAN = "\033[96m"
+BLUE = "\033[34m"        # Darker blue (readable on white, visible on black)
+# MAGENTA = "\033[35m"     # Darker magenta (readable on both)
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
@@ -16,7 +16,7 @@ class SyntaxErrorHandling(ErrorListener):
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         self.error_count += 1
-        print(f"{RED}{BOLD}[Syntax Error]{RESET} Line {YELLOW}{line}{RESET}:{YELLOW}{column}{RESET} - {msg}")
+        print(f"{RED}{BOLD}[Syntax Error]{RESET} Line {RED}{line}{RESET}:{RED}{column}{RESET} - {msg}")
         
         # Try to get the CharStream from recognizer's token source
         try:
@@ -24,11 +24,11 @@ class SyntaxErrorHandling(ErrorListener):
             lines = char_stream.strdata.splitlines()
             if 0 <= line - 1 < len(lines):
                 error_line = lines[line - 1]
-                print(f"\n{CYAN}{error_line}{RESET}")
+                print(f"\n{RED}{error_line}{RESET}")
                 pointer = ' ' * column + f"{RED}^{RESET}"
                 print(f"{pointer}")
         except Exception as ex:
-            print(f"{YELLOW}(Could not retrieve input stream: {ex}){RESET}")
+            print(f"{BLUE}(Could not retrieve input stream: {ex}){RESET}\n")
 
         # Print offending symbol
         if offendingSymbol:
@@ -47,4 +47,4 @@ class SyntaxErrorHandling(ErrorListener):
                 expected_clean = ', '.join(filter(None, expected))
                 print(f"{BOLD}Expected one of:{RESET} {expected_clean}\n")
         except Exception as ex:
-            print(f"{YELLOW}(Could not retrieve expected tokens: {ex}){RESET}")
+            print(f"{BLUE}(Could not retrieve expected tokens: {ex}){RESET}")
