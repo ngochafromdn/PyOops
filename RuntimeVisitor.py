@@ -2,9 +2,15 @@
 from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 import sys
+import time
+
+# ANSI color codes
+RED = "\033[91m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
 
 class RuntimeVisitor(syntaxVisitor):
-    def __init__(self, symbol_table):
+    def __init__(self, symbol_table, max_iterations=1000, timeout=5):
         super().__init__()
         self.symbol_table = symbol_table
         self.output = []
@@ -14,6 +20,13 @@ class RuntimeVisitor(syntaxVisitor):
         self.collect_function_definitions()
         self.break_flag = False
         self.continue_flag = False
+
+        # Add these for loop safety
+        self.max_iterations = max_iterations  # Maximum number of iterations
+        self.timeout = timeout  # Maximum execution time in seconds
+        self.start_time = time.time()
+        self.iterations = 0
+
     
     def collect_function_definitions(self):
         """Find and store all function definitions from the symbol table"""
@@ -280,9 +293,24 @@ class RuntimeVisitor(syntaxVisitor):
         prev_continue = self.continue_flag
         self.break_flag = False
         self.continue_flag = False
-        
+
+        # Reset iteration counter for this loop
+        self.iterations = 0     
+
         # Execute the while loop
         while True:
+
+            # Check for timeout or max iterations
+            current_time = time.time()
+            if current_time - self.start_time > self.timeout:
+                print(f"{RED}[Runtime Error] Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.{RESET}")
+                sys.exit(1)
+                
+            self.iterations += 1
+            if self.iterations > self.max_iterations:
+                print(f"{RED}[Runtime Error] Loop exceeded {self.max_iterations} iterations. Possible infinite loop.{RESET}")
+                sys.exit(1)
+
             # Evaluate condition
             condition = self.visit(while_stmt.expression())
             if not condition or self.break_flag:
@@ -305,7 +333,8 @@ class RuntimeVisitor(syntaxVisitor):
         self.continue_flag = prev_continue
         
         return None
-    
+
+
     def visitContinue(self, ctx:syntaxParser.ContinueContext):
         if ctx is None:
             return None
