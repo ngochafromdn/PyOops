@@ -6,7 +6,22 @@ import sys
 
 # Setup logger
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
+handler = logging.StreamHandler()
+handler.setFormatter(logging.Formatter('%(message)s'))  # Only show the message
+logger.addHandler(handler)
+logger.propagate = False 
+
+# ANSI color codes
+RED = "\033[91m"
+BOLD = "\033[1m"
+RESET = "\033[0m"
+
+# Helper function for colorized error reporting 
+def report_error(line, column, message, error_type="Error"):
+    formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} Line {line}:{column} - {message}{RESET}"
+    print(formatted_error)
+    sys.exit(1)
 
 class ExpressionAnalyzer(syntaxVisitor):
     def __init__(self, symbol_table):
@@ -62,11 +77,8 @@ class ExpressionAnalyzer(syntaxVisitor):
         value = self.symbol_table.lookup(name)
         
         if value is None:
-            error = f"[Error] Line {line}, Column {column}: Undefined variable '{name}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Undefined variable '{name}'"
+            report_error(line, column, message)
             return None
             
         return value['type']
@@ -82,31 +94,22 @@ class ExpressionAnalyzer(syntaxVisitor):
 
         array_info = self.symbol_table.lookup(array_name)
         if not array_info:
-            error = f"[Error] Line {line}, Column {column}: Undefined variable '{array_name}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Undefined variable '{array_name}'"
+            report_error(line, column, message)
             return None
 
         array_type = array_info.get('type', '')
         
         # Check if the variable is an array type
         if not array_type.endswith('[]'):
-            error = f"[Error] Line {line}, Column {column}: Variable '{array_name}' is not an array"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Variable '{array_name}' is not an array"
+            report_error(line, column, message)
             return None
             
         # Check if the index is an integer
         if index_type != "int":
-            error = f"[Type Error] Line {line}, Column {column}: Array index must be an integer, got {index_type}"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Array index must be an integer, got {index_type}"
+            report_error(line, column, message, "Type Error")
             return None
             
         # Return the element type (remove the [] suffix)
@@ -135,11 +138,8 @@ class ExpressionAnalyzer(syntaxVisitor):
 
         # Check operand types
         if left_type != right_type:
-            error = f"[Type Error] Line {line}, Column {column}: Cannot compare '{left_type}' with '{right_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Cannot compare '{left_type}' with '{right_type}'"
+            report_error(line, column, message, "Type Error")
             return None
 
         # Return bool type for comparison expressions
@@ -164,15 +164,12 @@ class ExpressionAnalyzer(syntaxVisitor):
             return None
             
         if left_type != 'bool' or right_type != 'bool':
-            error = f"[Type Error] Line {line}, Column {column}: Logical operations require boolean operands, got '{left_type}' and '{right_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Logical operations require boolean operands, got '{left_type}' and '{right_type}'"
+            report_error(line, column, message, "Type Error")
             return None
         
         return 'bool'
-    
+        
     def visitMulDivExpr(self, ctx: syntaxParser.MulDivExprContext):
         if ctx is None:
             return None
@@ -192,17 +189,15 @@ class ExpressionAnalyzer(syntaxVisitor):
             return None
             
         if left_type not in ('int', 'float') or right_type not in ('int', 'float'):
-            error = f"[Type Error] Line {line}, Column {column}: Arithmetic operations require numeric operands, got '{left_type}' and '{right_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Arithmetic operations require numeric operands, got '{left_type}' and '{right_type}'"
+            report_error(line, column, message, "Type Error")
             return None
         
         # If one operand is float, result is float
         if left_type == 'float' or right_type == 'float':
             return 'float'
         return 'int'
+        
     
     def visitAddSubExpr(self, ctx: syntaxParser.AddSubExprContext):
         if ctx is None:
@@ -227,20 +222,14 @@ class ExpressionAnalyzer(syntaxVisitor):
         # Handle string concatenation
         if op == '+' and (left_type == 'str' or right_type == 'str'):
             if left_type != 'str' or right_type != 'str':
-                error = f"[Type Error] Line {line}, Column {column}: Cannot concatenate '{left_type}' with '{right_type}'"
-                self.errors.append(error)
-                logger.error(error)
-                # Exit program
-                sys.exit(1)
+                message = f"Cannot concatenate '{left_type}' with '{right_type}'"
+                report_error(line, column, message, "Type Error")
                 return None
             return 'str'
             
         if left_type not in ('int', 'float') or right_type not in ('int', 'float'):
-            error = f"[Type Error] Line {line}, Column {column}: Arithmetic operations require numeric operands, got '{left_type}' and '{right_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Arithmetic operations require numeric operands, got '{left_type}' and '{right_type}'"
+            report_error(line, column, message, "Type Error")
             return None
         
         # If one operand is float, result is float
@@ -275,11 +264,8 @@ class ExpressionAnalyzer(syntaxVisitor):
             return None
             
         if expr_type not in ('int', 'float'):
-            error = f"[Type Error] Line {line}, Column {column}: Unary minus requires numeric operand, got '{expr_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Unary minus requires numeric operand, got '{expr_type}'"
+            report_error(line, column, message, "Type Error")
             return None
         return expr_type
     
@@ -295,11 +281,8 @@ class ExpressionAnalyzer(syntaxVisitor):
             return None
             
         if expr_type != 'bool':
-            error = f"[Type Error] Line {line}, Column {column}: Logical NOT requires boolean operand, got '{expr_type}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Logical NOT requires boolean operand, got '{expr_type}'"
+            report_error(line, column, message, "Type Error")
             return None
         return 'bool'
         
@@ -313,11 +296,8 @@ class ExpressionAnalyzer(syntaxVisitor):
         func_info = self.symbol_table.lookup(func_name)
         
         if not func_info or func_info.get('type') != 'function':
-            error = f"[Error] Line {line}, Column {column}: Undefined function '{func_name}'"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Undefined function '{func_name}'"
+            report_error(line, column, message)
             return None
             
         # Check parameters
@@ -331,20 +311,14 @@ class ExpressionAnalyzer(syntaxVisitor):
                     
         params = func_info.get('params', [])
         if len(args) != len(params):
-            error = f"[Error] Line {line}, Column {column}: Function '{func_name}' expects {len(params)} arguments, got {len(args)}"
-            self.errors.append(error)
-            logger.error(error)
-            # Exit program
-            sys.exit(1)
+            message = f"Function '{func_name}' expects {len(params)} arguments, got {len(args)}"
+            report_error(line, column, message)
             return None
             
         for i, (arg_type, param) in enumerate(zip(args, params)):
             if arg_type != param['type']:
-                error = f"[Type Error] Line {line}, Column {column}: Argument {i+1} of function '{func_name}' expects type '{param['type']}', got '{arg_type}'"
-                self.errors.append(error)
-                logger.error(error)
-                # Exit program
-                sys.exit(1)
+                message = f"Argument {i+1} of function '{func_name}' expects type '{param['type']}', got '{arg_type}'"
+                report_error(line, column, message, "Type Error")
                 return None
                 
         # Return function return type

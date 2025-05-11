@@ -17,7 +17,7 @@ class SyntaxErrorHandling(ErrorListener):
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         self.error_count += 1
-        print(f"{RED}{BOLD}[Syntax Error]{RESET} Line {RED}{line}{RESET}:{RED}{column}{RESET} - {msg}")
+        print(f"{RED}{BOLD}[Syntax Error]{RESET}{RED} Line {line}:{column} - {msg}{RESET}")
         
         # Try to get the CharStream from recognizer's token source
         try:
@@ -33,7 +33,7 @@ class SyntaxErrorHandling(ErrorListener):
 
         # Print offending symbol
         if offendingSymbol:
-            print(f"{BOLD}Offending symbol:{RESET} '{offendingSymbol.text}'")
+            print(f"{BOLD}{RED}Offending symbol: '{offendingSymbol.text}'{RESET}")
 
         # Print expected tokens
         try:
@@ -50,5 +50,5 @@ class SyntaxErrorHandling(ErrorListener):
         except Exception as ex:
             print(f"{BLUE}(Could not retrieve expected tokens: {ex}){RESET}")
     
-        # Add this line to exit on the first error
+        # Exit program
         sys.exit(1)
