@@ -1,3 +1,4 @@
+import sys
 from antlr4.error.ErrorListener import ErrorListener
 
 # ANSI color codes
@@ -48,3 +49,6 @@ class SyntaxErrorHandling(ErrorListener):
                 print(f"{BOLD}Expected one of:{RESET} {expected_clean}\n")
         except Exception as ex:
             print(f"{BLUE}(Could not retrieve expected tokens: {ex}){RESET}")
+    
+        # Add this line to exit on the first error
+        sys.exit(1)

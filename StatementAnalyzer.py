@@ -3,6 +3,7 @@ from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 from ExpressionAnalyzer import ExpressionAnalyzer
 import logging
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +41,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Variable '{name}' not declared before assignment."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
         
         if assign.expression():
@@ -48,6 +51,8 @@ class StatementAnalyzer(syntaxVisitor):
                 error = f"[Type Error] Line {line}, Column {column}: Mismatched types in assignment of '{name}': expected '{symbol['type']}', got '{value_type}'"
                 self.errors.append(error)
                 logger.error(error)
+                # Exit program
+                sys.exit(1)
             else:
                 self.symbol_table.update(name, {'value': assign.expression().getText()})
         return None
@@ -65,6 +70,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = str(e)
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
         
         if var_decl.expression():
@@ -76,10 +83,14 @@ class StatementAnalyzer(syntaxVisitor):
                     error = f"[Type Error] Line {line}, Column {column}: Mismatched types in declaration of '{identifier}': expected '{declared_type}', got '{evaluated_type}'"
                     self.errors.append(error)
                     logger.error(error)
+                    # Exit program
+                    sys.exit(1)
             else:
                 error = f"[Error] Line {line}, Column {column}: Invalid expression in variable declaration."
                 self.errors.append(error)
                 logger.error(error)
+                # Exit program
+                sys.exit(1)
         return None
 
     def visitFuncStmt(self, ctx: syntaxParser.FuncStmtContext):
@@ -93,6 +104,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Function '{func_name}' already defined."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
         
         params = []
@@ -138,6 +151,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Print statement requires an expression."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
 
         expr_type = self.expr_analyzer.visit(expr)
@@ -145,7 +160,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Type Error] Line {line}, Column {column}: Invalid expression in print statement."
             self.errors.append(error)
             logger.error(error)
-
+            # Exit program
+            sys.exit(1)
         return None
 
     def visitReturnStmt(self, ctx: syntaxParser.ReturnStmtContext):
@@ -156,6 +172,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Return statement outside of function."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
         
         func_info = self.symbol_table.lookup(self.current_function)
@@ -163,6 +181,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Cannot find function '{self.current_function}'."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
         
         return_type = func_info.get('return_type', 'void')
@@ -175,6 +195,8 @@ class StatementAnalyzer(syntaxVisitor):
                 error = f"[Type Error] Line {line}, Column {column}: Missing return value for non-void function '{self.current_function}'."
                 self.errors.append(error)
                 logger.error(error)
+                # Exit program
+                sys.exit(1)
             return None
             
         # Check expression type
@@ -183,11 +205,14 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Type Error] Line {line}, Column {column}: Cannot return a value from a void function."
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
         elif expr_type != return_type:
             error = f"[Type Error] Line {line}, Column {column}: Return type mismatch: expected '{return_type}', got '{expr_type}'."
             self.errors.append(error)
             logger.error(error)
-            
+            # Exit program
+            sys.exit(1)            
         return None
 
     def visitIfStmt(self, ctx: syntaxParser.IfStmtContext):
@@ -207,7 +232,9 @@ class StatementAnalyzer(syntaxVisitor):
                     error = f"[Type Error] Line {line}, Column {column}: If condition must be boolean, got '{condition_type}'"
                     self.errors.append(error)
                     logger.error(error)
-        
+                    # Exit program
+                    sys.exit(1)       
+
         # Visit all blocks
         for i in range(if_stmt_ctx.getChildCount()):
             child = if_stmt_ctx.getChild(i)
@@ -234,7 +261,8 @@ class StatementAnalyzer(syntaxVisitor):
                 error = f"[Type Error] Line {line}, Column {column}: While condition must be boolean, got '{condition_type}'"
                 self.errors.append(error)
                 logger.error(error)
-        
+                # Exit program
+                sys.exit(1)        
         # Set loop flag and visit the block
         old_in_loop = self.in_loop
         self.in_loop = True
@@ -256,7 +284,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Continue statement outside of loop."
             self.errors.append(error)
             logger.error(error)
-            
+            # Exit program
+            sys.exit(1)            
         return None
 
     def visitBreak(self, ctx: syntaxParser.BreakContext):
@@ -267,7 +296,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Break statement outside of loop."
             self.errors.append(error)
             logger.error(error)
-            
+            # Exit program
+            sys.exit(1)            
         return None
 
     def visitArrayAccessExpr(self, ctx: syntaxParser.ArrayAccessExprContext):
@@ -281,6 +311,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Undefined array '{array_name}'"
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
             
         array_type = array_info.get('type', '')
@@ -288,6 +320,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Error] Line {line}, Column {column}: Variable '{array_name}' is not an array"
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
             
         # Check the index expression
@@ -296,6 +330,8 @@ class StatementAnalyzer(syntaxVisitor):
             error = f"[Type Error] Line {line}, Column {column}: Array index must be an integer, got '{index_type}'"
             self.errors.append(error)
             logger.error(error)
+            # Exit program
+            sys.exit(1)
             return None
             
         # Return the element type
