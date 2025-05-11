@@ -3,3 +3,4 @@
 
 Command to run ANTLR g4: antlr4 -Dlanguage=Python3 -visitor
 
+Run test: python3 main.py tests/if.txt
