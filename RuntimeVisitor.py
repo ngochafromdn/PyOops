@@ -6,8 +6,14 @@ import time
 
 # ANSI color codes
 RED = "\033[91m"
+BLUE = "\033[34m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
+
+def report_error(message, error_type="Runtime Error"):
+    formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} {message}{RESET}"
+    print(formatted_error)
+    sys.exit(1)
 
 class RuntimeVisitor(syntaxVisitor):
     def __init__(self, symbol_table, max_iterations=1000, timeout=5):
@@ -90,7 +96,7 @@ class RuntimeVisitor(syntaxVisitor):
             self.symbol_table.update(identifier, {'type': data_type, 'value': default_value})
         
         return None
-    
+
     def visitAssignStmt(self, ctx:syntaxParser.AssignStmtContext):
         if ctx is None or ctx.assignment() is None:
             return None
@@ -101,7 +107,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Find the variable in the symbol table
         symbol = self.symbol_table.lookup(name)
         if not symbol:
-            self.output.append(f"[Runtime Error] Variable '{name}' not defined.")
+            report_error(f"Variable '{name}' not defined.")
             return None
         
         # Evaluate expression and update variable
@@ -140,7 +146,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Lookup function definition
         func_def = self.function_definitions.get(func_name)
         if not func_def:
-            self.output.append(f"[Runtime Error] Function '{func_name}' not defined.")
+            report_error(f"Function '{func_name}' not defined.")
             return None
         
         # Evaluate arguments
@@ -154,7 +160,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Execute the function and return its value
         return_value = self.execute_function(func_name, args)
         return return_value
-
+    
     def execute_function(self, func_name, args):
         # Get function info
         func_info = self.function_definitions.get(func_name)
@@ -162,7 +168,7 @@ class RuntimeVisitor(syntaxVisitor):
             func_info = self.symbol_table.lookup(func_name)
             
         if not func_info or func_info.get("type") != "function":
-            self.output.append(f"[Runtime Error] Function '{func_name}' not defined.")
+            report_error(f"Function '{func_name}' not defined.")
             return None
 
         # Save current state
@@ -205,11 +211,62 @@ class RuntimeVisitor(syntaxVisitor):
         self.continue_flag = prev_continue
         
         return return_val
+    
+    # def execute_function(self, func_name, args):
+    #     # Get function info
+    #     func_info = self.function_definitions.get(func_name)
+    #     if not func_info:
+    #         func_info = self.symbol_table.lookup(func_name)
+            
+    #     if not func_info or func_info.get("type") != "function":
+    #         self.output.append(f"[Runtime Error] Function '{func_name}' not defined.")
+    #         return None
+
+    #     # Save current state
+    #     prev_function = self.in_function
+    #     prev_return = self.return_value
+    #     prev_break = self.break_flag
+    #     prev_continue = self.continue_flag
+        
+    #     # Set up new function scope
+    #     self.symbol_table.push_scope(f"Call_{func_name}")
+    #     self.in_function = func_name
+    #     self.return_value = None
+    #     self.break_flag = False
+    #     self.continue_flag = False
+        
+    #     # Bind arguments to parameters
+    #     params = func_info.get('params', [])
+    #     for i, param in enumerate(params):
+    #         if i < len(args):
+    #             self.symbol_table.define(param['name'], {
+    #                 'type': param['type'],
+    #                 'value': args[i]
+    #             })
+    #         else:
+    #             self.symbol_table.define(param['name'], {
+    #                 'type': param['type'],
+    #                 'value': None
+    #             })
+        
+    #     # Execute function body
+    #     if 'body' in func_info:
+    #         self.visit(func_info['body'])
+        
+    #     # Get return value and restore state
+    #     return_val = self.return_value
+    #     self.symbol_table.pop_scope()
+    #     self.in_function = prev_function
+    #     self.return_value = prev_return
+    #     self.break_flag = prev_break
+    #     self.continue_flag = prev_continue
+        
+    #     return return_val
 
     def visitReturnStmt(self, ctx:syntaxParser.ReturnStmtContext):
         # Check if inside a function
         if not self.in_function:
-            self.output.append("[Runtime Error] Return statement outside function.")
+            report_error("Return statement outside function.")
             return None
         
         # Get the expression directly
@@ -303,13 +360,13 @@ class RuntimeVisitor(syntaxVisitor):
             # Check for timeout or max iterations
             current_time = time.time()
             if current_time - self.start_time > self.timeout:
-                print(f"{RED}[Runtime Error] Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.{RESET}")
-                sys.exit(1)
+                report_error(f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
+                return None
                 
             self.iterations += 1
             if self.iterations > self.max_iterations:
-                print(f"{RED}[Runtime Error] Loop exceeded {self.max_iterations} iterations. Possible infinite loop.{RESET}")
-                sys.exit(1)
+                report_error(f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
+                return None
 
             # Evaluate condition
             condition = self.visit(while_stmt.expression())
@@ -388,9 +445,6 @@ class RuntimeVisitor(syntaxVisitor):
     
 
     
-        
-    
-    
     def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
@@ -399,7 +453,7 @@ class RuntimeVisitor(syntaxVisitor):
         symbol = self.symbol_table.lookup(name)
         
         if not symbol:
-            self.output.append(f"[Runtime Error] Variable '{name}' not defined.")
+            report_error(f"Variable '{name}' not defined.")
             return None
         
         return symbol.get('value', None)
@@ -453,7 +507,7 @@ class RuntimeVisitor(syntaxVisitor):
         if isinstance(value, (int, float)):
             return -value
         else:
-            self.output.append("[Runtime Error] Cannot apply unary minus to non-numeric value.")
+            report_error("Cannot apply unary minus to non-numeric value.")
             return None
     
     def visitNotExpr(self, ctx:syntaxParser.NotExprContext):
@@ -478,14 +532,14 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
-            self.output.append("[Runtime Error] Invalid operands for multiplication/division.")
+            report_error("Invalid operands for multiplication/division.")
             return None
         
         if op == '*':
             return left * right
         else:  # op == '/'
             if right == 0:
-                self.output.append("[Runtime Error] Division by zero.")
+                report_error("Division by zero.")
                 return None
             return left / right
     
@@ -530,7 +584,7 @@ class RuntimeVisitor(syntaxVisitor):
             elif op == '!=':
                 result = left != right
             else:
-                self.output.append(f"[Runtime Error] Unknown comparison operator: {op}")
+                report_error(f"Unknown comparison operator: {op}")
                 return None
                 
             # Combine results for chained comparisons
@@ -682,25 +736,10 @@ class RuntimeVisitor(syntaxVisitor):
                     self.visit(except_block)
         except Exception as e:
             # If there's an error in how we're accessing blocks, report it
-            self.output.append(f"[Try-except error: {str(e)}]")
+            report_error(f"Try-except error: {str(e)}")
             
-            # Attempt an alternative approach: using direct tree structure
-            try:
-                # Try by direct children
-                try_keyword = ctx.getChild(0)  # TRY keyword
-                try_block = ctx.getChild(1)    # try block
-                except_keyword = ctx.getChild(2)  # EXCEPT keyword
-                except_block = ctx.getChild(3)    # except block
-                
-                try:
-                    self.visit(try_block)
-                except Exception as ex:
-                    self.output.append("[Exception caught in try block]")
-                    self.visit(except_block)
-            except Exception as ex2:
-                self.output.append(f"[Alternative try-except approach failed: {str(ex2)}]")
-        
         return None
+    
     def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
         if ctx is None:
             return None
@@ -750,7 +789,7 @@ class RuntimeVisitor(syntaxVisitor):
                         result.append(part)
                         
         return result
-        
+
     def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
         if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
             return None
@@ -761,7 +800,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Find the array in symbol table
         symbol = self.symbol_table.lookup(array_name)
         if not symbol:
-            self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
+            report_error(f"Array '{array_name}' not defined.")
             return None
                 
         # Get the array value
@@ -843,27 +882,140 @@ class RuntimeVisitor(syntaxVisitor):
                     # Update the symbol table with parsed array
                     self.symbol_table.update(array_name, {'value': array_value})
                 except Exception as e:
-                    self.output.append(f"[Runtime Error] Failed to parse array: {str(e)}")
+                    report_error(f"Failed to parse array: {str(e)}")
                     return None
             else:
-                self.output.append(f"[Runtime Error] Variable '{array_name}' is not an array.")
+                report_error(f"Variable '{array_name}' is not an array.")
                 return None
                 
         # Calculate the index
         index_value = self.visit(ctx.expression())
         if not isinstance(index_value, int):
-            self.output.append(f"[Runtime Error] Array index must be an integer, got '{type(index_value).__name__}'.")
+            report_error(f"Array index must be an integer, got '{type(index_value).__name__}'.")
             return None
                 
         # Check for index out of bounds
         if index_value < 0 or index_value >= len(array_value):
-            self.output.append(f"[Runtime Error] Index {index_value} out of bounds for array '{array_name}'.")
+            report_error(f"Index {index_value} out of bounds for array '{array_name}'.")
             return None
                 
         # Get the element at the index
         element = array_value[index_value]
         
-        return element
+        return element        
+    # def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+    #     if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
+    #         return None
+                
+    #     # Get array name and index
+    #     array_name = ctx.IDENTIFIER().getText()
+        
+    #     # Find the array in symbol table
+    #     symbol = self.symbol_table.lookup(array_name)
+    #     if not symbol:
+    #         self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
+    #         return None
+                
+    #     # Get the array value
+    #     array_value = symbol.get('value', None)
+        
+    #     # Ensure the value is a list
+    #     if not isinstance(array_value, list):
+    #         # If it's a string representation, try to convert it
+    #         if isinstance(array_value, str) and array_value.startswith('[') and array_value.endswith(']'):
+    #             try:
+    #                 # Simple string-to-list conversion
+    #                 array_type = symbol.get('type', '')
+    #                 content = array_value[1:-1].strip()
+                    
+    #                 if not content:  # Empty array
+    #                     array_value = []
+    #                 else:
+    #                     items = []
+    #                     # Parse based on array type
+    #                     if array_type == 'char[]':
+    #                         # Split by commas, handle quotes
+    #                         parts = []
+    #                         current = ""
+    #                         in_quotes = False
+    #                         for char in content:
+    #                             if char == "'" and (len(current) == 0 or current[-1] != '\\'):
+    #                                 in_quotes = not in_quotes
+    #                             elif char == ',' and not in_quotes:
+    #                                 parts.append(current.strip())
+    #                                 current = ""
+    #                                 continue
+    #                             current += char
+                            
+    #                         # Add the last part
+    #                         if current:
+    #                             parts.append(current.strip())
+                            
+    #                         # Process char values
+    #                         for part in parts:
+    #                             if part.startswith("'") and part.endswith("'"):
+    #                                 items.append(part[1:-1])
+    #                             else:
+    #                                 items.append(part)
+    #                     elif array_type == 'str[]':
+    #                         # Split by commas, handle quotes
+    #                         parts = []
+    #                         current = ""
+    #                         in_quotes = False
+    #                         for char in content:
+    #                             if char == '"' and (len(current) == 0 or current[-1] != '\\'):
+    #                                 in_quotes = not in_quotes
+    #                             elif char == ',' and not in_quotes:
+    #                                 parts.append(current.strip())
+    #                                 current = ""
+    #                                 continue
+    #                             current += char
+                            
+    #                         # Add the last part
+    #                         if current:
+    #                             parts.append(current.strip())
+                            
+    #                         # Process string values
+    #                         for part in parts:
+    #                             if part.startswith('"') and part.endswith('"'):
+    #                                 items.append(part[1:-1])
+    #                             else:
+    #                                 items.append(part)
+    #                     else:  # int[] or float[]
+    #                         # Simple split for numeric arrays
+    #                         for item in content.split(','):
+    #                             item = item.strip()
+    #                             if '.' in item:
+    #                                 items.append(float(item))
+    #                             else:
+    #                                 items.append(int(item))
+                        
+    #                     array_value = items
+                    
+    #                 # Update the symbol table with parsed array
+    #                 self.symbol_table.update(array_name, {'value': array_value})
+    #             except Exception as e:
+    #                 self.output.append(f"[Runtime Error] Failed to parse array: {str(e)}")
+    #                 return None
+    #         else:
+    #             self.output.append(f"[Runtime Error] Variable '{array_name}' is not an array.")
+    #             return None
+                
+    #     # Calculate the index
+    #     index_value = self.visit(ctx.expression())
+    #     if not isinstance(index_value, int):
+    #         self.output.append(f"[Runtime Error] Array index must be an integer, got '{type(index_value).__name__}'.")
+    #         return None
+                
+    #     # Check for index out of bounds
+    #     if index_value < 0 or index_value >= len(array_value):
+    #         self.output.append(f"[Runtime Error] Index {index_value} out of bounds for array '{array_name}'.")
+    #         return None
+                
+    #     # Get the element at the index
+    #     element = array_value[index_value]
+        
+    #     return element
     
     def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
         if ctx is None:
@@ -885,11 +1037,11 @@ class RuntimeVisitor(syntaxVisitor):
             elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left + right
             else:
-                self.output.append("[Runtime Error] Invalid operands for addition.")
+                report_error("Invalid operands for addition.")
                 return None
         else:  # op == '-'
             if isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left - right
             else:
-                self.output.append("[Runtime Error] Invalid operands for subtraction.")
+                report_error("Invalid operands for subtraction.")
                 return None
