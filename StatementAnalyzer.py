@@ -169,6 +169,67 @@ class StatementAnalyzer(syntaxVisitor):
         
         return None
 
+    def visitType_defDeclaration(self, ctx: syntaxParser.Type_defDeclarationContext):
+        line = ctx.start.line
+        column = ctx.start.column
+
+        newtype_name = ctx.IDENTIFIER(0).getText()
+        var_name = ctx.IDENTIFIER(1).getText()
+
+        newtypedef = self.symbol_table.lookup(newtype_name)
+
+        if (not newtype_name) or (newtypedef.get('type') != 'typedef') :
+            error = f"[Error] Line {line}, Column {column}: New type {newtype_name} is not declared."
+            self.errors.append(error)
+            logger.error(error)
+            return None
+
+        if self.symbol_table.lookup(var_name):
+            warning = f"[Warning] Line {line}, Column {column}: New type variable '{var_name}' is redeclared."
+            self.errors.append(warning)
+            logger.warning(warning)
+
+        instance_fields = {}
+        for field_name, field_type in newtypedef['variables'].items():
+            instance_fields[field_name] = {'type': field_type, 'value': None}
+
+        self.symbol_table.define(var_name, {
+            'type': newtype_name,
+            'kind': 'newtype_instance',
+            'fields': instance_fields
+        })
+
+    def visitType_defStatement(self, ctx:syntaxParser.Type_defStatementContext):
+        line = ctx.start.line
+        column = ctx.start.column
+
+        struct_name = ctx.IDENTIFIER().getText()
+        struct_variables = {}
+
+        if self.symbol_table.lookup(struct_name):
+            error = f"[Error] Line {line}, Column {column}: New type '{struct_name}' already declared."
+            self.errors.append(error)
+            logger.error(error)
+            return None
+
+        for struct_var in ctx.type_def_list():
+            datatype_var = struct_var.DATA_TYPE()
+            if datatype_var:
+                data_type = datatype_var.getText()
+                name = struct_var.IDENTIFIER().getText()
+
+                if name in struct_variables:
+                    warning = f"[Error] Line {struct_var.IDENTIFIER().symbol.line}, Column {struct_var.IDENTIFIER().symbol.column}: Field '{name}' is redeclared in new type '{struct_name}'."
+                    self.errors.append(warning)
+                    logger.warning(warning)
+                    return None
+
+                struct_variables[name] = data_type
+
+        self.symbol_table.define(struct_name, {'type': 'typedef', 'variables': struct_variables})
+
+        return None
+    
     def visitPrintStmt(self, ctx: syntaxParser.PrintStmtContext):
         line = ctx.start.line
         column = ctx.start.column

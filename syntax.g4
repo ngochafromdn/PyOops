@@ -34,6 +34,7 @@ DATA_TYPE
 
 // 3. Newtype (Struct)
 TYPE_DEF : 'type';
+DOT : '.';
 
 // 4. Literals
 CHARACTER : '\'' ( ~['\\\r\n] | '\\' . ) '\'' ;
@@ -97,6 +98,7 @@ statement
     | continue_stmt                    # Continue
     | break_stmt                       # Break
     | function_call SEMI               # FuncCallStmt
+    | type_defDeclaration SEMI         # TypeDefDeclStmt
     ;
 
 // Block
@@ -111,7 +113,7 @@ variable_declaration
 
 // Assignment
 assignment
-    : IDENTIFIER ASSIGN expression
+    : (IDENTIFIER | type_defVar) ASSIGN expression
     ;
 
 // Tách tầng biểu thức (Expression Precedence)
@@ -192,6 +194,14 @@ try_stmt
     ;
 
 // New type (Struct)
+type_defDeclaration
+    : IDENTIFIER IDENTIFIER  // e.g., newtype sth
+    ;
+
+type_defVar
+    : IDENTIFIER DOT IDENTIFIER
+    ;
+
 type_defStatement
     : TYPE_DEF IDENTIFIER LBRACE type_def_list+ RBRACE
     ;

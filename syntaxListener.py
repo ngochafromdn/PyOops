@@ -134,6 +134,15 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by syntaxParser#TypeDefDeclStmt.
+    def enterTypeDefDeclStmt(self, ctx:syntaxParser.TypeDefDeclStmtContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#TypeDefDeclStmt.
+    def exitTypeDefDeclStmt(self, ctx:syntaxParser.TypeDefDeclStmtContext):
+        pass
+
+
     # Enter a parse tree produced by syntaxParser#block.
     def enterBlock(self, ctx:syntaxParser.BlockContext):
         pass
@@ -401,6 +410,24 @@ class syntaxListener(ParseTreeListener):
 
     # Exit a parse tree produced by syntaxParser#try_stmt.
     def exitTry_stmt(self, ctx:syntaxParser.Try_stmtContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#type_defDeclaration.
+    def enterType_defDeclaration(self, ctx:syntaxParser.Type_defDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#type_defDeclaration.
+    def exitType_defDeclaration(self, ctx:syntaxParser.Type_defDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#type_defVar.
+    def enterType_defVar(self, ctx:syntaxParser.Type_defVarContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#type_defVar.
+    def exitType_defVar(self, ctx:syntaxParser.Type_defVarContext):
         pass
 
 

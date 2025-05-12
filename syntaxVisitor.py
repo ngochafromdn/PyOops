@@ -79,6 +79,11 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by syntaxParser#TypeDefDeclStmt.
+    def visitTypeDefDeclStmt(self, ctx:syntaxParser.TypeDefDeclStmtContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by syntaxParser#block.
     def visitBlock(self, ctx:syntaxParser.BlockContext):
         return self.visitChildren(ctx)
@@ -226,6 +231,16 @@ class syntaxVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by syntaxParser#try_stmt.
     def visitTry_stmt(self, ctx:syntaxParser.Try_stmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#type_defDeclaration.
+    def visitType_defDeclaration(self, ctx:syntaxParser.Type_defDeclarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by syntaxParser#type_defVar.
+    def visitType_defVar(self, ctx:syntaxParser.Type_defVarContext):
         return self.visitChildren(ctx)
 
 
