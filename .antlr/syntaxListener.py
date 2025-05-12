@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.2
+# Generated from d://uni//6 SPRING 25//Programming Language Paradigms//Project//PyOops//syntax.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .syntaxParser import syntaxParser
@@ -89,12 +89,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#TypeDef.
-    def enterTypeDef(self, ctx:syntaxParser.TypeDefContext):
+    # Enter a parse tree produced by syntaxParser#NewTypeDef.
+    def enterNewTypeDef(self, ctx:syntaxParser.NewTypeDefContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#TypeDef.
-    def exitTypeDef(self, ctx:syntaxParser.TypeDefContext):
+    # Exit a parse tree produced by syntaxParser#NewTypeDef.
+    def exitNewTypeDef(self, ctx:syntaxParser.NewTypeDefContext):
         pass
 
 
@@ -107,8 +107,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-<<<<<<< Updated upstream
-=======
     # Enter a parse tree produced by syntaxParser#Continue.
     def enterContinue(self, ctx:syntaxParser.ContinueContext):
         pass
@@ -136,16 +134,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#TypeDefDeclStmt.
-    def enterTypeDefDeclStmt(self, ctx:syntaxParser.TypeDefDeclStmtContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#TypeDefDeclStmt.
-    def exitTypeDefDeclStmt(self, ctx:syntaxParser.TypeDefDeclStmtContext):
-        pass
-
-
->>>>>>> Stashed changes
     # Enter a parse tree produced by syntaxParser#block.
     def enterBlock(self, ctx:syntaxParser.BlockContext):
         pass
@@ -173,48 +161,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#StringExpr.
-    def enterStringExpr(self, ctx:syntaxParser.StringExprContext):
+    # Enter a parse tree produced by syntaxParser#expression.
+    def enterExpression(self, ctx:syntaxParser.ExpressionContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#StringExpr.
-    def exitStringExpr(self, ctx:syntaxParser.StringExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#TrueExpr.
-    def enterTrueExpr(self, ctx:syntaxParser.TrueExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#TrueExpr.
-    def exitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#MulDivExpr.
-    def enterMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#MulDivExpr.
-    def exitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#IdExpr.
-    def enterIdExpr(self, ctx:syntaxParser.IdExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#IdExpr.
-    def exitIdExpr(self, ctx:syntaxParser.IdExprContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#NumberExpr.
-    def enterNumberExpr(self, ctx:syntaxParser.NumberExprContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#NumberExpr.
-    def exitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+    # Exit a parse tree produced by syntaxParser#expression.
+    def exitExpression(self, ctx:syntaxParser.ExpressionContext):
         pass
 
 
@@ -236,12 +188,48 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by syntaxParser#AddSubExpr.
+    def enterAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#AddSubExpr.
+    def exitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#MulDivExpr.
+    def enterMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#MulDivExpr.
+    def exitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#UnaryMinusExpr.
+    def enterUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#UnaryMinusExpr.
+    def exitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
+        pass
+
+
     # Enter a parse tree produced by syntaxParser#NotExpr.
     def enterNotExpr(self, ctx:syntaxParser.NotExprContext):
         pass
 
     # Exit a parse tree produced by syntaxParser#NotExpr.
     def exitNotExpr(self, ctx:syntaxParser.NotExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#PrimaryExpr.
+    def enterPrimaryExpr(self, ctx:syntaxParser.PrimaryExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#PrimaryExpr.
+    def exitPrimaryExpr(self, ctx:syntaxParser.PrimaryExprContext):
         pass
 
 
@@ -254,12 +242,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#AddSubExpr.
-    def enterAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+    # Enter a parse tree produced by syntaxParser#TrueExpr.
+    def enterTrueExpr(self, ctx:syntaxParser.TrueExprContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#AddSubExpr.
-    def exitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+    # Exit a parse tree produced by syntaxParser#TrueExpr.
+    def exitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
         pass
 
 
@@ -272,6 +260,51 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by syntaxParser#ArrayAccessExpr.
+    def enterArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#ArrayAccessExpr.
+    def exitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#FuncCallExpr.
+    def enterFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#FuncCallExpr.
+    def exitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#IdExpr.
+    def enterIdExpr(self, ctx:syntaxParser.IdExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#IdExpr.
+    def exitIdExpr(self, ctx:syntaxParser.IdExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#NumberExpr.
+    def enterNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#NumberExpr.
+    def exitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#StringExpr.
+    def enterStringExpr(self, ctx:syntaxParser.StringExprContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#StringExpr.
+    def exitStringExpr(self, ctx:syntaxParser.StringExprContext):
+        pass
+
+
     # Enter a parse tree produced by syntaxParser#CharExpr.
     def enterCharExpr(self, ctx:syntaxParser.CharExprContext):
         pass
@@ -281,8 +314,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-<<<<<<< Updated upstream
-=======
     # Enter a parse tree produced by syntaxParser#IntArray.
     def enterIntArray(self, ctx:syntaxParser.IntArrayContext):
         pass
@@ -310,15 +341,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#VarTypeDef.
-    def enterVarTypeDef(self, ctx:syntaxParser.VarTypeDefContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#VarTypeDef.
-    def exitVarTypeDef(self, ctx:syntaxParser.VarTypeDefContext):
-        pass
-
-
     # Enter a parse tree produced by syntaxParser#function_call.
     def enterFunction_call(self, ctx:syntaxParser.Function_callContext):
         pass
@@ -337,7 +359,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
->>>>>>> Stashed changes
     # Enter a parse tree produced by syntaxParser#if_stmt.
     def enterIf_stmt(self, ctx:syntaxParser.If_stmtContext):
         pass
@@ -383,33 +404,6 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-<<<<<<< Updated upstream
-    # Enter a parse tree produced by syntaxParser#except_clause.
-    def enterExcept_clause(self, ctx:syntaxParser.Except_clauseContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#except_clause.
-    def exitExcept_clause(self, ctx:syntaxParser.Except_clauseContext):
-=======
-    # Enter a parse tree produced by syntaxParser#type_defDeclaration.
-    def enterType_defDeclaration(self, ctx:syntaxParser.Type_defDeclarationContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#type_defDeclaration.
-    def exitType_defDeclaration(self, ctx:syntaxParser.Type_defDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#type_defVar.
-    def enterType_defVar(self, ctx:syntaxParser.Type_defVarContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#type_defVar.
-    def exitType_defVar(self, ctx:syntaxParser.Type_defVarContext):
->>>>>>> Stashed changes
-        pass
-
-
     # Enter a parse tree produced by syntaxParser#type_defStatement.
     def enterType_defStatement(self, ctx:syntaxParser.Type_defStatementContext):
         pass
@@ -419,12 +413,12 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#func_def.
-    def enterFunc_def(self, ctx:syntaxParser.Func_defContext):
+    # Enter a parse tree produced by syntaxParser#type_def_list.
+    def enterType_def_list(self, ctx:syntaxParser.Type_def_listContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#func_def.
-    def exitFunc_def(self, ctx:syntaxParser.Func_defContext):
+    # Exit a parse tree produced by syntaxParser#type_def_list.
+    def exitType_def_list(self, ctx:syntaxParser.Type_def_listContext):
         pass
 
 
@@ -437,30 +431,30 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#IntArray.
-    def enterIntArray(self, ctx:syntaxParser.IntArrayContext):
+    # Enter a parse tree produced by syntaxParser#int_Array.
+    def enterInt_Array(self, ctx:syntaxParser.Int_ArrayContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#IntArray.
-    def exitIntArray(self, ctx:syntaxParser.IntArrayContext):
-        pass
-
-
-    # Enter a parse tree produced by syntaxParser#CharArray.
-    def enterCharArray(self, ctx:syntaxParser.CharArrayContext):
-        pass
-
-    # Exit a parse tree produced by syntaxParser#CharArray.
-    def exitCharArray(self, ctx:syntaxParser.CharArrayContext):
+    # Exit a parse tree produced by syntaxParser#int_Array.
+    def exitInt_Array(self, ctx:syntaxParser.Int_ArrayContext):
         pass
 
 
-    # Enter a parse tree produced by syntaxParser#StringArray.
-    def enterStringArray(self, ctx:syntaxParser.StringArrayContext):
+    # Enter a parse tree produced by syntaxParser#char_Array.
+    def enterChar_Array(self, ctx:syntaxParser.Char_ArrayContext):
         pass
 
-    # Exit a parse tree produced by syntaxParser#StringArray.
-    def exitStringArray(self, ctx:syntaxParser.StringArrayContext):
+    # Exit a parse tree produced by syntaxParser#char_Array.
+    def exitChar_Array(self, ctx:syntaxParser.Char_ArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by syntaxParser#strArray.
+    def enterStrArray(self, ctx:syntaxParser.StrArrayContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#strArray.
+    def exitStrArray(self, ctx:syntaxParser.StrArrayContext):
         pass
 
 

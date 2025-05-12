@@ -1,4 +1,4 @@
-# Generated from syntax.g4 by ANTLR 4.13.2
+# Generated from d://uni//6 SPRING 25//Programming Language Paradigms//Project//PyOops//syntax.g4 by ANTLR 4.13.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -10,106 +10,6 @@ else:
 
 def serializedATN():
     return [
-<<<<<<< Updated upstream
-        4,1,50,275,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
-        6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
-        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,1,0,
-        5,0,42,8,0,10,0,12,0,45,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,67,8,1,1,2,1,2,5,
-        2,71,8,2,10,2,12,2,74,9,2,1,2,1,2,1,3,1,3,1,3,1,3,3,3,82,8,3,1,3,
-        1,3,1,3,1,3,3,3,88,8,3,1,3,1,3,1,3,1,3,3,3,94,8,3,1,3,1,3,1,3,1,
-        3,3,3,100,8,3,3,3,102,8,3,1,4,1,4,1,4,1,4,1,4,1,4,3,4,110,8,4,1,
-        5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,
-        5,128,8,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,5,5,142,
-        8,5,10,5,12,5,145,9,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,
-        6,1,6,5,6,159,8,6,10,6,12,6,162,9,6,1,6,1,6,3,6,166,8,6,1,7,1,7,
-        1,7,1,7,1,7,1,7,1,7,5,7,175,8,7,10,7,12,7,178,9,7,1,8,1,8,1,8,1,
-        8,1,8,1,9,1,9,1,9,1,10,1,10,1,10,1,10,1,11,1,11,1,11,1,12,1,12,1,
-        12,1,12,1,12,1,12,5,12,201,8,12,10,12,12,12,204,9,12,1,12,1,12,1,
-        13,1,13,3,13,210,8,13,1,13,1,13,1,13,3,13,215,8,13,1,13,1,13,1,13,
-        1,14,1,14,1,14,1,14,1,14,5,14,225,8,14,10,14,12,14,228,9,14,1,15,
-        1,15,1,15,1,15,5,15,234,8,15,10,15,12,15,237,9,15,3,15,239,8,15,
-        1,15,1,15,1,16,1,16,1,16,1,16,5,16,247,8,16,10,16,12,16,250,9,16,
-        3,16,252,8,16,1,16,1,16,1,17,1,17,1,17,1,17,5,17,260,8,17,10,17,
-        12,17,263,9,17,3,17,265,8,17,1,17,1,17,1,18,1,18,1,18,1,19,1,19,
-        1,19,1,19,0,1,10,20,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,
-        34,36,38,0,4,1,0,35,36,1,0,37,38,1,0,39,44,1,0,45,46,300,0,43,1,
-        0,0,0,2,66,1,0,0,0,4,68,1,0,0,0,6,101,1,0,0,0,8,103,1,0,0,0,10,127,
-        1,0,0,0,12,146,1,0,0,0,14,167,1,0,0,0,16,179,1,0,0,0,18,184,1,0,
-        0,0,20,187,1,0,0,0,22,191,1,0,0,0,24,194,1,0,0,0,26,207,1,0,0,0,
-        28,219,1,0,0,0,30,229,1,0,0,0,32,242,1,0,0,0,34,255,1,0,0,0,36,268,
-        1,0,0,0,38,271,1,0,0,0,40,42,3,2,1,0,41,40,1,0,0,0,42,45,1,0,0,0,
-        43,41,1,0,0,0,43,44,1,0,0,0,44,46,1,0,0,0,45,43,1,0,0,0,46,47,5,
-        0,0,1,47,1,1,0,0,0,48,49,3,8,4,0,49,50,5,26,0,0,50,67,1,0,0,0,51,
-        52,3,6,3,0,52,53,5,26,0,0,53,67,1,0,0,0,54,67,3,12,6,0,55,67,3,14,
-        7,0,56,67,3,20,10,0,57,58,3,18,9,0,58,59,5,26,0,0,59,67,1,0,0,0,
-        60,67,3,26,13,0,61,67,3,4,2,0,62,67,3,24,12,0,63,64,3,16,8,0,64,
-        65,5,26,0,0,65,67,1,0,0,0,66,48,1,0,0,0,66,51,1,0,0,0,66,54,1,0,
-        0,0,66,55,1,0,0,0,66,56,1,0,0,0,66,57,1,0,0,0,66,60,1,0,0,0,66,61,
-        1,0,0,0,66,62,1,0,0,0,66,63,1,0,0,0,67,3,1,0,0,0,68,72,5,28,0,0,
-        69,71,3,2,1,0,70,69,1,0,0,0,71,74,1,0,0,0,72,70,1,0,0,0,72,73,1,
-        0,0,0,73,75,1,0,0,0,74,72,1,0,0,0,75,76,5,29,0,0,76,5,1,0,0,0,77,
-        78,5,20,0,0,78,81,5,13,0,0,79,80,5,34,0,0,80,82,3,10,5,0,81,79,1,
-        0,0,0,81,82,1,0,0,0,82,102,1,0,0,0,83,84,5,21,0,0,84,87,5,13,0,0,
-        85,86,5,34,0,0,86,88,3,30,15,0,87,85,1,0,0,0,87,88,1,0,0,0,88,102,
-        1,0,0,0,89,90,5,22,0,0,90,93,5,13,0,0,91,92,5,34,0,0,92,94,3,32,
-        16,0,93,91,1,0,0,0,93,94,1,0,0,0,94,102,1,0,0,0,95,96,5,23,0,0,96,
-        99,5,13,0,0,97,98,5,34,0,0,98,100,3,34,17,0,99,97,1,0,0,0,99,100,
-        1,0,0,0,100,102,1,0,0,0,101,77,1,0,0,0,101,83,1,0,0,0,101,89,1,0,
-        0,0,101,95,1,0,0,0,102,7,1,0,0,0,103,104,5,13,0,0,104,109,5,34,0,
-        0,105,110,3,10,5,0,106,110,3,30,15,0,107,110,3,32,16,0,108,110,3,
-        34,17,0,109,105,1,0,0,0,109,106,1,0,0,0,109,107,1,0,0,0,109,108,
-        1,0,0,0,110,9,1,0,0,0,111,112,6,5,-1,0,112,113,5,47,0,0,113,114,
-        5,30,0,0,114,115,3,10,5,0,115,116,5,31,0,0,116,128,1,0,0,0,117,118,
-        5,30,0,0,118,119,3,10,5,0,119,120,5,31,0,0,120,128,1,0,0,0,121,128,
-        5,9,0,0,122,128,5,10,0,0,123,128,5,13,0,0,124,128,5,14,0,0,125,128,
-        5,25,0,0,126,128,5,24,0,0,127,111,1,0,0,0,127,117,1,0,0,0,127,121,
-        1,0,0,0,127,122,1,0,0,0,127,123,1,0,0,0,127,124,1,0,0,0,127,125,
-        1,0,0,0,127,126,1,0,0,0,128,143,1,0,0,0,129,130,10,12,0,0,130,131,
-        7,0,0,0,131,142,3,10,5,13,132,133,10,11,0,0,133,134,7,1,0,0,134,
-        142,3,10,5,12,135,136,10,10,0,0,136,137,7,2,0,0,137,142,3,10,5,11,
-        138,139,10,9,0,0,139,140,7,3,0,0,140,142,3,10,5,10,141,129,1,0,0,
-        0,141,132,1,0,0,0,141,135,1,0,0,0,141,138,1,0,0,0,142,145,1,0,0,
-        0,143,141,1,0,0,0,143,144,1,0,0,0,144,11,1,0,0,0,145,143,1,0,0,0,
-        146,147,5,1,0,0,147,148,5,30,0,0,148,149,3,10,5,0,149,150,5,31,0,
-        0,150,160,3,4,2,0,151,152,5,2,0,0,152,153,5,1,0,0,153,154,5,30,0,
-        0,154,155,3,10,5,0,155,156,5,31,0,0,156,157,3,4,2,0,157,159,1,0,
-        0,0,158,151,1,0,0,0,159,162,1,0,0,0,160,158,1,0,0,0,160,161,1,0,
-        0,0,161,165,1,0,0,0,162,160,1,0,0,0,163,164,5,2,0,0,164,166,3,4,
-        2,0,165,163,1,0,0,0,165,166,1,0,0,0,166,13,1,0,0,0,167,168,5,3,0,
-        0,168,169,5,30,0,0,169,170,3,10,5,0,170,171,5,31,0,0,171,176,3,4,
-        2,0,172,175,3,36,18,0,173,175,3,38,19,0,174,172,1,0,0,0,174,173,
-        1,0,0,0,175,178,1,0,0,0,176,174,1,0,0,0,176,177,1,0,0,0,177,15,1,
-        0,0,0,178,176,1,0,0,0,179,180,5,6,0,0,180,181,5,30,0,0,181,182,3,
-        10,5,0,182,183,5,31,0,0,183,17,1,0,0,0,184,185,5,5,0,0,185,186,3,
-        10,5,0,186,19,1,0,0,0,187,188,5,7,0,0,188,189,3,4,2,0,189,190,3,
-        22,11,0,190,21,1,0,0,0,191,192,5,8,0,0,192,193,3,4,2,0,193,23,1,
-        0,0,0,194,195,5,19,0,0,195,196,5,13,0,0,196,202,5,28,0,0,197,198,
-        5,20,0,0,198,199,5,13,0,0,199,201,5,26,0,0,200,197,1,0,0,0,201,204,
-        1,0,0,0,202,200,1,0,0,0,202,203,1,0,0,0,203,205,1,0,0,0,204,202,
-        1,0,0,0,205,206,5,29,0,0,206,25,1,0,0,0,207,209,5,4,0,0,208,210,
-        5,20,0,0,209,208,1,0,0,0,209,210,1,0,0,0,210,211,1,0,0,0,211,212,
-        5,13,0,0,212,214,5,30,0,0,213,215,3,28,14,0,214,213,1,0,0,0,214,
-        215,1,0,0,0,215,216,1,0,0,0,216,217,5,31,0,0,217,218,3,4,2,0,218,
-        27,1,0,0,0,219,220,5,20,0,0,220,226,5,13,0,0,221,222,5,27,0,0,222,
-        223,5,20,0,0,223,225,5,13,0,0,224,221,1,0,0,0,225,228,1,0,0,0,226,
-        224,1,0,0,0,226,227,1,0,0,0,227,29,1,0,0,0,228,226,1,0,0,0,229,238,
-        5,32,0,0,230,235,5,14,0,0,231,232,5,27,0,0,232,234,5,14,0,0,233,
-        231,1,0,0,0,234,237,1,0,0,0,235,233,1,0,0,0,235,236,1,0,0,0,236,
-        239,1,0,0,0,237,235,1,0,0,0,238,230,1,0,0,0,238,239,1,0,0,0,239,
-        240,1,0,0,0,240,241,5,33,0,0,241,31,1,0,0,0,242,251,5,32,0,0,243,
-        248,5,24,0,0,244,245,5,27,0,0,245,247,5,24,0,0,246,244,1,0,0,0,247,
-        250,1,0,0,0,248,246,1,0,0,0,248,249,1,0,0,0,249,252,1,0,0,0,250,
-        248,1,0,0,0,251,243,1,0,0,0,251,252,1,0,0,0,252,253,1,0,0,0,253,
-        254,5,33,0,0,254,33,1,0,0,0,255,264,5,32,0,0,256,261,5,25,0,0,257,
-        258,5,27,0,0,258,260,5,25,0,0,259,257,1,0,0,0,260,263,1,0,0,0,261,
-        259,1,0,0,0,261,262,1,0,0,0,262,265,1,0,0,0,263,261,1,0,0,0,264,
-        256,1,0,0,0,264,265,1,0,0,0,265,266,1,0,0,0,266,267,5,33,0,0,267,
-        35,1,0,0,0,268,269,5,11,0,0,269,270,5,26,0,0,270,37,1,0,0,0,271,
-        272,5,12,0,0,272,273,5,26,0,0,273,39,1,0,0,0,26,43,66,72,81,87,93,
-        99,101,109,127,141,143,160,165,174,176,202,209,214,226,235,238,248,
-        251,261,264
-=======
         4,1,45,323,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
@@ -224,7 +124,6 @@ def serializedATN():
         5,12,0,0,320,321,5,34,0,0,321,57,1,0,0,0,23,61,80,85,102,108,117,
         121,133,141,149,157,168,184,195,200,209,226,231,265,280,289,300,
         311
->>>>>>> Stashed changes
     ]
 
 class syntaxParser ( Parser ):
@@ -239,24 +138,6 @@ class syntaxParser ( Parser ):
 
     literalNames = [ "<INVALID>", "'if'", "'else'", "'while'", "'func'", 
                      "'return'", "'print'", "'try'", "'except'", "'true'", 
-<<<<<<< Updated upstream
-                     "'false'", "'continue'", "'break'", "<INVALID>", "<INVALID>", 
-                     "'int'", "'float'", "'str'", "'char'", "'type'", "<INVALID>", 
-                     "'int[]'", "'char[]'", "'str[]'", "<INVALID>", "<INVALID>", 
-                     "';'", "','", "'{'", "'}'", "'('", "')'", "'['", "']'", 
-                     "'='", "'*'", "'/'", "'+'", "'-'", "'<'", "'<='", "'>'", 
-                     "'>='", "'=='", "'!='", "'and'", "'or'", "'!'" ]
-
-    symbolicNames = [ "<INVALID>", "IF", "ELSE", "WHILE", "FUNC", "RETURN", 
-                      "PRINT", "TRY", "EXCEPT", "TRUE", "FALSE", "CONTINUE", 
-                      "BREAK", "IDENTIFIER", "NUMBER", "INT", "FLOAT", "STR", 
-                      "CHAR", "TYPE_DEF", "DATA_TYPE", "ARR_INT", "ARR_CHAR", 
-                      "ARR_STR", "CHARACTER", "STRING", "SEMI", "COMMA", 
-                      "LBRACE", "RBRACE", "LPAREN", "RPAREN", "LBRACKET", 
-                      "RBRACKET", "ASSIGN", "MUL", "DIV", "ADD", "SUB", 
-                      "LT", "LE", "GT", "GE", "EQ", "NE", "AND", "OR", "NOT", 
-                      "WS", "LINE_COMMENT", "BLOCK_COMMENT" ]
-=======
                      "'false'", "'continue'", "'break'", "'void'", "<INVALID>", 
                      "'type'", "'.'", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "'<='", "'>='", "'=='", "'!='", "'<'", "'>'", "'='", 
@@ -271,7 +152,6 @@ class syntaxParser ( Parser ):
                       "OR", "NOT", "SEMI", "COMMA", "LBRACE", "RBRACE", 
                       "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", "IDENTIFIER", 
                       "LINE_COMMENT", "BLOCK_COMMENT", "WS" ]
->>>>>>> Stashed changes
 
     RULE_program = 0
     RULE_statement = 1
@@ -279,28 +159,6 @@ class syntaxParser ( Parser ):
     RULE_variable_declaration = 3
     RULE_assignment = 4
     RULE_expression = 5
-<<<<<<< Updated upstream
-    RULE_if_stmt = 6
-    RULE_while_stmt = 7
-    RULE_print_stmt = 8
-    RULE_return_stmt = 9
-    RULE_try_stmt = 10
-    RULE_except_clause = 11
-    RULE_type_defStatement = 12
-    RULE_func_def = 13
-    RULE_param_list = 14
-    RULE_int_Array = 15
-    RULE_char_Array = 16
-    RULE_strArray = 17
-    RULE_continue_stmt = 18
-    RULE_break_stmt = 19
-
-    ruleNames =  [ "program", "statement", "block", "variable_declaration", 
-                   "assignment", "expression", "if_stmt", "while_stmt", 
-                   "print_stmt", "return_stmt", "try_stmt", "except_clause", 
-                   "type_defStatement", "func_def", "param_list", "int_Array", 
-                   "char_Array", "strArray", "continue_stmt", "break_stmt" ]
-=======
     RULE_logic_expr = 6
     RULE_comp_expr = 7
     RULE_add_expr = 8
@@ -333,7 +191,6 @@ class syntaxParser ( Parser ):
                    "type_defVar", "type_defStatement", "type_def_list", 
                    "param_list", "int_Array", "char_Array", "strArray", 
                    "continue_stmt", "break_stmt" ]
->>>>>>> Stashed changes
 
     EOF = Token.EOF
     IF=1
@@ -348,46 +205,6 @@ class syntaxParser ( Parser ):
     FALSE=10
     CONTINUE=11
     BREAK=12
-<<<<<<< Updated upstream
-    IDENTIFIER=13
-    NUMBER=14
-    INT=15
-    FLOAT=16
-    STR=17
-    CHAR=18
-    TYPE_DEF=19
-    DATA_TYPE=20
-    ARR_INT=21
-    ARR_CHAR=22
-    ARR_STR=23
-    CHARACTER=24
-    STRING=25
-    SEMI=26
-    COMMA=27
-    LBRACE=28
-    RBRACE=29
-    LPAREN=30
-    RPAREN=31
-    LBRACKET=32
-    RBRACKET=33
-    ASSIGN=34
-    MUL=35
-    DIV=36
-    ADD=37
-    SUB=38
-    LT=39
-    LE=40
-    GT=41
-    GE=42
-    EQ=43
-    NE=44
-    AND=45
-    OR=46
-    NOT=47
-    WS=48
-    LINE_COMMENT=49
-    BLOCK_COMMENT=50
-=======
     VOID=13
     DATA_TYPE=14
     TYPE_DEF=15
@@ -421,11 +238,10 @@ class syntaxParser ( Parser ):
     LINE_COMMENT=43
     BLOCK_COMMENT=44
     WS=45
->>>>>>> Stashed changes
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.13.2")
+        self.checkVersion("4.13.1")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
@@ -452,14 +268,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_program
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterProgram" ):
-                listener.enterProgram(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitProgram" ):
-                listener.exitProgram(self)
-
 
 
 
@@ -470,19 +278,6 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 43
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 284696826) != 0):
-                self.state = 40
-                self.statement()
-                self.state = 45
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
-            self.state = 46
-=======
             self.state = 61
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -494,7 +289,6 @@ class syntaxParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 64
->>>>>>> Stashed changes
             self.match(syntaxParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -522,47 +316,6 @@ class syntaxParser ( Parser ):
 
 
 
-<<<<<<< Updated upstream
-    class NewTypeDefContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def type_defStatement(self):
-            return self.getTypedRuleContext(syntaxParser.Type_defStatementContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNewTypeDef" ):
-                listener.enterNewTypeDef(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNewTypeDef" ):
-                listener.exitNewTypeDef(self)
-
-
-    class IfStmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def if_stmt(self):
-            return self.getTypedRuleContext(syntaxParser.If_stmtContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfStmt" ):
-                listener.enterIfStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfStmt" ):
-                listener.exitIfStmt(self)
-
-
-=======
->>>>>>> Stashed changes
     class PrintStmtContext(StatementContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
@@ -575,32 +328,18 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrintStmt" ):
-                listener.enterPrintStmt(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrintStmt" ):
-                listener.exitPrintStmt(self)
-
-
-    class WhileStmtContext(StatementContext):
+    class FuncCallStmtContext(StatementContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def while_stmt(self):
-            return self.getTypedRuleContext(syntaxParser.While_stmtContext,0)
+        def function_call(self):
+            return self.getTypedRuleContext(syntaxParser.Function_callContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterWhileStmt" ):
-                listener.enterWhileStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitWhileStmt" ):
-                listener.exitWhileStmt(self)
+        def SEMI(self):
+            return self.getToken(syntaxParser.SEMI, 0)
 
 
     class AssignStmtContext(StatementContext):
@@ -615,22 +354,6 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignStmt" ):
-                listener.enterAssignStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignStmt" ):
-                listener.exitAssignStmt(self)
-
-<<<<<<< Updated upstream
-=======
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAssignStmt" ):
-                return visitor.visitAssignStmt(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class TryStmtContext(StatementContext):
 
@@ -641,20 +364,6 @@ class syntaxParser ( Parser ):
         def try_stmt(self):
             return self.getTypedRuleContext(syntaxParser.Try_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTryStmt" ):
-                listener.enterTryStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTryStmt" ):
-                listener.exitTryStmt(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTryStmt" ):
-                return visitor.visitTryStmt(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class BlockStmtContext(StatementContext):
@@ -667,20 +376,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.BlockContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlockStmt" ):
-                listener.enterBlockStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlockStmt" ):
-                listener.exitBlockStmt(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBlockStmt" ):
-                return visitor.visitBlockStmt(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class BreakContext(StatementContext):
 
@@ -691,20 +386,6 @@ class syntaxParser ( Parser ):
         def break_stmt(self):
             return self.getTypedRuleContext(syntaxParser.Break_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBreak" ):
-                listener.enterBreak(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBreak" ):
-                listener.exitBreak(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBreak" ):
-                return visitor.visitBreak(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class ContinueContext(StatementContext):
@@ -717,20 +398,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Continue_stmtContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterContinue" ):
-                listener.enterContinue(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitContinue" ):
-                listener.exitContinue(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitContinue" ):
-                return visitor.visitContinue(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class IfStmtContext(StatementContext):
 
@@ -741,20 +408,6 @@ class syntaxParser ( Parser ):
         def if_stmt(self):
             return self.getTypedRuleContext(syntaxParser.If_stmtContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfStmt" ):
-                listener.enterIfStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfStmt" ):
-                listener.exitIfStmt(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIfStmt" ):
-                return visitor.visitIfStmt(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class TypeDefContext(StatementContext):
@@ -767,20 +420,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Type_defStatementContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeDef" ):
-                listener.enterTypeDef(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeDef" ):
-                listener.exitTypeDef(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypeDef" ):
-                return visitor.visitTypeDef(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class WhileStmtContext(StatementContext):
 
@@ -792,21 +431,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.While_stmtContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterWhileStmt" ):
-                listener.enterWhileStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitWhileStmt" ):
-                listener.exitWhileStmt(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitWhileStmt" ):
-                return visitor.visitWhileStmt(self)
-            else:
-                return visitor.visitChildren(self)
-
->>>>>>> Stashed changes
 
     class TypeDefDeclStmtContext(StatementContext):
 
@@ -819,20 +443,6 @@ class syntaxParser ( Parser ):
 
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeDefDeclStmt" ):
-                listener.enterTypeDefDeclStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeDefDeclStmt" ):
-                listener.exitTypeDefDeclStmt(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypeDefDeclStmt" ):
-                return visitor.visitTypeDefDeclStmt(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class VarDeclStmtContext(StatementContext):
@@ -847,33 +457,6 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVarDeclStmt" ):
-                listener.enterVarDeclStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVarDeclStmt" ):
-                listener.exitVarDeclStmt(self)
-
-
-    class TryStmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def try_stmt(self):
-            return self.getTypedRuleContext(syntaxParser.Try_stmtContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTryStmt" ):
-                listener.enterTryStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTryStmt" ):
-                listener.exitTryStmt(self)
-
 
     class FuncStmtContext(StatementContext):
 
@@ -881,36 +464,24 @@ class syntaxParser ( Parser ):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def func_def(self):
-            return self.getTypedRuleContext(syntaxParser.Func_defContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncStmt" ):
-                listener.enterFuncStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncStmt" ):
-                listener.exitFuncStmt(self)
-
-
-    class BlockStmtContext(StatementContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StatementContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
+        def FUNC(self):
+            return self.getToken(syntaxParser.FUNC, 0)
+        def IDENTIFIER(self):
+            return self.getToken(syntaxParser.IDENTIFIER, 0)
+        def LPAREN(self):
+            return self.getToken(syntaxParser.LPAREN, 0)
+        def RPAREN(self):
+            return self.getToken(syntaxParser.RPAREN, 0)
         def block(self):
             return self.getTypedRuleContext(syntaxParser.BlockContext,0)
 
+        def param_list(self):
+            return self.getTypedRuleContext(syntaxParser.Param_listContext,0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlockStmt" ):
-                listener.enterBlockStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlockStmt" ):
-                listener.exitBlockStmt(self)
+        def DATA_TYPE(self):
+            return self.getToken(syntaxParser.DATA_TYPE, 0)
+        def VOID(self):
+            return self.getToken(syntaxParser.VOID, 0)
 
 
     class ReturnStmtContext(StatementContext):
@@ -925,107 +496,68 @@ class syntaxParser ( Parser ):
         def SEMI(self):
             return self.getToken(syntaxParser.SEMI, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterReturnStmt" ):
-                listener.enterReturnStmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitReturnStmt" ):
-                listener.exitReturnStmt(self)
-
 
 
     def statement(self):
 
         localctx = syntaxParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_statement)
+        self._la = 0 # Token type
         try:
-<<<<<<< Updated upstream
-            self.state = 66
-=======
             self.state = 102
->>>>>>> Stashed changes
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [13]:
+            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
+            if la_ == 1:
                 localctx = syntaxParser.AssignStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-                self.state = 48
-                self.assignment()
-                self.state = 49
-=======
                 self.state = 66
                 self.assignment()
                 self.state = 67
->>>>>>> Stashed changes
                 self.match(syntaxParser.SEMI)
                 pass
-            elif token in [20, 21, 22, 23]:
+
+            elif la_ == 2:
                 localctx = syntaxParser.VarDeclStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-<<<<<<< Updated upstream
-                self.state = 51
-                self.variable_declaration()
-                self.state = 52
-=======
                 self.state = 69
                 self.variable_declaration()
                 self.state = 70
->>>>>>> Stashed changes
                 self.match(syntaxParser.SEMI)
                 pass
-            elif token in [1]:
+
+            elif la_ == 3:
                 localctx = syntaxParser.IfStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-<<<<<<< Updated upstream
-                self.state = 54
-=======
                 self.state = 72
->>>>>>> Stashed changes
                 self.if_stmt()
                 pass
-            elif token in [3]:
+
+            elif la_ == 4:
                 localctx = syntaxParser.WhileStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-<<<<<<< Updated upstream
-                self.state = 55
-=======
                 self.state = 73
->>>>>>> Stashed changes
                 self.while_stmt()
                 pass
-            elif token in [7]:
+
+            elif la_ == 5:
                 localctx = syntaxParser.TryStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
-<<<<<<< Updated upstream
-                self.state = 56
-=======
                 self.state = 74
->>>>>>> Stashed changes
                 self.try_stmt()
                 pass
-            elif token in [5]:
+
+            elif la_ == 6:
                 localctx = syntaxParser.ReturnStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
-<<<<<<< Updated upstream
-                self.state = 57
-                self.return_stmt()
-                self.state = 58
-=======
                 self.state = 75
                 self.return_stmt()
                 self.state = 76
->>>>>>> Stashed changes
                 self.match(syntaxParser.SEMI)
                 pass
-            elif token in [4]:
+
+            elif la_ == 7:
                 localctx = syntaxParser.FuncStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
-<<<<<<< Updated upstream
-                self.state = 60
-                self.func_def()
-=======
                 self.state = 78
                 self.match(syntaxParser.FUNC)
                 self.state = 80
@@ -1057,20 +589,11 @@ class syntaxParser ( Parser ):
                 self.match(syntaxParser.RPAREN)
                 self.state = 88
                 self.block()
->>>>>>> Stashed changes
                 pass
-            elif token in [28]:
+
+            elif la_ == 8:
                 localctx = syntaxParser.BlockStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 8)
-<<<<<<< Updated upstream
-                self.state = 61
-                self.block()
-                pass
-            elif token in [19]:
-                localctx = syntaxParser.NewTypeDefContext(self, localctx)
-                self.enterOuterAlt(localctx, 9)
-                self.state = 62
-=======
                 self.state = 89
                 self.block()
                 pass
@@ -1079,21 +602,12 @@ class syntaxParser ( Parser ):
                 localctx = syntaxParser.TypeDefContext(self, localctx)
                 self.enterOuterAlt(localctx, 9)
                 self.state = 90
->>>>>>> Stashed changes
                 self.type_defStatement()
                 pass
-            elif token in [6]:
+
+            elif la_ == 10:
                 localctx = syntaxParser.PrintStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 10)
-<<<<<<< Updated upstream
-                self.state = 63
-                self.print_stmt()
-                self.state = 64
-                self.match(syntaxParser.SEMI)
-                pass
-            else:
-                raise NoViableAltException(self)
-=======
                 self.state = 91
                 self.print_stmt()
                 self.state = 92
@@ -1132,7 +646,6 @@ class syntaxParser ( Parser ):
                 self.match(syntaxParser.SEMI)
                 pass
 
->>>>>>> Stashed changes
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1166,14 +679,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_block
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlock" ):
-                listener.enterBlock(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlock" ):
-                listener.exitBlock(self)
-
 
 
 
@@ -1184,21 +689,6 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 68
-            self.match(syntaxParser.LBRACE)
-            self.state = 72
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 284696826) != 0):
-                self.state = 69
-                self.statement()
-                self.state = 74
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
-            self.state = 75
-=======
             self.state = 104
             self.match(syntaxParser.LBRACE)
             self.state = 108
@@ -1212,7 +702,6 @@ class syntaxParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 111
->>>>>>> Stashed changes
             self.match(syntaxParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -1243,37 +732,8 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.ExpressionContext,0)
 
 
-        def ARR_INT(self):
-            return self.getToken(syntaxParser.ARR_INT, 0)
-
-        def int_Array(self):
-            return self.getTypedRuleContext(syntaxParser.Int_ArrayContext,0)
-
-
-        def ARR_CHAR(self):
-            return self.getToken(syntaxParser.ARR_CHAR, 0)
-
-        def char_Array(self):
-            return self.getTypedRuleContext(syntaxParser.Char_ArrayContext,0)
-
-
-        def ARR_STR(self):
-            return self.getToken(syntaxParser.ARR_STR, 0)
-
-        def strArray(self):
-            return self.getTypedRuleContext(syntaxParser.StrArrayContext,0)
-
-
         def getRuleIndex(self):
             return syntaxParser.RULE_variable_declaration
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVariable_declaration" ):
-                listener.enterVariable_declaration(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVariable_declaration" ):
-                listener.exitVariable_declaration(self)
 
 
 
@@ -1284,25 +744,6 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_variable_declaration)
         self._la = 0 # Token type
         try:
-<<<<<<< Updated upstream
-            self.state = 101
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [20]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 77
-                self.match(syntaxParser.DATA_TYPE)
-                self.state = 78
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 81
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==34:
-                    self.state = 79
-                    self.match(syntaxParser.ASSIGN)
-                    self.state = 80
-                    self.expression(0)
-=======
             self.enterOuterAlt(localctx, 1)
             self.state = 113
             self.match(syntaxParser.DATA_TYPE)
@@ -1316,63 +757,7 @@ class syntaxParser ( Parser ):
                 self.match(syntaxParser.ASSIGN)
                 self.state = 116
                 self.expression()
->>>>>>> Stashed changes
 
-
-                pass
-            elif token in [21]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 83
-                self.match(syntaxParser.ARR_INT)
-                self.state = 84
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 87
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==34:
-                    self.state = 85
-                    self.match(syntaxParser.ASSIGN)
-                    self.state = 86
-                    self.int_Array()
-
-
-                pass
-            elif token in [22]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 89
-                self.match(syntaxParser.ARR_CHAR)
-                self.state = 90
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 93
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==34:
-                    self.state = 91
-                    self.match(syntaxParser.ASSIGN)
-                    self.state = 92
-                    self.char_Array()
-
-
-                pass
-            elif token in [23]:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 95
-                self.match(syntaxParser.ARR_STR)
-                self.state = 96
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 99
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==34:
-                    self.state = 97
-                    self.match(syntaxParser.ASSIGN)
-                    self.state = 98
-                    self.strArray()
-
-
-                pass
-            else:
-                raise NoViableAltException(self)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1397,36 +782,15 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.ExpressionContext,0)
 
 
-<<<<<<< Updated upstream
-        def int_Array(self):
-            return self.getTypedRuleContext(syntaxParser.Int_ArrayContext,0)
-
-
-        def char_Array(self):
-            return self.getTypedRuleContext(syntaxParser.Char_ArrayContext,0)
-
-
-        def strArray(self):
-            return self.getTypedRuleContext(syntaxParser.StrArrayContext,0)
-=======
         def IDENTIFIER(self):
             return self.getToken(syntaxParser.IDENTIFIER, 0)
 
         def type_defVar(self):
             return self.getTypedRuleContext(syntaxParser.Type_defVarContext,0)
->>>>>>> Stashed changes
 
 
         def getRuleIndex(self):
             return syntaxParser.RULE_assignment
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignment" ):
-                listener.enterAssignment(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignment" ):
-                listener.exitAssignment(self)
 
 
 
@@ -1437,36 +801,6 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_assignment)
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 103
-            self.match(syntaxParser.IDENTIFIER)
-            self.state = 104
-            self.match(syntaxParser.ASSIGN)
-            self.state = 109
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
-            if la_ == 1:
-                self.state = 105
-                self.expression(0)
-                pass
-
-            elif la_ == 2:
-                self.state = 106
-                self.int_Array()
-                pass
-
-            elif la_ == 3:
-                self.state = 107
-                self.char_Array()
-                pass
-
-            elif la_ == 4:
-                self.state = 108
-                self.strArray()
-                pass
-
-
-=======
             self.state = 121
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
@@ -1485,7 +819,6 @@ class syntaxParser ( Parser ):
             self.match(syntaxParser.ASSIGN)
             self.state = 124
             self.expression()
->>>>>>> Stashed changes
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1502,25 +835,12 @@ class syntaxParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def logic_expr(self):
+            return self.getTypedRuleContext(syntaxParser.Logic_exprContext,0)
+
 
         def getRuleIndex(self):
             return syntaxParser.RULE_expression
-
-<<<<<<< Updated upstream
-=======
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpression" ):
-                listener.enterExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpression" ):
-                listener.exitExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpression" ):
-                return visitor.visitExpression(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1553,35 +873,37 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_logic_expr
 
->>>>>>> Stashed changes
      
         def copyFrom(self, ctx:ParserRuleContext):
             super().copyFrom(ctx)
 
 
-    class StringExprContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
+    class LogicExprContext(Logic_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Logic_exprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def STRING(self):
-            return self.getToken(syntaxParser.STRING, 0)
+        def comp_expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(syntaxParser.Comp_exprContext)
+            else:
+                return self.getTypedRuleContext(syntaxParser.Comp_exprContext,i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringExpr" ):
-                listener.enterStringExpr(self)
+        def AND(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.AND)
+            else:
+                return self.getToken(syntaxParser.AND, i)
+        def OR(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.OR)
+            else:
+                return self.getToken(syntaxParser.OR, i)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringExpr" ):
-                listener.exitStringExpr(self)
 
 
-    class TrueExprContext(ExpressionContext):
-
-<<<<<<< Updated upstream
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-=======
     def logic_expr(self):
 
         localctx = syntaxParser.Logic_exprContext(self, self._ctx, self.state)
@@ -1638,27 +960,48 @@ class syntaxParser ( Parser ):
     class CompExprContext(Comp_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Comp_exprContext
->>>>>>> Stashed changes
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def TRUE(self):
-            return self.getToken(syntaxParser.TRUE, 0)
+        def add_expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(syntaxParser.Add_exprContext)
+            else:
+                return self.getTypedRuleContext(syntaxParser.Add_exprContext,i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrueExpr" ):
-                listener.enterTrueExpr(self)
+        def LT(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.LT)
+            else:
+                return self.getToken(syntaxParser.LT, i)
+        def LE(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.LE)
+            else:
+                return self.getToken(syntaxParser.LE, i)
+        def GT(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.GT)
+            else:
+                return self.getToken(syntaxParser.GT, i)
+        def GE(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.GE)
+            else:
+                return self.getToken(syntaxParser.GE, i)
+        def EQ(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.EQ)
+            else:
+                return self.getToken(syntaxParser.EQ, i)
+        def NE(self, i:int=None):
+            if i is None:
+                return self.getTokens(syntaxParser.NE)
+            else:
+                return self.getToken(syntaxParser.NE, i)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrueExpr" ):
-                listener.exitTrueExpr(self)
 
 
-    class MulDivExprContext(ExpressionContext):
-
-<<<<<<< Updated upstream
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-=======
     def comp_expr(self):
 
         localctx = syntaxParser.Comp_exprContext(self, self._ctx, self.state)
@@ -1715,22 +1058,15 @@ class syntaxParser ( Parser ):
     class AddSubExprContext(Add_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Add_exprContext
->>>>>>> Stashed changes
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def expression(self, i:int=None):
+        def mul_expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(syntaxParser.ExpressionContext)
+                return self.getTypedRuleContexts(syntaxParser.Mul_exprContext)
             else:
-                return self.getTypedRuleContext(syntaxParser.ExpressionContext,i)
+                return self.getTypedRuleContext(syntaxParser.Mul_exprContext,i)
 
-<<<<<<< Updated upstream
-        def MUL(self):
-            return self.getToken(syntaxParser.MUL, 0)
-        def DIV(self):
-            return self.getToken(syntaxParser.DIV, 0)
-=======
         def ADD(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.ADD)
@@ -1741,20 +1077,6 @@ class syntaxParser ( Parser ):
                 return self.getTokens(syntaxParser.SUB)
             else:
                 return self.getToken(syntaxParser.SUB, i)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAddSubExpr" ):
-                listener.enterAddSubExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAddSubExpr" ):
-                listener.exitAddSubExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAddSubExpr" ):
-                return visitor.visitAddSubExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1833,22 +1155,8 @@ class syntaxParser ( Parser ):
                 return self.getTokens(syntaxParser.DIV)
             else:
                 return self.getToken(syntaxParser.DIV, i)
->>>>>>> Stashed changes
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMulDivExpr" ):
-                listener.enterMulDivExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMulDivExpr" ):
-                listener.exitMulDivExpr(self)
 
 
-    class IdExprContext(ExpressionContext):
-
-<<<<<<< Updated upstream
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-=======
 
     def mul_expr(self):
 
@@ -1906,103 +1214,17 @@ class syntaxParser ( Parser ):
     class PrimaryExprContext(Unary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Unary_exprContext
->>>>>>> Stashed changes
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def IDENTIFIER(self):
-            return self.getToken(syntaxParser.IDENTIFIER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIdExpr" ):
-                listener.enterIdExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIdExpr" ):
-                listener.exitIdExpr(self)
+        def primary_expr(self):
+            return self.getTypedRuleContext(syntaxParser.Primary_exprContext,0)
 
 
-    class NumberExprContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
+    class NotExprContext(Unary_exprContext):
 
-        def NUMBER(self):
-            return self.getToken(syntaxParser.NUMBER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNumberExpr" ):
-                listener.enterNumberExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNumberExpr" ):
-                listener.exitNumberExpr(self)
-
-
-    class LogicExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def expression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(syntaxParser.ExpressionContext)
-            else:
-                return self.getTypedRuleContext(syntaxParser.ExpressionContext,i)
-
-        def AND(self):
-            return self.getToken(syntaxParser.AND, 0)
-        def OR(self):
-            return self.getToken(syntaxParser.OR, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLogicExpr" ):
-                listener.enterLogicExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLogicExpr" ):
-                listener.exitLogicExpr(self)
-
-
-    class CompExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def expression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(syntaxParser.ExpressionContext)
-            else:
-                return self.getTypedRuleContext(syntaxParser.ExpressionContext,i)
-
-        def LT(self):
-            return self.getToken(syntaxParser.LT, 0)
-        def LE(self):
-            return self.getToken(syntaxParser.LE, 0)
-        def GT(self):
-            return self.getToken(syntaxParser.GT, 0)
-        def GE(self):
-            return self.getToken(syntaxParser.GE, 0)
-        def EQ(self):
-            return self.getToken(syntaxParser.EQ, 0)
-        def NE(self):
-            return self.getToken(syntaxParser.NE, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCompExpr" ):
-                listener.enterCompExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCompExpr" ):
-                listener.exitCompExpr(self)
-
-
-    class NotExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Unary_exprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -2016,20 +1238,7 @@ class syntaxParser ( Parser ):
         def RPAREN(self):
             return self.getToken(syntaxParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNotExpr" ):
-                listener.enterNotExpr(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNotExpr" ):
-                listener.exitNotExpr(self)
-
-
-    class ParenExprContext(ExpressionContext):
-
-<<<<<<< Updated upstream
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-=======
     class UnaryMinusExprContext(Unary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Unary_exprContext
@@ -2041,20 +1250,6 @@ class syntaxParser ( Parser ):
         def unary_expr(self):
             return self.getTypedRuleContext(syntaxParser.Unary_exprContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterUnaryMinusExpr" ):
-                listener.enterUnaryMinusExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitUnaryMinusExpr" ):
-                listener.exitUnaryMinusExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitUnaryMinusExpr" ):
-                return visitor.visitUnaryMinusExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2130,20 +1325,6 @@ class syntaxParser ( Parser ):
         def STRING(self):
             return self.getToken(syntaxParser.STRING, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringExpr" ):
-                listener.enterStringExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringExpr" ):
-                listener.exitStringExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStringExpr" ):
-                return visitor.visitStringExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class TrueExprContext(Primary_exprContext):
 
@@ -2154,20 +1335,6 @@ class syntaxParser ( Parser ):
         def TRUE(self):
             return self.getToken(syntaxParser.TRUE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTrueExpr" ):
-                listener.enterTrueExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTrueExpr" ):
-                listener.exitTrueExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTrueExpr" ):
-                return visitor.visitTrueExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class IdExprContext(Primary_exprContext):
 
@@ -2177,20 +1344,6 @@ class syntaxParser ( Parser ):
 
         def IDENTIFIER(self):
             return self.getToken(syntaxParser.IDENTIFIER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIdExpr" ):
-                listener.enterIdExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIdExpr" ):
-                listener.exitIdExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIdExpr" ):
-                return visitor.visitIdExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class ArrayAccessExprContext(Primary_exprContext):
@@ -2209,20 +1362,6 @@ class syntaxParser ( Parser ):
         def RBRACKET(self):
             return self.getToken(syntaxParser.RBRACKET, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArrayAccessExpr" ):
-                listener.enterArrayAccessExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArrayAccessExpr" ):
-                listener.exitArrayAccessExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArrayAccessExpr" ):
-                return visitor.visitArrayAccessExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class FalseExprContext(Primary_exprContext):
 
@@ -2233,20 +1372,6 @@ class syntaxParser ( Parser ):
         def FALSE(self):
             return self.getToken(syntaxParser.FALSE, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFalseExpr" ):
-                listener.enterFalseExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFalseExpr" ):
-                listener.exitFalseExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFalseExpr" ):
-                return visitor.visitFalseExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class CharExprContext(Primary_exprContext):
 
@@ -2256,20 +1381,6 @@ class syntaxParser ( Parser ):
 
         def CHARACTER(self):
             return self.getToken(syntaxParser.CHARACTER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharExpr" ):
-                listener.enterCharExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharExpr" ):
-                listener.exitCharExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCharExpr" ):
-                return visitor.visitCharExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class CharArrayContext(Primary_exprContext):
@@ -2282,20 +1393,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Char_ArrayContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharArray" ):
-                listener.enterCharArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharArray" ):
-                listener.exitCharArray(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCharArray" ):
-                return visitor.visitCharArray(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class IntArrayContext(Primary_exprContext):
 
@@ -2306,20 +1403,6 @@ class syntaxParser ( Parser ):
         def int_Array(self):
             return self.getTypedRuleContext(syntaxParser.Int_ArrayContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIntArray" ):
-                listener.enterIntArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIntArray" ):
-                listener.exitIntArray(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIntArray" ):
-                return visitor.visitIntArray(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class StringArrayContext(Primary_exprContext):
@@ -2332,20 +1415,6 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.StrArrayContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringArray" ):
-                listener.enterStringArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringArray" ):
-                listener.exitStringArray(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStringArray" ):
-                return visitor.visitStringArray(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class NumberExprContext(Primary_exprContext):
 
@@ -2355,20 +1424,6 @@ class syntaxParser ( Parser ):
 
         def NUMBER(self):
             return self.getToken(syntaxParser.NUMBER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNumberExpr" ):
-                listener.enterNumberExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNumberExpr" ):
-                listener.exitNumberExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNumberExpr" ):
-                return visitor.visitNumberExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class VarTypeDefContext(Primary_exprContext):
@@ -2381,25 +1436,10 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.Type_defVarContext,0)
 
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVarTypeDef" ):
-                listener.enterVarTypeDef(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVarTypeDef" ):
-                listener.exitVarTypeDef(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVarTypeDef" ):
-                return visitor.visitVarTypeDef(self)
-            else:
-                return visitor.visitChildren(self)
-
 
     class ParenExprContext(Primary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
->>>>>>> Stashed changes
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -2411,105 +1451,7 @@ class syntaxParser ( Parser ):
         def RPAREN(self):
             return self.getToken(syntaxParser.RPAREN, 0)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParenExpr" ):
-                listener.enterParenExpr(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParenExpr" ):
-                listener.exitParenExpr(self)
-
-
-    class AddSubExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def expression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(syntaxParser.ExpressionContext)
-            else:
-                return self.getTypedRuleContext(syntaxParser.ExpressionContext,i)
-
-        def ADD(self):
-            return self.getToken(syntaxParser.ADD, 0)
-        def SUB(self):
-            return self.getToken(syntaxParser.SUB, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAddSubExpr" ):
-                listener.enterAddSubExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAddSubExpr" ):
-                listener.exitAddSubExpr(self)
-
-
-<<<<<<< Updated upstream
-    class FalseExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def FALSE(self):
-            return self.getToken(syntaxParser.FALSE, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFalseExpr" ):
-                listener.enterFalseExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFalseExpr" ):
-                listener.exitFalseExpr(self)
-
-
-    class CharExprContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def CHARACTER(self):
-            return self.getToken(syntaxParser.CHARACTER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharExpr" ):
-                listener.enterCharExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharExpr" ):
-                listener.exitCharExpr(self)
-
-
-
-    def expression(self, _p:int=0):
-        _parentctx = self._ctx
-        _parentState = self.state
-        localctx = syntaxParser.ExpressionContext(self, self._ctx, _parentState)
-        _prevctx = localctx
-        _startState = 10
-        self.enterRecursionRule(localctx, 10, self.RULE_expression, _p)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 127
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [47]:
-                localctx = syntaxParser.NotExprContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-
-                self.state = 112
-                self.match(syntaxParser.NOT)
-                self.state = 113
-                self.match(syntaxParser.LPAREN)
-                self.state = 114
-                self.expression(0)
-                self.state = 115
-=======
     class FuncCallExprContext(Primary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
@@ -2525,20 +1467,6 @@ class syntaxParser ( Parser ):
         def arg_list(self):
             return self.getTypedRuleContext(syntaxParser.Arg_listContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncCallExpr" ):
-                listener.enterFuncCallExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncCallExpr" ):
-                listener.exitFuncCallExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncCallExpr" ):
-                return visitor.visitFuncCallExpr(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2559,46 +1487,18 @@ class syntaxParser ( Parser ):
                 self.state = 171
                 self.expression()
                 self.state = 172
->>>>>>> Stashed changes
                 self.match(syntaxParser.RPAREN)
                 pass
-            elif token in [30]:
-                localctx = syntaxParser.ParenExprContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 117
-                self.match(syntaxParser.LPAREN)
-                self.state = 118
-                self.expression(0)
-                self.state = 119
-                self.match(syntaxParser.RPAREN)
-                pass
-            elif token in [9]:
+
+            elif la_ == 2:
                 localctx = syntaxParser.TrueExprContext(self, localctx)
-<<<<<<< Updated upstream
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 121
-=======
                 self.enterOuterAlt(localctx, 2)
                 self.state = 174
->>>>>>> Stashed changes
                 self.match(syntaxParser.TRUE)
                 pass
-            elif token in [10]:
+
+            elif la_ == 3:
                 localctx = syntaxParser.FalseExprContext(self, localctx)
-<<<<<<< Updated upstream
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 122
-                self.match(syntaxParser.FALSE)
-                pass
-            elif token in [13]:
-                localctx = syntaxParser.IdExprContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 123
-=======
                 self.enterOuterAlt(localctx, 3)
                 self.state = 175
                 self.match(syntaxParser.FALSE)
@@ -2640,42 +1540,25 @@ class syntaxParser ( Parser ):
                 localctx = syntaxParser.IdExprContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
                 self.state = 187
->>>>>>> Stashed changes
                 self.match(syntaxParser.IDENTIFIER)
                 pass
-            elif token in [14]:
+
+            elif la_ == 7:
                 localctx = syntaxParser.NumberExprContext(self, localctx)
-<<<<<<< Updated upstream
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 124
-=======
                 self.enterOuterAlt(localctx, 7)
                 self.state = 188
->>>>>>> Stashed changes
                 self.match(syntaxParser.NUMBER)
                 pass
-            elif token in [25]:
+
+            elif la_ == 8:
                 localctx = syntaxParser.StringExprContext(self, localctx)
-<<<<<<< Updated upstream
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 125
-=======
                 self.enterOuterAlt(localctx, 8)
                 self.state = 189
->>>>>>> Stashed changes
                 self.match(syntaxParser.STRING)
                 pass
-            elif token in [24]:
+
+            elif la_ == 9:
                 localctx = syntaxParser.CharExprContext(self, localctx)
-<<<<<<< Updated upstream
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 126
-                self.match(syntaxParser.CHARACTER)
-                pass
-=======
                 self.enterOuterAlt(localctx, 9)
                 self.state = 190
                 self.match(syntaxParser.CHARACTER)
@@ -2742,52 +1625,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_function_call
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunction_call" ):
-                listener.enterFunction_call(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunction_call" ):
-                listener.exitFunction_call(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunction_call" ):
-                return visitor.visitFunction_call(self)
->>>>>>> Stashed changes
-            else:
-                raise NoViableAltException(self)
-
-<<<<<<< Updated upstream
-            self._ctx.stop = self._input.LT(-1)
-            self.state = 143
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    if self._parseListeners is not None:
-                        self.triggerExitRuleEvent()
-                    _prevctx = localctx
-                    self.state = 141
-                    self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
-                    if la_ == 1:
-                        localctx = syntaxParser.MulDivExprContext(self, syntaxParser.ExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 129
-                        if not self.precpred(self._ctx, 12):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
-                        self.state = 130
-                        _la = self._input.LA(1)
-                        if not(_la==35 or _la==36):
-                            self._errHandler.recoverInline(self)
-                        else:
-                            self._errHandler.reportMatch(self)
-                            self.consume()
-                        self.state = 131
-                        self.expression(13)
-                        pass
-=======
 
 
 
@@ -2808,45 +1645,8 @@ class syntaxParser ( Parser ):
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 5781295334912) != 0):
                 self.state = 199
                 self.arg_list()
->>>>>>> Stashed changes
 
-                    elif la_ == 2:
-                        localctx = syntaxParser.AddSubExprContext(self, syntaxParser.ExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 132
-                        if not self.precpred(self._ctx, 11):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
-                        self.state = 133
-                        _la = self._input.LA(1)
-                        if not(_la==37 or _la==38):
-                            self._errHandler.recoverInline(self)
-                        else:
-                            self._errHandler.reportMatch(self)
-                            self.consume()
-                        self.state = 134
-                        self.expression(12)
-                        pass
 
-<<<<<<< Updated upstream
-                    elif la_ == 3:
-                        localctx = syntaxParser.CompExprContext(self, syntaxParser.ExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 135
-                        if not self.precpred(self._ctx, 10):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
-                        self.state = 136
-                        _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 34634616274944) != 0)):
-                            self._errHandler.recoverInline(self)
-                        else:
-                            self._errHandler.reportMatch(self)
-                            self.consume()
-                        self.state = 137
-                        self.expression(11)
-                        pass
-=======
             self.state = 202
             self.match(syntaxParser.RPAREN)
         except RecognitionException as re:
@@ -2856,30 +1656,8 @@ class syntaxParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
->>>>>>> Stashed changes
 
-                    elif la_ == 4:
-                        localctx = syntaxParser.LogicExprContext(self, syntaxParser.ExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 138
-                        if not self.precpred(self._ctx, 9):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
-                        self.state = 139
-                        _la = self._input.LA(1)
-                        if not(_la==45 or _la==46):
-                            self._errHandler.recoverInline(self)
-                        else:
-                            self._errHandler.reportMatch(self)
-                            self.consume()
-                        self.state = 140
-                        self.expression(10)
-                        pass
 
-<<<<<<< Updated upstream
-             
-                self.state = 145
-=======
     class Arg_listContext(ParserRuleContext):
         __slots__ = 'parser'
 
@@ -2903,20 +1681,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_arg_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArg_list" ):
-                listener.enterArg_list(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArg_list" ):
-                listener.exitArg_list(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArg_list" ):
-                return visitor.visitArg_list(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2938,16 +1702,15 @@ class syntaxParser ( Parser ):
                 self.state = 206
                 self.expression()
                 self.state = 211
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
+                _la = self._input.LA(1)
 
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
             self._errHandler.recover(self, re)
         finally:
-            self.unrollRecursionContexts(_parentctx)
+            self.exitRule()
         return localctx
 
 
@@ -2999,64 +1762,16 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_if_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIf_stmt" ):
-                listener.enterIf_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIf_stmt" ):
-                listener.exitIf_stmt(self)
-
 
 
 
     def if_stmt(self):
 
         localctx = syntaxParser.If_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_if_stmt)
+        self.enterRule(localctx, 28, self.RULE_if_stmt)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 146
-            self.match(syntaxParser.IF)
-            self.state = 147
-            self.match(syntaxParser.LPAREN)
-            self.state = 148
-            self.expression(0)
-            self.state = 149
-            self.match(syntaxParser.RPAREN)
-            self.state = 150
-            self.block()
-            self.state = 160
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 151
-                    self.match(syntaxParser.ELSE)
-                    self.state = 152
-                    self.match(syntaxParser.IF)
-                    self.state = 153
-                    self.match(syntaxParser.LPAREN)
-                    self.state = 154
-                    self.expression(0)
-                    self.state = 155
-                    self.match(syntaxParser.RPAREN)
-                    self.state = 156
-                    self.block() 
-                self.state = 162
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
-
-            self.state = 165
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==2:
-                self.state = 163
-                self.match(syntaxParser.ELSE)
-                self.state = 164
-=======
             self.state = 212
             self.match(syntaxParser.IF)
             self.state = 213
@@ -3095,7 +1810,6 @@ class syntaxParser ( Parser ):
                 self.state = 229
                 self.match(syntaxParser.ELSE)
                 self.state = 230
->>>>>>> Stashed changes
                 self.block()
 
 
@@ -3132,30 +1846,8 @@ class syntaxParser ( Parser ):
             return self.getTypedRuleContext(syntaxParser.BlockContext,0)
 
 
-        def continue_stmt(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(syntaxParser.Continue_stmtContext)
-            else:
-                return self.getTypedRuleContext(syntaxParser.Continue_stmtContext,i)
-
-
-        def break_stmt(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(syntaxParser.Break_stmtContext)
-            else:
-                return self.getTypedRuleContext(syntaxParser.Break_stmtContext,i)
-
-
         def getRuleIndex(self):
             return syntaxParser.RULE_while_stmt
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterWhile_stmt" ):
-                listener.enterWhile_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitWhile_stmt" ):
-                listener.exitWhile_stmt(self)
 
 
 
@@ -3163,21 +1855,9 @@ class syntaxParser ( Parser ):
     def while_stmt(self):
 
         localctx = syntaxParser.While_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_while_stmt)
-        self._la = 0 # Token type
+        self.enterRule(localctx, 30, self.RULE_while_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 167
-            self.match(syntaxParser.WHILE)
-            self.state = 168
-            self.match(syntaxParser.LPAREN)
-            self.state = 169
-            self.expression(0)
-            self.state = 170
-            self.match(syntaxParser.RPAREN)
-            self.state = 171
-=======
             self.state = 233
             self.match(syntaxParser.WHILE)
             self.state = 234
@@ -3187,30 +1867,7 @@ class syntaxParser ( Parser ):
             self.state = 236
             self.match(syntaxParser.RPAREN)
             self.state = 237
->>>>>>> Stashed changes
             self.block()
-            self.state = 176
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==11 or _la==12:
-                self.state = 174
-                self._errHandler.sync(self)
-                token = self._input.LA(1)
-                if token in [11]:
-                    self.state = 172
-                    self.continue_stmt()
-                    pass
-                elif token in [12]:
-                    self.state = 173
-                    self.break_stmt()
-                    pass
-                else:
-                    raise NoViableAltException(self)
-
-                self.state = 178
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3243,32 +1900,15 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_print_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrint_stmt" ):
-                listener.enterPrint_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrint_stmt" ):
-                listener.exitPrint_stmt(self)
-
 
 
 
     def print_stmt(self):
 
         localctx = syntaxParser.Print_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_print_stmt)
+        self.enterRule(localctx, 32, self.RULE_print_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 179
-            self.match(syntaxParser.PRINT)
-            self.state = 180
-            self.match(syntaxParser.LPAREN)
-            self.state = 181
-            self.expression(0)
-            self.state = 182
-=======
             self.state = 239
             self.match(syntaxParser.PRINT)
             self.state = 240
@@ -3276,7 +1916,6 @@ class syntaxParser ( Parser ):
             self.state = 241
             self.expression()
             self.state = 242
->>>>>>> Stashed changes
             self.match(syntaxParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -3304,34 +1943,19 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_return_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterReturn_stmt" ):
-                listener.enterReturn_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitReturn_stmt" ):
-                listener.exitReturn_stmt(self)
-
 
 
 
     def return_stmt(self):
 
         localctx = syntaxParser.Return_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_return_stmt)
+        self.enterRule(localctx, 34, self.RULE_return_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 184
-            self.match(syntaxParser.RETURN)
-            self.state = 185
-            self.expression(0)
-=======
             self.state = 244
             self.match(syntaxParser.RETURN)
             self.state = 245
             self.expression()
->>>>>>> Stashed changes
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3351,24 +1975,18 @@ class syntaxParser ( Parser ):
         def TRY(self):
             return self.getToken(syntaxParser.TRY, 0)
 
-        def block(self):
-            return self.getTypedRuleContext(syntaxParser.BlockContext,0)
+        def block(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(syntaxParser.BlockContext)
+            else:
+                return self.getTypedRuleContext(syntaxParser.BlockContext,i)
 
 
-        def except_clause(self):
-            return self.getTypedRuleContext(syntaxParser.Except_clauseContext,0)
-
+        def EXCEPT(self):
+            return self.getToken(syntaxParser.EXCEPT, 0)
 
         def getRuleIndex(self):
             return syntaxParser.RULE_try_stmt
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTry_stmt" ):
-                listener.enterTry_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTry_stmt" ):
-                listener.exitTry_stmt(self)
 
 
 
@@ -3376,64 +1994,9 @@ class syntaxParser ( Parser ):
     def try_stmt(self):
 
         localctx = syntaxParser.Try_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_try_stmt)
+        self.enterRule(localctx, 36, self.RULE_try_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 187
-            self.match(syntaxParser.TRY)
-            self.state = 188
-            self.block()
-
-            self.state = 189
-            self.except_clause()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Except_clauseContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def EXCEPT(self):
-            return self.getToken(syntaxParser.EXCEPT, 0)
-
-        def block(self):
-            return self.getTypedRuleContext(syntaxParser.BlockContext,0)
-
-
-        def getRuleIndex(self):
-            return syntaxParser.RULE_except_clause
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExcept_clause" ):
-                listener.enterExcept_clause(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExcept_clause" ):
-                listener.exitExcept_clause(self)
-
-
-
-
-    def except_clause(self):
-
-        localctx = syntaxParser.Except_clauseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_except_clause)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 191
-            self.match(syntaxParser.EXCEPT)
-            self.state = 192
-=======
             self.state = 247
             self.match(syntaxParser.TRY)
             self.state = 248
@@ -3442,7 +2005,6 @@ class syntaxParser ( Parser ):
             self.state = 249
             self.match(syntaxParser.EXCEPT)
             self.state = 250
->>>>>>> Stashed changes
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -3468,20 +2030,6 @@ class syntaxParser ( Parser ):
 
         def getRuleIndex(self):
             return syntaxParser.RULE_type_defDeclaration
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterType_defDeclaration" ):
-                listener.enterType_defDeclaration(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitType_defDeclaration" ):
-                listener.exitType_defDeclaration(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitType_defDeclaration" ):
-                return visitor.visitType_defDeclaration(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3524,20 +2072,6 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_type_defVar
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterType_defVar" ):
-                listener.enterType_defVar(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitType_defVar" ):
-                listener.exitType_defVar(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitType_defVar" ):
-                return visitor.visitType_defVar(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3572,11 +2106,8 @@ class syntaxParser ( Parser ):
         def TYPE_DEF(self):
             return self.getToken(syntaxParser.TYPE_DEF, 0)
 
-        def IDENTIFIER(self, i:int=None):
-            if i is None:
-                return self.getTokens(syntaxParser.IDENTIFIER)
-            else:
-                return self.getToken(syntaxParser.IDENTIFIER, i)
+        def IDENTIFIER(self):
+            return self.getToken(syntaxParser.IDENTIFIER, 0)
 
         def LBRACE(self):
             return self.getToken(syntaxParser.LBRACE, 0)
@@ -3584,28 +2115,15 @@ class syntaxParser ( Parser ):
         def RBRACE(self):
             return self.getToken(syntaxParser.RBRACE, 0)
 
-        def DATA_TYPE(self, i:int=None):
+        def type_def_list(self, i:int=None):
             if i is None:
-                return self.getTokens(syntaxParser.DATA_TYPE)
+                return self.getTypedRuleContexts(syntaxParser.Type_def_listContext)
             else:
-                return self.getToken(syntaxParser.DATA_TYPE, i)
+                return self.getTypedRuleContext(syntaxParser.Type_def_listContext,i)
 
-        def SEMI(self, i:int=None):
-            if i is None:
-                return self.getTokens(syntaxParser.SEMI)
-            else:
-                return self.getToken(syntaxParser.SEMI, i)
 
         def getRuleIndex(self):
             return syntaxParser.RULE_type_defStatement
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterType_defStatement" ):
-                listener.enterType_defStatement(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitType_defStatement" ):
-                listener.exitType_defStatement(self)
 
 
 
@@ -3613,29 +2131,6 @@ class syntaxParser ( Parser ):
     def type_defStatement(self):
 
         localctx = syntaxParser.Type_defStatementContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 24, self.RULE_type_defStatement)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 194
-            self.match(syntaxParser.TYPE_DEF)
-            self.state = 195
-            self.match(syntaxParser.IDENTIFIER)
-            self.state = 196
-            self.match(syntaxParser.LBRACE)
-            self.state = 202
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==20:
-                self.state = 197
-                self.match(syntaxParser.DATA_TYPE)
-                self.state = 198
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 199
-                self.match(syntaxParser.SEMI)
-                self.state = 204
-=======
         self.enterRule(localctx, 42, self.RULE_type_defStatement)
         self._la = 0 # Token type
         try:
@@ -3653,15 +2148,12 @@ class syntaxParser ( Parser ):
                 self.state = 262
                 self.type_def_list()
                 self.state = 265 
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
+                if not (_la==14):
+                    break
 
-<<<<<<< Updated upstream
-            self.state = 205
-=======
             self.state = 267
->>>>>>> Stashed changes
             self.match(syntaxParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -3672,85 +2164,30 @@ class syntaxParser ( Parser ):
         return localctx
 
 
-    class Func_defContext(ParserRuleContext):
+    class Type_def_listContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def FUNC(self):
-            return self.getToken(syntaxParser.FUNC, 0)
+        def DATA_TYPE(self):
+            return self.getToken(syntaxParser.DATA_TYPE, 0)
 
         def IDENTIFIER(self):
             return self.getToken(syntaxParser.IDENTIFIER, 0)
 
-        def LPAREN(self):
-            return self.getToken(syntaxParser.LPAREN, 0)
-
-        def RPAREN(self):
-            return self.getToken(syntaxParser.RPAREN, 0)
-
-        def block(self):
-            return self.getTypedRuleContext(syntaxParser.BlockContext,0)
-
-
-        def DATA_TYPE(self):
-            return self.getToken(syntaxParser.DATA_TYPE, 0)
-
-        def param_list(self):
-            return self.getTypedRuleContext(syntaxParser.Param_listContext,0)
-
+        def SEMI(self):
+            return self.getToken(syntaxParser.SEMI, 0)
 
         def getRuleIndex(self):
-            return syntaxParser.RULE_func_def
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunc_def" ):
-                listener.enterFunc_def(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunc_def" ):
-                listener.exitFunc_def(self)
+            return syntaxParser.RULE_type_def_list
 
 
 
 
-    def func_def(self):
+    def type_def_list(self):
 
-<<<<<<< Updated upstream
-        localctx = syntaxParser.Func_defContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_func_def)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 207
-            self.match(syntaxParser.FUNC)
-            self.state = 209
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==20:
-                self.state = 208
-                self.match(syntaxParser.DATA_TYPE)
-
-
-            self.state = 211
-            self.match(syntaxParser.IDENTIFIER)
-            self.state = 212
-            self.match(syntaxParser.LPAREN)
-            self.state = 214
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==20:
-                self.state = 213
-                self.param_list()
-
-
-            self.state = 216
-            self.match(syntaxParser.RPAREN)
-            self.state = 217
-            self.block()
-=======
         localctx = syntaxParser.Type_def_listContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_type_def_list)
         try:
@@ -3761,7 +2198,6 @@ class syntaxParser ( Parser ):
             self.match(syntaxParser.IDENTIFIER)
             self.state = 271
             self.match(syntaxParser.SEMI)
->>>>>>> Stashed changes
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3799,41 +2235,12 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_param_list
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParam_list" ):
-                listener.enterParam_list(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParam_list" ):
-                listener.exitParam_list(self)
-
 
 
 
     def param_list(self):
 
         localctx = syntaxParser.Param_listContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 28, self.RULE_param_list)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 219
-            self.match(syntaxParser.DATA_TYPE)
-            self.state = 220
-            self.match(syntaxParser.IDENTIFIER)
-            self.state = 226
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==27:
-                self.state = 221
-                self.match(syntaxParser.COMMA)
-                self.state = 222
-                self.match(syntaxParser.DATA_TYPE)
-                self.state = 223
-                self.match(syntaxParser.IDENTIFIER)
-                self.state = 228
-=======
         self.enterRule(localctx, 46, self.RULE_param_list)
         self._la = 0 # Token type
         try:
@@ -3853,7 +2260,6 @@ class syntaxParser ( Parser ):
                 self.state = 277
                 self.match(syntaxParser.IDENTIFIER)
                 self.state = 282
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -3873,70 +2279,37 @@ class syntaxParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-
-        def getRuleIndex(self):
-            return syntaxParser.RULE_int_Array
-
-     
-        def copyFrom(self, ctx:ParserRuleContext):
-            super().copyFrom(ctx)
-
-
-
-    class IntArrayContext(Int_ArrayContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Int_ArrayContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
         def LBRACKET(self):
             return self.getToken(syntaxParser.LBRACKET, 0)
+
         def RBRACKET(self):
             return self.getToken(syntaxParser.RBRACKET, 0)
+
         def NUMBER(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.NUMBER)
             else:
                 return self.getToken(syntaxParser.NUMBER, i)
+
         def COMMA(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.COMMA)
             else:
                 return self.getToken(syntaxParser.COMMA, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIntArray" ):
-                listener.enterIntArray(self)
+        def getRuleIndex(self):
+            return syntaxParser.RULE_int_Array
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIntArray" ):
-                listener.exitIntArray(self)
 
 
 
     def int_Array(self):
 
         localctx = syntaxParser.Int_ArrayContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 30, self.RULE_int_Array)
-=======
         self.enterRule(localctx, 48, self.RULE_int_Array)
->>>>>>> Stashed changes
         self._la = 0 # Token type
         try:
-            localctx = syntaxParser.IntArrayContext(self, localctx)
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 229
-            self.match(syntaxParser.LBRACKET)
-            self.state = 238
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==14:
-                self.state = 230
-                self.match(syntaxParser.NUMBER)
-                self.state = 235
-=======
             self.state = 283
             self.match(syntaxParser.LBRACKET)
 
@@ -3951,25 +2324,10 @@ class syntaxParser ( Parser ):
                 self.state = 286
                 self.match(syntaxParser.NUMBER)
                 self.state = 291
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==27:
-                    self.state = 231
-                    self.match(syntaxParser.COMMA)
-                    self.state = 232
-                    self.match(syntaxParser.NUMBER)
-                    self.state = 237
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
 
-<<<<<<< Updated upstream
-
-
-            self.state = 240
-=======
             self.state = 292
->>>>>>> Stashed changes
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -3987,70 +2345,37 @@ class syntaxParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-
-        def getRuleIndex(self):
-            return syntaxParser.RULE_char_Array
-
-     
-        def copyFrom(self, ctx:ParserRuleContext):
-            super().copyFrom(ctx)
-
-
-
-    class CharArrayContext(Char_ArrayContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Char_ArrayContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
         def LBRACKET(self):
             return self.getToken(syntaxParser.LBRACKET, 0)
+
         def RBRACKET(self):
             return self.getToken(syntaxParser.RBRACKET, 0)
+
         def CHARACTER(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.CHARACTER)
             else:
                 return self.getToken(syntaxParser.CHARACTER, i)
+
         def COMMA(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.COMMA)
             else:
                 return self.getToken(syntaxParser.COMMA, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharArray" ):
-                listener.enterCharArray(self)
+        def getRuleIndex(self):
+            return syntaxParser.RULE_char_Array
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharArray" ):
-                listener.exitCharArray(self)
 
 
 
     def char_Array(self):
 
         localctx = syntaxParser.Char_ArrayContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 32, self.RULE_char_Array)
-=======
         self.enterRule(localctx, 50, self.RULE_char_Array)
->>>>>>> Stashed changes
         self._la = 0 # Token type
         try:
-            localctx = syntaxParser.CharArrayContext(self, localctx)
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 242
-            self.match(syntaxParser.LBRACKET)
-            self.state = 251
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==24:
-                self.state = 243
-                self.match(syntaxParser.CHARACTER)
-                self.state = 248
-=======
             self.state = 294
             self.match(syntaxParser.LBRACKET)
 
@@ -4065,25 +2390,10 @@ class syntaxParser ( Parser ):
                 self.state = 297
                 self.match(syntaxParser.CHARACTER)
                 self.state = 302
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==27:
-                    self.state = 244
-                    self.match(syntaxParser.COMMA)
-                    self.state = 245
-                    self.match(syntaxParser.CHARACTER)
-                    self.state = 250
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
 
-<<<<<<< Updated upstream
-
-
-            self.state = 253
-=======
             self.state = 303
->>>>>>> Stashed changes
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -4101,70 +2411,37 @@ class syntaxParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-
-        def getRuleIndex(self):
-            return syntaxParser.RULE_strArray
-
-     
-        def copyFrom(self, ctx:ParserRuleContext):
-            super().copyFrom(ctx)
-
-
-
-    class StringArrayContext(StrArrayContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.StrArrayContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
         def LBRACKET(self):
             return self.getToken(syntaxParser.LBRACKET, 0)
+
         def RBRACKET(self):
             return self.getToken(syntaxParser.RBRACKET, 0)
+
         def STRING(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.STRING)
             else:
                 return self.getToken(syntaxParser.STRING, i)
+
         def COMMA(self, i:int=None):
             if i is None:
                 return self.getTokens(syntaxParser.COMMA)
             else:
                 return self.getToken(syntaxParser.COMMA, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringArray" ):
-                listener.enterStringArray(self)
+        def getRuleIndex(self):
+            return syntaxParser.RULE_strArray
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringArray" ):
-                listener.exitStringArray(self)
 
 
 
     def strArray(self):
 
         localctx = syntaxParser.StrArrayContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 34, self.RULE_strArray)
-=======
         self.enterRule(localctx, 52, self.RULE_strArray)
->>>>>>> Stashed changes
         self._la = 0 # Token type
         try:
-            localctx = syntaxParser.StringArrayContext(self, localctx)
             self.enterOuterAlt(localctx, 1)
-<<<<<<< Updated upstream
-            self.state = 255
-            self.match(syntaxParser.LBRACKET)
-            self.state = 264
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==25:
-                self.state = 256
-                self.match(syntaxParser.STRING)
-                self.state = 261
-=======
             self.state = 305
             self.match(syntaxParser.LBRACKET)
 
@@ -4179,25 +2456,10 @@ class syntaxParser ( Parser ):
                 self.state = 308
                 self.match(syntaxParser.STRING)
                 self.state = 313
->>>>>>> Stashed changes
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==27:
-                    self.state = 257
-                    self.match(syntaxParser.COMMA)
-                    self.state = 258
-                    self.match(syntaxParser.STRING)
-                    self.state = 263
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
 
-<<<<<<< Updated upstream
-
-
-            self.state = 266
-=======
             self.state = 314
->>>>>>> Stashed changes
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -4224,35 +2486,18 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_continue_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterContinue_stmt" ):
-                listener.enterContinue_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitContinue_stmt" ):
-                listener.exitContinue_stmt(self)
-
 
 
 
     def continue_stmt(self):
 
         localctx = syntaxParser.Continue_stmtContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 36, self.RULE_continue_stmt)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 268
-            self.match(syntaxParser.CONTINUE)
-            self.state = 269
-=======
         self.enterRule(localctx, 54, self.RULE_continue_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 316
             self.match(syntaxParser.CONTINUE)
             self.state = 317
->>>>>>> Stashed changes
             self.match(syntaxParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -4279,35 +2524,18 @@ class syntaxParser ( Parser ):
         def getRuleIndex(self):
             return syntaxParser.RULE_break_stmt
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBreak_stmt" ):
-                listener.enterBreak_stmt(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBreak_stmt" ):
-                listener.exitBreak_stmt(self)
-
 
 
 
     def break_stmt(self):
 
         localctx = syntaxParser.Break_stmtContext(self, self._ctx, self.state)
-<<<<<<< Updated upstream
-        self.enterRule(localctx, 38, self.RULE_break_stmt)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 271
-            self.match(syntaxParser.BREAK)
-            self.state = 272
-=======
         self.enterRule(localctx, 56, self.RULE_break_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 319
             self.match(syntaxParser.BREAK)
             self.state = 320
->>>>>>> Stashed changes
             self.match(syntaxParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -4317,34 +2545,6 @@ class syntaxParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-
-    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
-        if self._predicates == None:
-            self._predicates = dict()
-        self._predicates[5] = self.expression_sempred
-        pred = self._predicates.get(ruleIndex, None)
-        if pred is None:
-            raise Exception("No predicate with index:" + str(ruleIndex))
-        else:
-            return pred(localctx, predIndex)
-
-    def expression_sempred(self, localctx:ExpressionContext, predIndex:int):
-            if predIndex == 0:
-                return self.precpred(self._ctx, 12)
-         
-
-            if predIndex == 1:
-                return self.precpred(self._ctx, 11)
-         
-
-            if predIndex == 2:
-                return self.precpred(self._ctx, 10)
-         
-
-            if predIndex == 3:
-                return self.precpred(self._ctx, 9)
-         
 
 
 

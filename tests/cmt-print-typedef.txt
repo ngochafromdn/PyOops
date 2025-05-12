@@ -14,6 +14,11 @@ type newtype2 {
 	str[] y;
 }
 
+<<<<<<< Updated upstream:tests/cmt-print-typedef.txt
+=======
+// newtype.x = 2;
+
+>>>>>>> Stashed changes:tests/optional.txt
 // hello		1234, ni hao
 //	Hello, nice to meet you.	
 // Exit a parse tree produced by hw2

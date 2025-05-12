@@ -40,10 +40,16 @@ DATA_TYPE
     | TYPE_DEF
     ;
 
+<<<<<<< Updated upstream
 // ARRAY TYPES
 ARR_INT : 'int[]';
 ARR_CHAR : 'char[]';
 ARR_STR : 'str[]';
+=======
+// 3. Newtype (Struct)
+TYPE_DEF : 'type';
+DOT : '.';
+>>>>>>> Stashed changes
 
 ARR_TYPE
     : ARR_INT 
@@ -96,6 +102,7 @@ program
 // Statement 
 statement 
     : assignment SEMI                   # AssignStmt
+<<<<<<< Updated upstream
     | variable_declaration SEMI         # VarDeclStmt
     | if_stmt                           # IfStmt
     | while_stmt                        # WhileStmt
@@ -105,6 +112,21 @@ statement
     | block                             # BlockStmt
     | type_defStatement                 # NewTypeDef
     | print_stmt SEMI                   # PrintStmt
+=======
+    | variable_declaration SEMI        # VarDeclStmt
+    | if_stmt                          # IfStmt
+    | while_stmt                       # WhileStmt
+    | try_stmt                         # TryStmt
+    | return_stmt SEMI                 # ReturnStmt
+    | FUNC (DATA_TYPE | VOID)? IDENTIFIER LPAREN param_list? RPAREN block # FuncStmt
+    | block                            # BlockStmt
+    | type_defStatement                # TypeDef
+    | print_stmt SEMI                  # PrintStmt
+    | continue_stmt                    # Continue
+    | break_stmt                       # Break
+    | function_call SEMI               # FuncCallStmt
+    | type_defDeclaration SEMI         # TypeDefDeclStmt
+>>>>>>> Stashed changes
     ;
 
 // Block
@@ -122,6 +144,7 @@ variable_declaration
 
 // Assignment
 assignment
+<<<<<<< Updated upstream
     : IDENTIFIER ASSIGN (expression | int_Array | char_Array | strArray)
     ;
      
@@ -139,6 +162,62 @@ expression
     | NUMBER                                                    # NumberExpr
     | STRING                                                    # StringExpr
     | CHARACTER                                         # CharExpr
+=======
+    : (IDENTIFIER | type_defVar) ASSIGN expression
+    ;
+
+// Tách tầng biểu thức (Expression Precedence)
+expression
+    : logic_expr
+    ;
+
+logic_expr
+    : comp_expr ( (AND | OR) comp_expr )*           # LogicExpr
+    ;
+
+comp_expr
+    : add_expr ( (LT | LE | GT | GE | EQ | NE) add_expr )*   # CompExpr
+    ;
+
+add_expr
+    : mul_expr ( (ADD | SUB) mul_expr )*             # AddSubExpr
+    ;
+
+mul_expr
+    : unary_expr ( (MUL | DIV) unary_expr )*         # MulDivExpr
+    ;
+
+unary_expr
+    : SUB unary_expr                          # UnaryMinusExpr
+    | NOT LPAREN expression RPAREN            # NotExpr
+    | primary_expr                            # PrimaryExpr
+    ;
+
+
+primary_expr
+    : LPAREN expression RPAREN                       # ParenExpr
+    | TRUE                                            # TrueExpr
+    | FALSE                                           # FalseExpr
+    | IDENTIFIER LBRACKET expression RBRACKET        # ArrayAccessExpr
+    | IDENTIFIER LPAREN arg_list? RPAREN             # FuncCallExpr
+    | IDENTIFIER                                      # IdExpr
+    | NUMBER                                          # NumberExpr
+    | STRING                                          # StringExpr
+    | CHARACTER                                       # CharExpr
+    | int_Array                                       # IntArray
+    | char_Array                                      # CharArray
+    | strArray                                        # StringArray
+    | type_defVar                                     # VarTypeDef
+    ;
+
+// Function call
+function_call
+    : IDENTIFIER LPAREN arg_list? RPAREN
+    ;
+
+arg_list
+    : expression (COMMA expression)*
+>>>>>>> Stashed changes
     ;
 
 // If / While
@@ -170,6 +249,14 @@ except_clause
     ;
      
 // New type (Struct)
+type_defDeclaration
+    : IDENTIFIER IDENTIFIER  // e.g., newtype sth;
+    ;
+
+type_defVar
+    : IDENTIFIER DOT IDENTIFIER
+    ;
+
 type_defStatement
     : TYPE_DEF IDENTIFIER LBRACE ((DATA_TYPE | ARR_TYPE) IDENTIFIER SEMI)* RBRACE;
     
