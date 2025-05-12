@@ -83,6 +83,28 @@ class ExpressionAnalyzer(syntaxVisitor):
             
         return value['type']
 
+    def visitType_defVar(self, ctx: syntaxParser.Type_defVarContext):
+        if ctx is None:
+            return None
+        
+        line = ctx.start.line
+        column = ctx.start.column
+        
+        newtype_name = ctx.IDENTIFIER(0).getText()
+        field_name = ctx.IDENTIFIER(1).getText()
+        
+        newtype = self.symbol_table.lookup(newtype_name)
+        
+        if (not newtype) or (newtype.get('kind') != 'newtype_instance') :
+            message = f"'{newtype_name}' is not a declared new-type instance."
+            report_error(line, column, message)
+        
+        if field_name not in newtype['fields']:
+            message = f"Field '{field_name}' not found in new-type instance '{newtype_name}'."
+            report_error(line, column, message)        
+        
+        return newtype['fields'][field_name]
+        
     def visitArrayAccessExpr(self, ctx: syntaxParser.ArrayAccessExprContext):
         if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
             return None

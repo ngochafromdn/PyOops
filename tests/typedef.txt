@@ -2,15 +2,20 @@
 type newtype {
 	int x;
 	str y;
-    int r;
-	char z;
+    int z;
+    // char z;
 }
 
 newtype sth; // đang viết visit của cái này
-//int x;
+int x;
 
-//x = 1;
-//sth.x = 5;
+x = 1;
+sth.x = 5;
+print(sth.x);
+
+sth.x = 8;
+
+print(sth.x);
 //sth.y = 2;
 //sth.z = 7;
 //print(newtype.x + newtype.z);

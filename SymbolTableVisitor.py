@@ -58,6 +58,16 @@ class SymbolTableVisitor(syntaxVisitor):
                 return True
         return False
 
+    def updateField_typedef(self, instance_name, field_name, value):
+        for scope in reversed(self.scopes):
+            if instance_name in scope:
+                instance = scope[instance_name]
+                if isinstance(instance, dict) and 'fields' in instance:
+                    if field_name in instance['fields']:
+                        instance['fields'][field_name]['value'] = value
+                        return True
+        return False
+    
     # In tất cả các ký hiệu đã định nghĩa
     def printSymbols(self):
         print("=== Symbol Table ===")

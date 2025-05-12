@@ -158,6 +158,7 @@ primary_expr
     | int_Array                                       # IntArray
     | char_Array                                      # CharArray
     | strArray                                        # StringArray
+    | type_defVar                                     # TypedefField
     ;
 
 // Function call

@@ -199,6 +199,11 @@ class syntaxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by syntaxParser#TypedefField.
+    def visitTypedefField(self, ctx:syntaxParser.TypedefFieldContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by syntaxParser#function_call.
     def visitFunction_call(self, ctx:syntaxParser.Function_callContext):
         return self.visitChildren(ctx)

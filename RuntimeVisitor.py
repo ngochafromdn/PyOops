@@ -33,7 +33,6 @@ class RuntimeVisitor(syntaxVisitor):
         self.start_time = time.time()
         self.iterations = 0
 
-    
     def collect_function_definitions(self):
         """Find and store all function definitions from the symbol table"""
         for scope in self.symbol_table.all_scopes:
@@ -102,20 +101,52 @@ class RuntimeVisitor(syntaxVisitor):
             return None
             
         assign = ctx.assignment()
-        name = assign.IDENTIFIER().getText()
         
-        # Find the variable in the symbol table
-        symbol = self.symbol_table.lookup(name)
-        if not symbol:
-            report_error(f"Variable '{name}' not defined.")
+        if assign.IDENTIFIER():
+            name = assign.IDENTIFIER().getText()
+            
+            # Find the variable in the symbol table
+            symbol = self.symbol_table.lookup(name)
+            if not symbol:
+                report_error(f"Variable '{name}' not defined.")
+                return None
+            
+            # Evaluate expression and update variable
+            if assign.expression():
+                value = self.visit(assign.expression())
+                self.symbol_table.update(name, {'value': value})
+        
+        elif assign.type_defVar():
+            newtype_name = assign.type_defVar().IDENTIFIER(0).getText()
+            field_name = assign.type_defVar().IDENTIFIER(1).getText()
+            
+            newtype = self.symbol_table.lookup(newtype_name)
+                        
+            value = self.visit(assign.expression())
+            self.symbol_table.updateField_typedef(newtype, field_name, value)
+        return None
+    
+    def visitType_defVar(self, ctx: syntaxParser.Type_defVarContext):
+        if ctx is None:
             return None
         
-        # Evaluate expression and update variable
-        if assign.expression():
-            value = self.visit(assign.expression())
-            self.symbol_table.update(name, {'value': value})
+        newtype_name = ctx.IDENTIFIER(0).getText()
+        field_name = ctx.IDENTIFIER(1).getText()
         
+        newtype = self.symbol_table.lookup(newtype_name)
+        
+        if newtype and 'fields' in newtype and field_name in newtype['fields']:
+            return newtype['fields'][field_name]['value']
         return None
+    
+    def visitType_defDeclaration(self, ctx: syntaxParser.Type_defDeclarationContext):
+        line = ctx.start.line
+        column = ctx.start.column
+
+        newtype_name = ctx.IDENTIFIER(0).getText()
+        var_name = ctx.IDENTIFIER(1).getText()
+        
+        
     
     def visitPrintStmt(self, ctx:syntaxParser.PrintStmtContext):
         # Get the expression directly
@@ -391,7 +422,6 @@ class RuntimeVisitor(syntaxVisitor):
         
         return None
 
-
     def visitContinue(self, ctx:syntaxParser.ContinueContext):
         if ctx is None:
             return None
@@ -442,9 +472,7 @@ class RuntimeVisitor(syntaxVisitor):
                             result.append(int(num_str))
                             
         return result
-    
-
-    
+       
     def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
@@ -516,9 +544,7 @@ class RuntimeVisitor(syntaxVisitor):
             
         value = self.visit(ctx.expression())
         return not bool(value)
-    
-    
-    
+       
     def visitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
         if ctx is None:
             return None
@@ -639,7 +665,6 @@ class RuntimeVisitor(syntaxVisitor):
     # Default method for any unimplemented visitor methods
     def defaultResult(self):
         return None
-
 
     def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
         if ctx is None:

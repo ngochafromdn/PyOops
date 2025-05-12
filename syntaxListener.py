@@ -350,6 +350,15 @@ class syntaxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by syntaxParser#TypedefField.
+    def enterTypedefField(self, ctx:syntaxParser.TypedefFieldContext):
+        pass
+
+    # Exit a parse tree produced by syntaxParser#TypedefField.
+    def exitTypedefField(self, ctx:syntaxParser.TypedefFieldContext):
+        pass
+
+
     # Enter a parse tree produced by syntaxParser#function_call.
     def enterFunction_call(self, ctx:syntaxParser.Function_callContext):
         pass

@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,45,322,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,45,323,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -24,27 +24,27 @@ def serializedATN():
         8,151,9,8,1,9,1,9,1,9,5,9,156,8,9,10,9,12,9,159,9,9,1,10,1,10,1,
         10,1,10,1,10,1,10,1,10,1,10,3,10,169,8,10,1,11,1,11,1,11,1,11,1,
         11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,185,8,11,1,
-        11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,195,8,11,1,12,1,12,1,
-        12,3,12,200,8,12,1,12,1,12,1,13,1,13,1,13,5,13,207,8,13,10,13,12,
-        13,210,9,13,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,
-        14,1,14,5,14,224,8,14,10,14,12,14,227,9,14,1,14,1,14,3,14,231,8,
-        14,1,15,1,15,1,15,1,15,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,17,1,
-        17,1,17,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,19,1,20,1,20,1,20,1,
-        20,1,21,1,21,1,21,1,21,4,21,263,8,21,11,21,12,21,264,1,21,1,21,1,
-        22,1,22,1,22,1,22,1,23,1,23,1,23,1,23,1,23,5,23,278,8,23,10,23,12,
-        23,281,9,23,1,24,1,24,1,24,1,24,5,24,287,8,24,10,24,12,24,290,9,
-        24,1,24,1,24,1,25,1,25,1,25,1,25,5,25,298,8,25,10,25,12,25,301,9,
-        25,1,25,1,25,1,26,1,26,1,26,1,26,5,26,309,8,26,10,26,12,26,312,9,
-        26,1,26,1,26,1,27,1,27,1,27,1,28,1,28,1,28,1,28,0,0,29,0,2,4,6,8,
-        10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,
-        54,56,0,5,1,0,13,14,1,0,31,32,1,0,20,25,1,0,27,28,1,0,29,30,338,
+        11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,196,8,11,1,12,1,
+        12,1,12,3,12,201,8,12,1,12,1,12,1,13,1,13,1,13,5,13,208,8,13,10,
+        13,12,13,211,9,13,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,14,1,
+        14,1,14,1,14,5,14,225,8,14,10,14,12,14,228,9,14,1,14,1,14,3,14,232,
+        8,14,1,15,1,15,1,15,1,15,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,17,
+        1,17,1,17,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,19,1,20,1,20,1,20,
+        1,20,1,21,1,21,1,21,1,21,4,21,264,8,21,11,21,12,21,265,1,21,1,21,
+        1,22,1,22,1,22,1,22,1,23,1,23,1,23,1,23,1,23,5,23,279,8,23,10,23,
+        12,23,282,9,23,1,24,1,24,1,24,1,24,5,24,288,8,24,10,24,12,24,291,
+        9,24,1,24,1,24,1,25,1,25,1,25,1,25,5,25,299,8,25,10,25,12,25,302,
+        9,25,1,25,1,25,1,26,1,26,1,26,1,26,5,26,310,8,26,10,26,12,26,313,
+        9,26,1,26,1,26,1,27,1,27,1,27,1,28,1,28,1,28,1,28,0,0,29,0,2,4,6,
+        8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,
+        52,54,56,0,5,1,0,13,14,1,0,31,32,1,0,20,25,1,0,27,28,1,0,29,30,340,
         0,61,1,0,0,0,2,102,1,0,0,0,4,104,1,0,0,0,6,113,1,0,0,0,8,121,1,0,
         0,0,10,126,1,0,0,0,12,128,1,0,0,0,14,136,1,0,0,0,16,144,1,0,0,0,
-        18,152,1,0,0,0,20,168,1,0,0,0,22,194,1,0,0,0,24,196,1,0,0,0,26,203,
-        1,0,0,0,28,211,1,0,0,0,30,232,1,0,0,0,32,238,1,0,0,0,34,243,1,0,
-        0,0,36,246,1,0,0,0,38,251,1,0,0,0,40,254,1,0,0,0,42,258,1,0,0,0,
-        44,268,1,0,0,0,46,272,1,0,0,0,48,282,1,0,0,0,50,293,1,0,0,0,52,304,
-        1,0,0,0,54,315,1,0,0,0,56,318,1,0,0,0,58,60,3,2,1,0,59,58,1,0,0,
+        18,152,1,0,0,0,20,168,1,0,0,0,22,195,1,0,0,0,24,197,1,0,0,0,26,204,
+        1,0,0,0,28,212,1,0,0,0,30,233,1,0,0,0,32,239,1,0,0,0,34,244,1,0,
+        0,0,36,247,1,0,0,0,38,252,1,0,0,0,40,255,1,0,0,0,42,259,1,0,0,0,
+        44,269,1,0,0,0,46,273,1,0,0,0,48,283,1,0,0,0,50,294,1,0,0,0,52,305,
+        1,0,0,0,54,316,1,0,0,0,56,319,1,0,0,0,58,60,3,2,1,0,59,58,1,0,0,
         0,60,63,1,0,0,0,61,59,1,0,0,0,61,62,1,0,0,0,62,64,1,0,0,0,63,61,
         1,0,0,0,64,65,5,0,0,1,65,1,1,0,0,0,66,67,3,8,4,0,67,68,5,34,0,0,
         68,103,1,0,0,0,69,70,3,6,3,0,70,71,5,34,0,0,71,103,1,0,0,0,72,103,
@@ -78,51 +78,52 @@ def serializedATN():
         3,20,10,0,162,163,5,33,0,0,163,164,5,38,0,0,164,165,3,10,5,0,165,
         166,5,39,0,0,166,169,1,0,0,0,167,169,3,22,11,0,168,160,1,0,0,0,168,
         162,1,0,0,0,168,167,1,0,0,0,169,21,1,0,0,0,170,171,5,38,0,0,171,
-        172,3,10,5,0,172,173,5,39,0,0,173,195,1,0,0,0,174,195,5,9,0,0,175,
-        195,5,10,0,0,176,177,5,42,0,0,177,178,5,40,0,0,178,179,3,10,5,0,
-        179,180,5,41,0,0,180,195,1,0,0,0,181,182,5,42,0,0,182,184,5,38,0,
+        172,3,10,5,0,172,173,5,39,0,0,173,196,1,0,0,0,174,196,5,9,0,0,175,
+        196,5,10,0,0,176,177,5,42,0,0,177,178,5,40,0,0,178,179,3,10,5,0,
+        179,180,5,41,0,0,180,196,1,0,0,0,181,182,5,42,0,0,182,184,5,38,0,
         0,183,185,3,26,13,0,184,183,1,0,0,0,184,185,1,0,0,0,185,186,1,0,
-        0,0,186,195,5,39,0,0,187,195,5,42,0,0,188,195,5,19,0,0,189,195,5,
-        18,0,0,190,195,5,17,0,0,191,195,3,48,24,0,192,195,3,50,25,0,193,
-        195,3,52,26,0,194,170,1,0,0,0,194,174,1,0,0,0,194,175,1,0,0,0,194,
-        176,1,0,0,0,194,181,1,0,0,0,194,187,1,0,0,0,194,188,1,0,0,0,194,
-        189,1,0,0,0,194,190,1,0,0,0,194,191,1,0,0,0,194,192,1,0,0,0,194,
-        193,1,0,0,0,195,23,1,0,0,0,196,197,5,42,0,0,197,199,5,38,0,0,198,
-        200,3,26,13,0,199,198,1,0,0,0,199,200,1,0,0,0,200,201,1,0,0,0,201,
-        202,5,39,0,0,202,25,1,0,0,0,203,208,3,10,5,0,204,205,5,35,0,0,205,
-        207,3,10,5,0,206,204,1,0,0,0,207,210,1,0,0,0,208,206,1,0,0,0,208,
-        209,1,0,0,0,209,27,1,0,0,0,210,208,1,0,0,0,211,212,5,1,0,0,212,213,
-        5,38,0,0,213,214,3,10,5,0,214,215,5,39,0,0,215,225,3,4,2,0,216,217,
-        5,2,0,0,217,218,5,1,0,0,218,219,5,38,0,0,219,220,3,10,5,0,220,221,
-        5,39,0,0,221,222,3,4,2,0,222,224,1,0,0,0,223,216,1,0,0,0,224,227,
-        1,0,0,0,225,223,1,0,0,0,225,226,1,0,0,0,226,230,1,0,0,0,227,225,
-        1,0,0,0,228,229,5,2,0,0,229,231,3,4,2,0,230,228,1,0,0,0,230,231,
-        1,0,0,0,231,29,1,0,0,0,232,233,5,3,0,0,233,234,5,38,0,0,234,235,
-        3,10,5,0,235,236,5,39,0,0,236,237,3,4,2,0,237,31,1,0,0,0,238,239,
-        5,6,0,0,239,240,5,38,0,0,240,241,3,10,5,0,241,242,5,39,0,0,242,33,
-        1,0,0,0,243,244,5,5,0,0,244,245,3,10,5,0,245,35,1,0,0,0,246,247,
-        5,7,0,0,247,248,3,4,2,0,248,249,5,8,0,0,249,250,3,4,2,0,250,37,1,
-        0,0,0,251,252,5,42,0,0,252,253,5,42,0,0,253,39,1,0,0,0,254,255,5,
-        42,0,0,255,256,5,16,0,0,256,257,5,42,0,0,257,41,1,0,0,0,258,259,
-        5,15,0,0,259,260,5,42,0,0,260,262,5,36,0,0,261,263,3,44,22,0,262,
-        261,1,0,0,0,263,264,1,0,0,0,264,262,1,0,0,0,264,265,1,0,0,0,265,
-        266,1,0,0,0,266,267,5,37,0,0,267,43,1,0,0,0,268,269,5,14,0,0,269,
-        270,5,42,0,0,270,271,5,34,0,0,271,45,1,0,0,0,272,273,5,14,0,0,273,
-        279,5,42,0,0,274,275,5,35,0,0,275,276,5,14,0,0,276,278,5,42,0,0,
-        277,274,1,0,0,0,278,281,1,0,0,0,279,277,1,0,0,0,279,280,1,0,0,0,
-        280,47,1,0,0,0,281,279,1,0,0,0,282,283,5,40,0,0,283,288,5,19,0,0,
-        284,285,5,35,0,0,285,287,5,19,0,0,286,284,1,0,0,0,287,290,1,0,0,
-        0,288,286,1,0,0,0,288,289,1,0,0,0,289,291,1,0,0,0,290,288,1,0,0,
-        0,291,292,5,41,0,0,292,49,1,0,0,0,293,294,5,40,0,0,294,299,5,17,
-        0,0,295,296,5,35,0,0,296,298,5,17,0,0,297,295,1,0,0,0,298,301,1,
-        0,0,0,299,297,1,0,0,0,299,300,1,0,0,0,300,302,1,0,0,0,301,299,1,
-        0,0,0,302,303,5,41,0,0,303,51,1,0,0,0,304,305,5,40,0,0,305,310,5,
-        18,0,0,306,307,5,35,0,0,307,309,5,18,0,0,308,306,1,0,0,0,309,312,
-        1,0,0,0,310,308,1,0,0,0,310,311,1,0,0,0,311,313,1,0,0,0,312,310,
-        1,0,0,0,313,314,5,41,0,0,314,53,1,0,0,0,315,316,5,11,0,0,316,317,
-        5,34,0,0,317,55,1,0,0,0,318,319,5,12,0,0,319,320,5,34,0,0,320,57,
-        1,0,0,0,23,61,80,85,102,108,117,121,133,141,149,157,168,184,194,
-        199,208,225,230,264,279,288,299,310
+        0,0,186,196,5,39,0,0,187,196,5,42,0,0,188,196,5,19,0,0,189,196,5,
+        18,0,0,190,196,5,17,0,0,191,196,3,48,24,0,192,196,3,50,25,0,193,
+        196,3,52,26,0,194,196,3,40,20,0,195,170,1,0,0,0,195,174,1,0,0,0,
+        195,175,1,0,0,0,195,176,1,0,0,0,195,181,1,0,0,0,195,187,1,0,0,0,
+        195,188,1,0,0,0,195,189,1,0,0,0,195,190,1,0,0,0,195,191,1,0,0,0,
+        195,192,1,0,0,0,195,193,1,0,0,0,195,194,1,0,0,0,196,23,1,0,0,0,197,
+        198,5,42,0,0,198,200,5,38,0,0,199,201,3,26,13,0,200,199,1,0,0,0,
+        200,201,1,0,0,0,201,202,1,0,0,0,202,203,5,39,0,0,203,25,1,0,0,0,
+        204,209,3,10,5,0,205,206,5,35,0,0,206,208,3,10,5,0,207,205,1,0,0,
+        0,208,211,1,0,0,0,209,207,1,0,0,0,209,210,1,0,0,0,210,27,1,0,0,0,
+        211,209,1,0,0,0,212,213,5,1,0,0,213,214,5,38,0,0,214,215,3,10,5,
+        0,215,216,5,39,0,0,216,226,3,4,2,0,217,218,5,2,0,0,218,219,5,1,0,
+        0,219,220,5,38,0,0,220,221,3,10,5,0,221,222,5,39,0,0,222,223,3,4,
+        2,0,223,225,1,0,0,0,224,217,1,0,0,0,225,228,1,0,0,0,226,224,1,0,
+        0,0,226,227,1,0,0,0,227,231,1,0,0,0,228,226,1,0,0,0,229,230,5,2,
+        0,0,230,232,3,4,2,0,231,229,1,0,0,0,231,232,1,0,0,0,232,29,1,0,0,
+        0,233,234,5,3,0,0,234,235,5,38,0,0,235,236,3,10,5,0,236,237,5,39,
+        0,0,237,238,3,4,2,0,238,31,1,0,0,0,239,240,5,6,0,0,240,241,5,38,
+        0,0,241,242,3,10,5,0,242,243,5,39,0,0,243,33,1,0,0,0,244,245,5,5,
+        0,0,245,246,3,10,5,0,246,35,1,0,0,0,247,248,5,7,0,0,248,249,3,4,
+        2,0,249,250,5,8,0,0,250,251,3,4,2,0,251,37,1,0,0,0,252,253,5,42,
+        0,0,253,254,5,42,0,0,254,39,1,0,0,0,255,256,5,42,0,0,256,257,5,16,
+        0,0,257,258,5,42,0,0,258,41,1,0,0,0,259,260,5,15,0,0,260,261,5,42,
+        0,0,261,263,5,36,0,0,262,264,3,44,22,0,263,262,1,0,0,0,264,265,1,
+        0,0,0,265,263,1,0,0,0,265,266,1,0,0,0,266,267,1,0,0,0,267,268,5,
+        37,0,0,268,43,1,0,0,0,269,270,5,14,0,0,270,271,5,42,0,0,271,272,
+        5,34,0,0,272,45,1,0,0,0,273,274,5,14,0,0,274,280,5,42,0,0,275,276,
+        5,35,0,0,276,277,5,14,0,0,277,279,5,42,0,0,278,275,1,0,0,0,279,282,
+        1,0,0,0,280,278,1,0,0,0,280,281,1,0,0,0,281,47,1,0,0,0,282,280,1,
+        0,0,0,283,284,5,40,0,0,284,289,5,19,0,0,285,286,5,35,0,0,286,288,
+        5,19,0,0,287,285,1,0,0,0,288,291,1,0,0,0,289,287,1,0,0,0,289,290,
+        1,0,0,0,290,292,1,0,0,0,291,289,1,0,0,0,292,293,5,41,0,0,293,49,
+        1,0,0,0,294,295,5,40,0,0,295,300,5,17,0,0,296,297,5,35,0,0,297,299,
+        5,17,0,0,298,296,1,0,0,0,299,302,1,0,0,0,300,298,1,0,0,0,300,301,
+        1,0,0,0,301,303,1,0,0,0,302,300,1,0,0,0,303,304,5,41,0,0,304,51,
+        1,0,0,0,305,306,5,40,0,0,306,311,5,18,0,0,307,308,5,35,0,0,308,310,
+        5,18,0,0,309,307,1,0,0,0,310,313,1,0,0,0,311,309,1,0,0,0,311,312,
+        1,0,0,0,312,314,1,0,0,0,313,311,1,0,0,0,314,315,5,41,0,0,315,53,
+        1,0,0,0,316,317,5,11,0,0,317,318,5,34,0,0,318,55,1,0,0,0,319,320,
+        5,12,0,0,320,321,5,34,0,0,321,57,1,0,0,0,23,61,80,85,102,108,117,
+        121,133,141,149,157,168,184,195,200,209,226,231,265,280,289,300,
+        311
     ]
 
 class syntaxParser ( Parser ):
@@ -1703,31 +1704,6 @@ class syntaxParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class CharArrayContext(Primary_exprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def char_Array(self):
-            return self.getTypedRuleContext(syntaxParser.Char_ArrayContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharArray" ):
-                listener.enterCharArray(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharArray" ):
-                listener.exitCharArray(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCharArray" ):
-                return visitor.visitCharArray(self)
-            else:
-                return visitor.visitChildren(self)
-
-
     class TrueExprContext(Primary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
@@ -1772,6 +1748,135 @@ class syntaxParser ( Parser ):
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitIdExpr" ):
                 return visitor.visitIdExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class ArrayAccessExprContext(Primary_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def IDENTIFIER(self):
+            return self.getToken(syntaxParser.IDENTIFIER, 0)
+        def LBRACKET(self):
+            return self.getToken(syntaxParser.LBRACKET, 0)
+        def expression(self):
+            return self.getTypedRuleContext(syntaxParser.ExpressionContext,0)
+
+        def RBRACKET(self):
+            return self.getToken(syntaxParser.RBRACKET, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterArrayAccessExpr" ):
+                listener.enterArrayAccessExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitArrayAccessExpr" ):
+                listener.exitArrayAccessExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitArrayAccessExpr" ):
+                return visitor.visitArrayAccessExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class TypedefFieldContext(Primary_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def type_defVar(self):
+            return self.getTypedRuleContext(syntaxParser.Type_defVarContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTypedefField" ):
+                listener.enterTypedefField(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTypedefField" ):
+                listener.exitTypedefField(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTypedefField" ):
+                return visitor.visitTypedefField(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class FalseExprContext(Primary_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def FALSE(self):
+            return self.getToken(syntaxParser.FALSE, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFalseExpr" ):
+                listener.enterFalseExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFalseExpr" ):
+                listener.exitFalseExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFalseExpr" ):
+                return visitor.visitFalseExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class CharExprContext(Primary_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def CHARACTER(self):
+            return self.getToken(syntaxParser.CHARACTER, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCharExpr" ):
+                listener.enterCharExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCharExpr" ):
+                listener.exitCharExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCharExpr" ):
+                return visitor.visitCharExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class CharArrayContext(Primary_exprContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def char_Array(self):
+            return self.getTypedRuleContext(syntaxParser.Char_ArrayContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCharArray" ):
+                listener.enterCharArray(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCharArray" ):
+                listener.exitCharArray(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCharArray" ):
+                return visitor.visitCharArray(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1850,37 +1955,6 @@ class syntaxParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class ArrayAccessExprContext(Primary_exprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def IDENTIFIER(self):
-            return self.getToken(syntaxParser.IDENTIFIER, 0)
-        def LBRACKET(self):
-            return self.getToken(syntaxParser.LBRACKET, 0)
-        def expression(self):
-            return self.getTypedRuleContext(syntaxParser.ExpressionContext,0)
-
-        def RBRACKET(self):
-            return self.getToken(syntaxParser.RBRACKET, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArrayAccessExpr" ):
-                listener.enterArrayAccessExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArrayAccessExpr" ):
-                listener.exitArrayAccessExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArrayAccessExpr" ):
-                return visitor.visitArrayAccessExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
     class ParenExprContext(Primary_exprContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
@@ -1906,30 +1980,6 @@ class syntaxParser ( Parser ):
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitParenExpr" ):
                 return visitor.visitParenExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class FalseExprContext(Primary_exprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def FALSE(self):
-            return self.getToken(syntaxParser.FALSE, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFalseExpr" ):
-                listener.enterFalseExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFalseExpr" ):
-                listener.exitFalseExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFalseExpr" ):
-                return visitor.visitFalseExpr(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1965,30 +2015,6 @@ class syntaxParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class CharExprContext(Primary_exprContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a syntaxParser.Primary_exprContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def CHARACTER(self):
-            return self.getToken(syntaxParser.CHARACTER, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCharExpr" ):
-                listener.enterCharExpr(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCharExpr" ):
-                listener.exitCharExpr(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCharExpr" ):
-                return visitor.visitCharExpr(self)
-            else:
-                return visitor.visitChildren(self)
-
-
 
     def primary_expr(self):
 
@@ -1996,7 +2022,7 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_primary_expr)
         self._la = 0 # Token type
         try:
-            self.state = 194
+            self.state = 195
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
             if la_ == 1:
@@ -2105,6 +2131,13 @@ class syntaxParser ( Parser ):
                 self.strArray()
                 pass
 
+            elif la_ == 13:
+                localctx = syntaxParser.TypedefFieldContext(self, localctx)
+                self.enterOuterAlt(localctx, 13)
+                self.state = 194
+                self.type_defVar()
+                pass
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2162,19 +2195,19 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 196
-            self.match(syntaxParser.IDENTIFIER)
             self.state = 197
+            self.match(syntaxParser.IDENTIFIER)
+            self.state = 198
             self.match(syntaxParser.LPAREN)
-            self.state = 199
+            self.state = 200
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 5781295334912) != 0):
-                self.state = 198
+                self.state = 199
                 self.arg_list()
 
 
-            self.state = 201
+            self.state = 202
             self.match(syntaxParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -2232,17 +2265,17 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 203
+            self.state = 204
             self.expression()
-            self.state = 208
+            self.state = 209
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 204
-                self.match(syntaxParser.COMMA)
                 self.state = 205
+                self.match(syntaxParser.COMMA)
+                self.state = 206
                 self.expression()
-                self.state = 210
+                self.state = 211
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2327,44 +2360,44 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 211
-            self.match(syntaxParser.IF)
             self.state = 212
-            self.match(syntaxParser.LPAREN)
+            self.match(syntaxParser.IF)
             self.state = 213
-            self.expression()
+            self.match(syntaxParser.LPAREN)
             self.state = 214
-            self.match(syntaxParser.RPAREN)
+            self.expression()
             self.state = 215
+            self.match(syntaxParser.RPAREN)
+            self.state = 216
             self.block()
-            self.state = 225
+            self.state = 226
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 216
-                    self.match(syntaxParser.ELSE)
                     self.state = 217
-                    self.match(syntaxParser.IF)
+                    self.match(syntaxParser.ELSE)
                     self.state = 218
-                    self.match(syntaxParser.LPAREN)
+                    self.match(syntaxParser.IF)
                     self.state = 219
-                    self.expression()
+                    self.match(syntaxParser.LPAREN)
                     self.state = 220
-                    self.match(syntaxParser.RPAREN)
+                    self.expression()
                     self.state = 221
+                    self.match(syntaxParser.RPAREN)
+                    self.state = 222
                     self.block() 
-                self.state = 227
+                self.state = 228
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
 
-            self.state = 230
+            self.state = 231
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==2:
-                self.state = 228
-                self.match(syntaxParser.ELSE)
                 self.state = 229
+                self.match(syntaxParser.ELSE)
+                self.state = 230
                 self.block()
 
 
@@ -2427,15 +2460,15 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 30, self.RULE_while_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 232
-            self.match(syntaxParser.WHILE)
             self.state = 233
-            self.match(syntaxParser.LPAREN)
+            self.match(syntaxParser.WHILE)
             self.state = 234
-            self.expression()
+            self.match(syntaxParser.LPAREN)
             self.state = 235
-            self.match(syntaxParser.RPAREN)
+            self.expression()
             self.state = 236
+            self.match(syntaxParser.RPAREN)
+            self.state = 237
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -2492,13 +2525,13 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 32, self.RULE_print_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 238
-            self.match(syntaxParser.PRINT)
             self.state = 239
-            self.match(syntaxParser.LPAREN)
+            self.match(syntaxParser.PRINT)
             self.state = 240
-            self.expression()
+            self.match(syntaxParser.LPAREN)
             self.state = 241
+            self.expression()
+            self.state = 242
             self.match(syntaxParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -2549,9 +2582,9 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 34, self.RULE_return_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 243
-            self.match(syntaxParser.RETURN)
             self.state = 244
+            self.match(syntaxParser.RETURN)
+            self.state = 245
             self.expression()
         except RecognitionException as re:
             localctx.exception = re
@@ -2608,14 +2641,14 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 36, self.RULE_try_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 246
-            self.match(syntaxParser.TRY)
             self.state = 247
+            self.match(syntaxParser.TRY)
+            self.state = 248
             self.block()
 
-            self.state = 248
-            self.match(syntaxParser.EXCEPT)
             self.state = 249
+            self.match(syntaxParser.EXCEPT)
+            self.state = 250
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -2665,9 +2698,9 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 38, self.RULE_type_defDeclaration)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 251
-            self.match(syntaxParser.IDENTIFIER)
             self.state = 252
+            self.match(syntaxParser.IDENTIFIER)
+            self.state = 253
             self.match(syntaxParser.IDENTIFIER)
         except RecognitionException as re:
             localctx.exception = re
@@ -2720,11 +2753,11 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 40, self.RULE_type_defVar)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 254
-            self.match(syntaxParser.IDENTIFIER)
             self.state = 255
-            self.match(syntaxParser.DOT)
+            self.match(syntaxParser.IDENTIFIER)
             self.state = 256
+            self.match(syntaxParser.DOT)
+            self.state = 257
             self.match(syntaxParser.IDENTIFIER)
         except RecognitionException as re:
             localctx.exception = re
@@ -2788,25 +2821,25 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 258
-            self.match(syntaxParser.TYPE_DEF)
             self.state = 259
-            self.match(syntaxParser.IDENTIFIER)
+            self.match(syntaxParser.TYPE_DEF)
             self.state = 260
+            self.match(syntaxParser.IDENTIFIER)
+            self.state = 261
             self.match(syntaxParser.LBRACE)
-            self.state = 262 
+            self.state = 263 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 261
+                self.state = 262
                 self.type_def_list()
-                self.state = 264 
+                self.state = 265 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==14):
                     break
 
-            self.state = 266
+            self.state = 267
             self.match(syntaxParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -2859,11 +2892,11 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 44, self.RULE_type_def_list)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 268
-            self.match(syntaxParser.DATA_TYPE)
             self.state = 269
-            self.match(syntaxParser.IDENTIFIER)
+            self.match(syntaxParser.DATA_TYPE)
             self.state = 270
+            self.match(syntaxParser.IDENTIFIER)
+            self.state = 271
             self.match(syntaxParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -2926,21 +2959,21 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 272
-            self.match(syntaxParser.DATA_TYPE)
             self.state = 273
+            self.match(syntaxParser.DATA_TYPE)
+            self.state = 274
             self.match(syntaxParser.IDENTIFIER)
-            self.state = 279
+            self.state = 280
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 274
-                self.match(syntaxParser.COMMA)
                 self.state = 275
-                self.match(syntaxParser.DATA_TYPE)
+                self.match(syntaxParser.COMMA)
                 self.state = 276
+                self.match(syntaxParser.DATA_TYPE)
+                self.state = 277
                 self.match(syntaxParser.IDENTIFIER)
-                self.state = 281
+                self.state = 282
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -3005,24 +3038,24 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 282
+            self.state = 283
             self.match(syntaxParser.LBRACKET)
 
-            self.state = 283
+            self.state = 284
             self.match(syntaxParser.NUMBER)
-            self.state = 288
+            self.state = 289
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 284
-                self.match(syntaxParser.COMMA)
                 self.state = 285
+                self.match(syntaxParser.COMMA)
+                self.state = 286
                 self.match(syntaxParser.NUMBER)
-                self.state = 290
+                self.state = 291
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 291
+            self.state = 292
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -3085,24 +3118,24 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 293
+            self.state = 294
             self.match(syntaxParser.LBRACKET)
 
-            self.state = 294
+            self.state = 295
             self.match(syntaxParser.CHARACTER)
-            self.state = 299
+            self.state = 300
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 295
-                self.match(syntaxParser.COMMA)
                 self.state = 296
+                self.match(syntaxParser.COMMA)
+                self.state = 297
                 self.match(syntaxParser.CHARACTER)
-                self.state = 301
+                self.state = 302
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 302
+            self.state = 303
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -3165,24 +3198,24 @@ class syntaxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 304
+            self.state = 305
             self.match(syntaxParser.LBRACKET)
 
-            self.state = 305
+            self.state = 306
             self.match(syntaxParser.STRING)
-            self.state = 310
+            self.state = 311
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==35:
-                self.state = 306
-                self.match(syntaxParser.COMMA)
                 self.state = 307
+                self.match(syntaxParser.COMMA)
+                self.state = 308
                 self.match(syntaxParser.STRING)
-                self.state = 312
+                self.state = 313
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 313
+            self.state = 314
             self.match(syntaxParser.RBRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -3232,9 +3265,9 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 54, self.RULE_continue_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 315
-            self.match(syntaxParser.CONTINUE)
             self.state = 316
+            self.match(syntaxParser.CONTINUE)
+            self.state = 317
             self.match(syntaxParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -3284,9 +3317,9 @@ class syntaxParser ( Parser ):
         self.enterRule(localctx, 56, self.RULE_break_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 318
-            self.match(syntaxParser.BREAK)
             self.state = 319
+            self.match(syntaxParser.BREAK)
+            self.state = 320
             self.match(syntaxParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
