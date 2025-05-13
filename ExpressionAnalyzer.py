@@ -103,7 +103,7 @@ class ExpressionAnalyzer(syntaxVisitor):
             message = f"Field '{field_name}' not found in new-type instance '{newtype_name}'."
             report_error(line, column, message)        
         
-        return newtype['fields'][field_name]
+        return newtype['fields'][field_name]['type']
         
     def visitArrayAccessExpr(self, ctx: syntaxParser.ArrayAccessExprContext):
         if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
@@ -209,7 +209,7 @@ class ExpressionAnalyzer(syntaxVisitor):
         # If either operand is invalid, bail out
         if left_type is None or right_type is None:
             return None
-            
+        
         if left_type not in ('int', 'float') or right_type not in ('int', 'float'):
             message = f"Arithmetic operations require numeric operands, got '{left_type}' and '{right_type}'"
             report_error(line, column, message, "Type Error")

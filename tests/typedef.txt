@@ -13,10 +13,15 @@ x = 1;
 sth.x = 5;
 print(sth.x);
 
-sth.x = 8;
+sth.z = 7;
 
-print(sth.x);
-//sth.y = 2;
-//sth.z = 7;
-//print(newtype.x + newtype.z);
+int t;
+int z;
+
+t = sth.x;
+z = sth.z;
+
+print(t+z);
+
+print(sth.x + sth.z);
 

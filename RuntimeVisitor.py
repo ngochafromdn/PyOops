@@ -123,7 +123,7 @@ class RuntimeVisitor(syntaxVisitor):
             newtype = self.symbol_table.lookup(newtype_name)
                         
             value = self.visit(assign.expression())
-            self.symbol_table.updateField_typedef(newtype, field_name, value)
+            self.symbol_table.updateField_typedef(newtype_name, field_name, value)
         return None
     
     def visitType_defVar(self, ctx: syntaxParser.Type_defVarContext):
@@ -138,16 +138,7 @@ class RuntimeVisitor(syntaxVisitor):
         if newtype and 'fields' in newtype and field_name in newtype['fields']:
             return newtype['fields'][field_name]['value']
         return None
-    
-    def visitType_defDeclaration(self, ctx: syntaxParser.Type_defDeclarationContext):
-        line = ctx.start.line
-        column = ctx.start.column
-
-        newtype_name = ctx.IDENTIFIER(0).getText()
-        var_name = ctx.IDENTIFIER(1).getText()
         
-        
-    
     def visitPrintStmt(self, ctx:syntaxParser.PrintStmtContext):
         # Get the expression directly
         expr = None
@@ -242,57 +233,6 @@ class RuntimeVisitor(syntaxVisitor):
         self.continue_flag = prev_continue
         
         return return_val
-    
-    # def execute_function(self, func_name, args):
-    #     # Get function info
-    #     func_info = self.function_definitions.get(func_name)
-    #     if not func_info:
-    #         func_info = self.symbol_table.lookup(func_name)
-            
-    #     if not func_info or func_info.get("type") != "function":
-    #         self.output.append(f"[Runtime Error] Function '{func_name}' not defined.")
-    #         return None
-
-    #     # Save current state
-    #     prev_function = self.in_function
-    #     prev_return = self.return_value
-    #     prev_break = self.break_flag
-    #     prev_continue = self.continue_flag
-        
-    #     # Set up new function scope
-    #     self.symbol_table.push_scope(f"Call_{func_name}")
-    #     self.in_function = func_name
-    #     self.return_value = None
-    #     self.break_flag = False
-    #     self.continue_flag = False
-        
-    #     # Bind arguments to parameters
-    #     params = func_info.get('params', [])
-    #     for i, param in enumerate(params):
-    #         if i < len(args):
-    #             self.symbol_table.define(param['name'], {
-    #                 'type': param['type'],
-    #                 'value': args[i]
-    #             })
-    #         else:
-    #             self.symbol_table.define(param['name'], {
-    #                 'type': param['type'],
-    #                 'value': None
-    #             })
-        
-    #     # Execute function body
-    #     if 'body' in func_info:
-    #         self.visit(func_info['body'])
-        
-    #     # Get return value and restore state
-    #     return_val = self.return_value
-    #     self.symbol_table.pop_scope()
-    #     self.in_function = prev_function
-    #     self.return_value = prev_return
-    #     self.break_flag = prev_break
-    #     self.continue_flag = prev_continue
-        
-    #     return return_val
 
     def visitReturnStmt(self, ctx:syntaxParser.ReturnStmtContext):
         # Check if inside a function
@@ -928,119 +868,6 @@ class RuntimeVisitor(syntaxVisitor):
         element = array_value[index_value]
         
         return element        
-    # def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
-    #     if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
-    #         return None
-                
-    #     # Get array name and index
-    #     array_name = ctx.IDENTIFIER().getText()
-        
-    #     # Find the array in symbol table
-    #     symbol = self.symbol_table.lookup(array_name)
-    #     if not symbol:
-    #         self.output.append(f"[Runtime Error] Array '{array_name}' not defined.")
-    #         return None
-                
-    #     # Get the array value
-    #     array_value = symbol.get('value', None)
-        
-    #     # Ensure the value is a list
-    #     if not isinstance(array_value, list):
-    #         # If it's a string representation, try to convert it
-    #         if isinstance(array_value, str) and array_value.startswith('[') and array_value.endswith(']'):
-    #             try:
-    #                 # Simple string-to-list conversion
-    #                 array_type = symbol.get('type', '')
-    #                 content = array_value[1:-1].strip()
-                    
-    #                 if not content:  # Empty array
-    #                     array_value = []
-    #                 else:
-    #                     items = []
-    #                     # Parse based on array type
-    #                     if array_type == 'char[]':
-    #                         # Split by commas, handle quotes
-    #                         parts = []
-    #                         current = ""
-    #                         in_quotes = False
-    #                         for char in content:
-    #                             if char == "'" and (len(current) == 0 or current[-1] != '\\'):
-    #                                 in_quotes = not in_quotes
-    #                             elif char == ',' and not in_quotes:
-    #                                 parts.append(current.strip())
-    #                                 current = ""
-    #                                 continue
-    #                             current += char
-                            
-    #                         # Add the last part
-    #                         if current:
-    #                             parts.append(current.strip())
-                            
-    #                         # Process char values
-    #                         for part in parts:
-    #                             if part.startswith("'") and part.endswith("'"):
-    #                                 items.append(part[1:-1])
-    #                             else:
-    #                                 items.append(part)
-    #                     elif array_type == 'str[]':
-    #                         # Split by commas, handle quotes
-    #                         parts = []
-    #                         current = ""
-    #                         in_quotes = False
-    #                         for char in content:
-    #                             if char == '"' and (len(current) == 0 or current[-1] != '\\'):
-    #                                 in_quotes = not in_quotes
-    #                             elif char == ',' and not in_quotes:
-    #                                 parts.append(current.strip())
-    #                                 current = ""
-    #                                 continue
-    #                             current += char
-                            
-    #                         # Add the last part
-    #                         if current:
-    #                             parts.append(current.strip())
-                            
-    #                         # Process string values
-    #                         for part in parts:
-    #                             if part.startswith('"') and part.endswith('"'):
-    #                                 items.append(part[1:-1])
-    #                             else:
-    #                                 items.append(part)
-    #                     else:  # int[] or float[]
-    #                         # Simple split for numeric arrays
-    #                         for item in content.split(','):
-    #                             item = item.strip()
-    #                             if '.' in item:
-    #                                 items.append(float(item))
-    #                             else:
-    #                                 items.append(int(item))
-                        
-    #                     array_value = items
-                    
-    #                 # Update the symbol table with parsed array
-    #                 self.symbol_table.update(array_name, {'value': array_value})
-    #             except Exception as e:
-    #                 self.output.append(f"[Runtime Error] Failed to parse array: {str(e)}")
-    #                 return None
-    #         else:
-    #             self.output.append(f"[Runtime Error] Variable '{array_name}' is not an array.")
-    #             return None
-                
-    #     # Calculate the index
-    #     index_value = self.visit(ctx.expression())
-    #     if not isinstance(index_value, int):
-    #         self.output.append(f"[Runtime Error] Array index must be an integer, got '{type(index_value).__name__}'.")
-    #         return None
-                
-    #     # Check for index out of bounds
-    #     if index_value < 0 or index_value >= len(array_value):
-    #         self.output.append(f"[Runtime Error] Index {index_value} out of bounds for array '{array_name}'.")
-    #         return None
-                
-    #     # Get the element at the index
-    #     element = array_value[index_value]
-        
-    #     return element
     
     def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
         if ctx is None:
