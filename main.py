@@ -39,6 +39,7 @@ def main(input_file):
     if error_listener.error_count == 0:
         # Tạo bảng ký hiệu
         symbol_table = SymbolTableVisitor()
+        symbol_table.define("print_error", {"type": "str"})
         
         # Phân tích ngữ nghĩa
         try:

@@ -1,0 +1,34 @@
+try {
+    print("trying something risky");
+} except {
+    print("caught an error");
+}
+
+int x = 0;
+try {
+    // print(1/0); 
+    print("huhu");
+    try {
+        print(1/x);
+        print("huhu thiet ne");
+    }
+    except {
+        print(1);
+        print("???");
+        print(print_error());
+    }
+    print("hehe");
+} except {
+    print(print_error());
+    print("caught an error");
+}
+print("yaya");
+
+try {
+    print(1/0);
+}
+except {
+    print(print_error());
+}
+
+
