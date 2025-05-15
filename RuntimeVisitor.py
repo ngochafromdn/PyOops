@@ -268,7 +268,7 @@ class RuntimeVisitor(syntaxVisitor):
     def visitReturnStmt(self, ctx:syntaxParser.ReturnStmtContext):
         # Check if inside a function
         if not self.in_function:
-            report_error("Return statement outside function.")
+            report_error(self, "Return statement outside function.")
             return None
         
         # Get the expression directly
@@ -506,7 +506,7 @@ class RuntimeVisitor(syntaxVisitor):
         if isinstance(value, (int, float)):
             return -value
         else:
-            report_error("Cannot apply unary minus to non-numeric value.")
+            report_error(self, "Cannot apply unary minus to non-numeric value.")
             return None
     
     def visitNotExpr(self, ctx:syntaxParser.NotExprContext):
@@ -529,7 +529,7 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
-            report_error("Invalid operands for multiplication/division.")
+            report_error(self, "Invalid operands for multiplication/division.")
             return None
         
         if op == '*':
@@ -869,12 +869,12 @@ class RuntimeVisitor(syntaxVisitor):
         # Calculate the index
         index_value = self.visit(ctx.expression())
         if not isinstance(index_value, int):
-            report_error(f"Array index must be an integer, got '{type(index_value).__name__}'.")
+            report_error(self, f"Array index must be an integer, got '{type(index_value).__name__}'.")
             return None
                 
         # Check for index out of bounds
         if index_value < 0 or index_value >= len(array_value):
-            report_error(f"Index {index_value} out of bounds for array '{array_name}'.")
+            report_error(self, f"Index {index_value} out of bounds for array '{array_name}'.")
             return None
                 
         # Get the element at the index
@@ -902,11 +902,11 @@ class RuntimeVisitor(syntaxVisitor):
             elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left + right
             else:
-                report_error("Invalid operands for addition.")
+                report_error(self, "Invalid operands for addition.")
                 return None
         else:  # op == '-'
             if isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left - right
             else:
-                report_error("Invalid operands for subtraction.")
+                report_error(self, "Invalid operands for subtraction.")
                 return None

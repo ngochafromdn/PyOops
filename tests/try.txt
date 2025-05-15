@@ -24,8 +24,10 @@ try {
 }
 print("yaya");
 
+int[] vowels;
+vowels = [1, 2, 3, 5, 4];
 try {
-    
+    print(vowels[9]);
 }
 except {
     print(get_error());
