@@ -15,20 +15,20 @@ try {
     except {
         print(1);
         print("???");
-        print(print_error());
+        print(get_error());
     }
     print("hehe");
 } except {
-    print(print_error());
+    print(get_error());
     print("caught an error");
 }
 print("yaya");
 
 try {
-    print(1/0);
+    
 }
 except {
-    print(print_error());
+    print(get_error());
 }
 
 

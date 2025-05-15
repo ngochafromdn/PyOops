@@ -186,14 +186,14 @@ class RuntimeVisitor(syntaxVisitor):
             
         func_name = ctx.IDENTIFIER().getText()
 
-        if func_name == "print_error":
+        if func_name == "get_error":
             print("func_name is recognized")
             if self._current_exception:
                 e = str(self._current_exception)
                 self.symbol_table.update(func_name, {"type": "str", "value": e})
                 return e
             else:
-                raise RuntimeError("print_error() called outside of except block")
+                raise RuntimeError("get_error() called outside of except block")
             return None
         
         # Lookup function definition
@@ -687,51 +687,6 @@ class RuntimeVisitor(syntaxVisitor):
                         
         return result
     
-    # def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
-    #     """Handle try-except statements by properly executing try and except blocks."""
-    #     if ctx is None:
-    #         return None
-            
-    #     # Access the try and except blocks properly
-    #     # Based on the grammar: try_stmt: TRY block EXCEPT block;
-    #     try:
-    #         # Save current output state
-    #         output_before_try = list(self.output)
-    #         return_value_before = self.return_value
-    #         break_flag_before = self.break_flag
-    #         continue_flag_before = self.continue_flag
-            
-    #         try:
-    #             if hasattr(ctx, 'try_stmt'):
-    #                 # If try_stmt is nested inside the context
-    #                 try_block = ctx.try_stmt().block(0)
-    #             else:
-    #                 try_block = ctx.block(0)
-                    
-    #             if try_block:
-    #                 self.visit(try_block)
-    #         except Exception as e:
-                
-    #             # If an exception occurs, restore state
-    #             self.output = output_before_try
-    #             self.return_value = return_value_before
-    #             self.break_flag = break_flag_before
-    #             self.continue_flag = continue_flag_before
-    #             print(e)
-    #             # Then execute the except block
-    #             if hasattr(ctx, 'try_stmt'):
-    #                 except_block = ctx.try_stmt().block(1)
-    #             else:
-    #                 except_block = ctx.block(1)
-                    
-    #             if except_block:
-    #                 self.visit(except_block)
-    #                 print("I am in except block")
-    #     except Exception as e:
-    #         # If there's an error in how we're accessing blocks, report it
-    #         report_error(f"Try-except error: {str(e)}")
-            
-    #     return None
     def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
         if ctx is None or ctx.try_stmt() is None: 
             return None 
