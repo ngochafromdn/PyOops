@@ -323,31 +323,46 @@ Pyoops provides detailed error messages for different types of errors, for examp
 
 ### Type Mismatch Errors
 
+```
 int age = "twenty"; // Error: String cannot be assigned to int
 float price = true; // Error: Boolean cannot be assigned to float
+```
+
 
 ### Array Index Errors
+```
 int[] numbers = [10, 20, 30];
 print(numbers[5]); // Error: Index 5 out of bounds for array 'numbers'
 print(numbers[-1]); // Error: Index -1 out of bounds for array 'numbers'
-
+```
 
 ### Arithmetic Errors
+
+```
 int x = 10 / 0; // Error: Division by zero
 Undefined Variable Errors
 print(undefinedVar); // Error: Variable 'undefinedVar' not defined
+```
+
 
 ###  Function-related Errors
 
+
+```
 func int add(int a, int b) {
     return a + b;
 }
+```
 
+```
 add("hello", 5); // Error: Mismatched types in parameter
 add(1, 2, 3); // Error: Too many arguments
 print(unknownFunction()); // Error: Function 'unknownFunction' not defined
+```
 
 ###  Control Flow Errors
+
+```
 return 5; // Error: Return statement outside function
 
 while (true) {
@@ -362,22 +377,26 @@ type Person {
     str name;
     int age;
 }
+```
 
+```
 Person p;
 print(p.address); // Error: Field 'address' not found in new-type instance 'p'
 Infinite Loop Protection
 Pyoops has built-in protection against infinite loops. It limits:
-
+```
 Maximum number of iterations (default: 1000)
+
 Maximum execution time (default: 5 seconds)
 
+```
 int i = 0;
 while (true) {
     i = i + 1;
     // Will automatically terminate with error after 1000 iterations:
     // [Runtime Error] Loop exceeded 1000 iterations. Possible infinite loop.
 }
-
+```
 
 ### Syntax Errors
 Detected during parsing, with line and column information:
