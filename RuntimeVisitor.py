@@ -21,8 +21,8 @@ def report_error(self, message, error_type="Runtime Error"):
     if getattr(self, "is_in_try_block", False):
         # print(formatted_error)
         self.last_error = message
-        print(self.last_error)
-        print(message)
+        # print(self.last_error)
+        # print(message)
         raise InterpreterRuntimeError(message)
         self._current_exception = message
     else:
