@@ -10,6 +10,10 @@ from SymbolTableVisitor import SymbolTableVisitor
 from StatementAnalyzer import StatementAnalyzer
 from RuntimeVisitor import RuntimeVisitor
 
+# Terminal colors
+CYAN_BOLD = "\033[1;36m"  
+RESET = "\033[0m"         
+
 class LanguageCommander:
     def __init__(self):
         self.symbol_table = SymbolTableVisitor()
@@ -67,9 +71,9 @@ class LanguageCommander:
                 code = f.read()
                 
             print(f"Executing file: {filepath}")
-            print("=== Program Output ===")
+            print(f"{CYAN_BOLD}=== Program Output ==={RESET}")
             self.execute_string(code, debug=debug)
-            print("=== End of Output ===")
+            print(f"{CYAN_BOLD}=== End of Output ==={RESET}")
             
         except FileNotFoundError:
             print(f"Error: File '{filepath}' not found.")
