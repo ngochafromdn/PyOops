@@ -1,9 +1,4 @@
-# PyOops
-[We are in progress] This is a lightweight, object-oriented programming language inspired by Python. Designed to be fun, intuitive, and beginner-friendly, it simplifies OOP concepts while maintaining flexibility for more advanced users. 
-
-Command to run ANTLR g4: antlr4 -Dlanguage=Python3 -visitor
-
-# Pyoops Language User Manual
+# PyOops Language User Manual
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -14,36 +9,46 @@ Command to run ANTLR g4: antlr4 -Dlanguage=Python3 -visitor
 6. [Interactive Mode](#interactive-mode)
 7. [Examples](#examples)
 8. [Error Handling](#error-handling)
-9. [Reference](#reference)
+9. [Summary](#summary)
 
 ## Introduction
-Pyoops is a statically-typed programming language designed for simplicity and clarity while maintaining powerful features. It offers a robust syntax, error handling, and custom types, making it suitable for learning programming concepts and building small applications.
+PyOops is a statically-typed programming language designed for simplicity and clarity while maintaining powerful features. It offers a robust syntax, error handling, and custom types, making it suitable for learning programming concepts and building small applications.
 
 ## Installation
-Pyoops requires Python 3 and the ANTLR4 runtime.
+PyOops requires Python 3 and the ANTLR4 runtime.
 
 1. Ensure you have Python 3 installed:
    ```bash
    python --version
+   ```
+   ```bash
+   python3 --version
    ```
 
 2. Install ANTLR4 Python runtime:
    ```bash
    pip install antlr4-python3-runtime
    ```
+   Command to run ANTLR g4:
+   ```bash
+   antlr4 -Dlanguage=Python3 -visitor
+   ```
 
-3. Download the Pyoops files to a directory of your choice.
+4. Download the PyOops files to a directory of your choice.
 
 ## Getting Started
-Pyoops programs use the `.pi` extension. Create a file called `hello.pi` with the following content:
+Pyoops programs use the `.bibi` extension. Create a file called `hello.bibi` with the following content:
 
 ```
-print("Hello, Pyoops!");
+print("Hello, PyOops!");
 ```
 
 Run the program:
 ```bash
-python pyoops-cmd.py hello.pi
+python pyoops-cmd.py hello.bibi
+```
+```bash
+python3 pyoops-cmd.py hello.bibi
 ```
 
 ## Language Syntax
@@ -104,6 +109,8 @@ while (condition) {
 
 ### Functions
 Functions are defined using the `func` keyword:
+- With return statement(s): `func` + data or string array (`int`, `float`, `str`, `char`, `int[]`, `float[]`, `str[]`, `char[]`)
+- Without return statement: `func void`
 
 ```
 func int add(int a, int b) {
@@ -123,6 +130,7 @@ greet("World");
 
 ### Custom Types
 Create custom types (similar to structs) using the `type` keyword:
+- Declaring a variable with a custom type inside another custom type is not allowed.
 
 ```
 type Person {
@@ -154,11 +162,11 @@ try {
 }
 ```
 
-The get_error() function returns the error message as a string and is only available inside an except block.
+The `get_error()` function returns the error message as a string and is only available inside an except block.
 
 
 ### Comments
-Pyoops supports line and block comments:
+PyOops supports line and block comments:
 
 ```
 // This is a line comment
@@ -170,7 +178,7 @@ block comment
 ```
 
 ## Command-Line Usage
-The Pyoops language can be used in several ways:
+The PyOops language can be used in several ways:
 
 ```bash
 python3 pyoops-cmd.py [options] [file]
@@ -193,10 +201,10 @@ Options:
 - `-v, --version`: Show version information
 
 Examples:
-- Run a file: `python pyoops-cmd.py program.pi`
+- Run a file: `python pyoops-cmd.py program.bibi`
 - Interactive mode: `python pyoops-cmd.py -i`
-- Run a file and enter interactive mode: `python pyoops-cmd.py program.pi -i`
-- Debug mode: `python pyoops-cmd.py -d program.pi`
+- Run a file and enter interactive mode: `python pyoops-cmd.py program.bibi -i`
+- Debug mode: `python pyoops-cmd.py -d program.bibi`
 
 ## Interactive Mode
 Enter interactive mode with:
@@ -205,7 +213,7 @@ python pyoops-cmd.py -i
 ```
 
 In interactive mode, you can:
-- Type Pyoops code directly and execute it immediately
+- Type PyOops code directly and execute it immediately
 - Use special commands:
   - `exit()` - Exit interactive mode
   - `help()` - Show available commands
@@ -219,7 +227,7 @@ In interactive mode, you can:
 
 ### Basic Calculator
 ```
-// calculator.pi
+// calculator.bibi
 func float add(float a, float b) {
     return a + b;
 }
@@ -255,7 +263,7 @@ print("Division by zero: " + divide(num1, 0.0));
 
 ### Custom Type Example
 ```
-// person.pi
+// person.bibi
 type Person {
     str name;
     int age;
@@ -285,7 +293,7 @@ display_person(bob);
 
 ### Array Operations
 ```
-// arrays.pi
+// arrays.bibi
 int[] numbers = [10, 20, 30, 40, 50];
 
 // Calculate sum
@@ -318,7 +326,7 @@ print("Maximum value: " + max_array(numbers));
 ```
 
 ## Error Handling
-Pyoops provides detailed error messages for different types of errors, for example:
+PyOops provides detailed error messages for different types of errors, for example:
 
 
 ### Type Mismatch Errors
@@ -468,7 +476,7 @@ try {
 }
 ```
 
-## Reference
+## Summary
 
 ### Keywords
 - `if`, `else` - Conditional statements
