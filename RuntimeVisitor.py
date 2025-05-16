@@ -18,9 +18,7 @@ class InterpreterRuntimeError(Exception):
         
 def report_error(self, message, error_type="Runtime Error"):
     formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} {message}{RESET}"
-    print("I am in report_error")
     if getattr(self, "is_in_try_block", False):
-        print("Raise error in try block")
         # print(formatted_error)
         self.last_error = message
         print(self.last_error)
@@ -28,7 +26,6 @@ def report_error(self, message, error_type="Runtime Error"):
         raise InterpreterRuntimeError(message)
         self._current_exception = message
     else:
-        print("not in a try block")
         print(formatted_error)
         sys.exit(1)
 
@@ -180,14 +177,13 @@ class RuntimeVisitor(syntaxVisitor):
     
     # Fixed function call and return handling in RuntimeVisitor
     def visitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
-        print("Visiting function:", ctx.IDENTIFIER().getText())
+        # print("Visiting function:", ctx.IDENTIFIER().getText())
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
             
         func_name = ctx.IDENTIFIER().getText()
 
         if func_name == "get_error":
-            print("func_name is recognized")
             if self._current_exception:
                 e = str(self._current_exception)
                 self.symbol_table.update(func_name, {"type": "str", "value": e})
@@ -694,18 +690,14 @@ class RuntimeVisitor(syntaxVisitor):
         
         
         try: 
-            print("in try block")
             self.is_in_try_block = True 
             try_block = ctx.try_stmt().block(0)
             if try_block:
-                print(0)
                 self.visit(try_block)
         except InterpreterRuntimeError as e: 
-            print("Error: " + str(e))
-            print(1)
-            print("in except block")
+            # print("Error: " + str(e))
             self._current_exception = str(e)  # Store the exception
-            print("self._current_exception: ", self._current_exception)
+            # print("self._current_exception: ", self._current_exception)
             self._inside_except = True
             self.is_in_try_block = False  # Errors in except block should crash
             except_block = ctx.try_stmt().block(1)
@@ -895,12 +887,15 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if op == '+':
+            # print("left: ", left)
+            # print("right: ", right)
             # String concatenation - convert both operands to strings if either is a string
             if isinstance(left, str) or isinstance(right, str):
                 return str(left) + str(right)
             # Numeric addition
             elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left + right
+            
             else:
                 report_error(self, "Invalid operands for addition.")
                 return None
