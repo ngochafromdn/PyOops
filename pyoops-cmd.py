@@ -81,7 +81,7 @@ class LanguageCommander:
         print(f"Interactive Pyoops Language Mode - Type 'exit()' to quit, 'help()' for commands")
         
         # Setup readline with history file
-        history_file = os.path.expanduser('~/.pi_language_history')
+        history_file = os.path.expanduser('~/.bibi_language_history')
         try:
             readline.read_history_file(history_file)
             readline.set_history_length(1000)
@@ -91,7 +91,7 @@ class LanguageCommander:
         # Main REPL loop
         while True:
             try:
-                user_input = input("pi> ")
+                user_input = input("bibi> ")
                 
                 # Check if command is a run() command
                 if user_input.startswith('run(') and user_input.endswith(')'):
@@ -100,7 +100,7 @@ class LanguageCommander:
                     if filename:
                         self.execute_file(filename, debug=debug)
                     else:
-                        print("Error: Missing filename. Usage: run(\"filename.pi\")")
+                        print("Error: Missing filename. Usage: run(\"filename.bibi\")")
                     continue
                     
                 # Check if command is a load() command (loads but doesn't execute)
@@ -119,7 +119,7 @@ class LanguageCommander:
                         except Exception as e:
                             print(f"Error loading file: {e}")
                     else:
-                        print("Error: Missing filename. Usage: load(\"filename.pi\")")
+                        print("Error: Missing filename. Usage: load(\"filename.bibi\")")
                     continue
                     
                 # Execute loaded code
@@ -129,7 +129,7 @@ class LanguageCommander:
                         self.execute_string(self._loaded_code, debug=debug)
                         print("=== End of execution ===")
                     else:
-                        print("No code has been loaded. Use load(\"filename.pi\") first.")
+                        print("No code has been loaded. Use load(\"filename.bibi\") first.")
                     continue
                     
                 # Handle other special commands
@@ -176,14 +176,14 @@ Available commands:
   clear()     - Clear the symbol table (reset variables)
   symbols()   - Print current symbol table contents
   
-You can also enter any valid Pi language code for immediate execution.
+You can also enter any valid bibi language code for immediate execution.
         """
         print(help_text)
 
 def main():
     # Setup command line argument parser
-    parser = argparse.ArgumentParser(description='Pi Language Commander and Interpreter')
-    parser.add_argument('file', nargs='?', help='File to execute (.pi extension)')
+    parser = argparse.ArgumentParser(description='Bibi Language Commander and Interpreter')
+    parser.add_argument('file', nargs='?', help='File to execute (.bibi extension)')
     parser.add_argument('-i', '--interactive', action='store_true', help='Start interactive mode')
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug output')
     parser.add_argument('-v', '--version', action='store_true', help='Show version information')
@@ -199,8 +199,8 @@ def main():
     
     # Kiểm tra file extension
     if args.file:
-        if not args.file.endswith('.pi'):
-            print(f"Warning: File {args.file} does not have the standard .pi extension")
+        if not args.file.endswith('.bibi'):
+            print(f"Warning: File {args.file} does not have the standard .bibi extension")
             proceed = input("Do you want to proceed? (y/n): ")
             if proceed.lower() != 'y':
                 return
