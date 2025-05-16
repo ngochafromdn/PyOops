@@ -358,12 +358,12 @@ class RuntimeVisitor(syntaxVisitor):
             # Check for timeout or max iterations
             current_time = time.time()
             if current_time - self.start_time > self.timeout:
-                report_error(f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
+                report_error(self, f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
                 return None
                 
             self.iterations += 1
             if self.iterations > self.max_iterations:
-                report_error(f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
+                report_error(self, f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
                 return None
 
             # Evaluate condition
@@ -448,7 +448,7 @@ class RuntimeVisitor(syntaxVisitor):
         symbol = self.symbol_table.lookup(name)
         
         if not symbol:
-            report_error(f"Variable '{name}' not defined.")
+            report_error(self, f"Variable '{name}' not defined.")
             return None
         
         return symbol.get('value', None)
@@ -770,7 +770,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Find the array in symbol table
         symbol = self.symbol_table.lookup(array_name)
         if not symbol:
-            report_error(f"Array '{array_name}' not defined.")
+            report_error(self, f"Array '{array_name}' not defined.")
             return None
                 
         # Get the array value
@@ -852,10 +852,10 @@ class RuntimeVisitor(syntaxVisitor):
                     # Update the symbol table with parsed array
                     self.symbol_table.update(array_name, {'value': array_value})
                 except Exception as e:
-                    report_error(f"Failed to parse array: {str(e)}")
+                    report_error(self, f"Failed to parse array: {str(e)}")
                     return None
             else:
-                report_error(f"Variable '{array_name}' is not an array.")
+                report_error(self, f"Variable '{array_name}' is not an array.")
                 return None
                 
         # Calculate the index

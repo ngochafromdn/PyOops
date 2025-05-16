@@ -9,8 +9,9 @@ int[] arr;
 
 
 try {
-    print(1/0);
+    print(0/1);
 }
+
 except {
     print(get_error());
 }
