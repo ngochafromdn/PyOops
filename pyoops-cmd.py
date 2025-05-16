@@ -13,7 +13,6 @@ from RuntimeVisitor import RuntimeVisitor
 class LanguageCommander:
     def __init__(self):
         self.symbol_table = SymbolTableVisitor()
-        # Thêm hàm get_error mặc định vào bảng ký hiệu
         self.symbol_table.define("get_error", {"type": "str"})
         
     def execute_string(self, code_string, show_output=True, debug=False):

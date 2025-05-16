@@ -154,6 +154,9 @@ try {
 }
 ```
 
+The get_error() function returns the error message as a string and is only available inside an except block.
+
+
 ### Comments
 Pyoops supports line and block comments:
 
@@ -315,7 +318,66 @@ print("Maximum value: " + max_array(numbers));
 ```
 
 ## Error Handling
-Pyoops provides detailed error messages for different types of errors:
+Pyoops provides detailed error messages for different types of errors, for example:
+
+
+### Type Mismatch Errors
+
+int age = "twenty"; // Error: String cannot be assigned to int
+float price = true; // Error: Boolean cannot be assigned to float
+
+### Array Index Errors
+int[] numbers = [10, 20, 30];
+print(numbers[5]); // Error: Index 5 out of bounds for array 'numbers'
+print(numbers[-1]); // Error: Index -1 out of bounds for array 'numbers'
+
+
+### Arithmetic Errors
+int x = 10 / 0; // Error: Division by zero
+Undefined Variable Errors
+print(undefinedVar); // Error: Variable 'undefinedVar' not defined
+
+###  Function-related Errors
+
+func int add(int a, int b) {
+    return a + b;
+}
+
+add("hello", 5); // Error: Mismatched types in parameter
+add(1, 2, 3); // Error: Too many arguments
+print(unknownFunction()); // Error: Function 'unknownFunction' not defined
+
+###  Control Flow Errors
+return 5; // Error: Return statement outside function
+
+while (true) {
+    // ...
+}
+// Error: Loop exceeded 1000 iterations. Possible infinite loop.
+
+break; // Error: Break statement outside of loop
+continue; // Error: Continue statement outside of loop
+Custom Type Errors
+type Person {
+    str name;
+    int age;
+}
+
+Person p;
+print(p.address); // Error: Field 'address' not found in new-type instance 'p'
+Infinite Loop Protection
+Pyoops has built-in protection against infinite loops. It limits:
+
+Maximum number of iterations (default: 1000)
+Maximum execution time (default: 5 seconds)
+
+int i = 0;
+while (true) {
+    i = i + 1;
+    // Will automatically terminate with error after 1000 iterations:
+    // [Runtime Error] Loop exceeded 1000 iterations. Possible infinite loop.
+}
+
 
 ### Syntax Errors
 Detected during parsing, with line and column information:
@@ -347,6 +409,34 @@ try {
     print("Error occurred: " + get_error());
 }
 ```
+
+### Division by zero:
+func float divide(float a, float b) {
+    try {
+        return a / b;
+    } except {
+        print("Cannot divide by zero. Using default value.");
+        return 0.0;
+    }
+}
+Array bounds checking:
+func int get_element(int[] arr, int index) {
+    try {
+        return arr[index];
+    } except {
+        print("Invalid index: " + get_error());
+        return -1; // Default error value
+    }
+}
+
+### General error logging:
+try {
+    // Complex operation that might fail
+    result = complex_calculation();
+} except {
+    print("Operation failed: " + get_error());
+    // Perform cleanup or fallback operations
+}
 
 ## Reference
 
