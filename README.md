@@ -170,7 +170,18 @@ block comment
 The Pyoops language can be used in several ways:
 
 ```bash
-python pyoops-cmd.py [options] [file]
+python3 pyoops-cmd.py [options] [file]
+
+python3 pyoops.py [file]
+
+```
+
+I also create my own such that I can run
+
+```bash
+
+pyoops [file]
+
 ```
 
 Options:
