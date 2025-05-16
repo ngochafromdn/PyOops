@@ -430,6 +430,9 @@ try {
 ```
 
 ### Division by zero:
+
+
+```
 func float divide(float a, float b) {
     try {
         return a / b;
@@ -438,7 +441,11 @@ func float divide(float a, float b) {
         return 0.0;
     }
 }
+```
+
 Array bounds checking:
+
+```
 func int get_element(int[] arr, int index) {
     try {
         return arr[index];
@@ -447,8 +454,11 @@ func int get_element(int[] arr, int index) {
         return -1; // Default error value
     }
 }
+```
 
 ### General error logging:
+
+```
 try {
     // Complex operation that might fail
     result = complex_calculation();
@@ -456,6 +466,7 @@ try {
     print("Operation failed: " + get_error());
     // Perform cleanup or fallback operations
 }
+```
 
 ## Reference
 
