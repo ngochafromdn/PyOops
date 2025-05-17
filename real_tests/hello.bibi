@@ -1,6 +1,0 @@
-int x = 2;
-if (x == 2) {
-    print("You right");
-} else {
-    print("Not true");
-}
