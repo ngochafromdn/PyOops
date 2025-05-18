@@ -19,10 +19,7 @@ class InterpreterRuntimeError(Exception):
 def report_error(self, message, error_type="Runtime Error"):
     formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} {message}{RESET}"
     if getattr(self, "is_in_try_block", False):
-        # print(formatted_error)
         self.last_error = message
-        # print(self.last_error)
-        # print(message)
         raise InterpreterRuntimeError(message)
         self._current_exception = message
     else:
@@ -695,9 +692,7 @@ class RuntimeVisitor(syntaxVisitor):
             if try_block:
                 self.visit(try_block)
         except InterpreterRuntimeError as e: 
-            # print("Error: " + str(e))
             self._current_exception = str(e)  # Store the exception
-            # print("self._current_exception: ", self._current_exception)
             self._inside_except = True
             self.is_in_try_block = False  # Errors in except block should crash
             except_block = ctx.try_stmt().block(1)
