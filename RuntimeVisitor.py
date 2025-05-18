@@ -1,61 +1,89 @@
-# Fixed RuntimeVisitor.py - with improved array handling
+"""
+RuntimeVisitor.py - Interpreter implementation for the language runtime.
+This visitor handles the execution of program statements and evaluates expressions.
+"""
 from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 import sys
 import time
 
-# ANSI color codes
+# ANSI color codes for error formatting
 RED = "\033[91m"
 BLUE = "\033[34m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
 class InterpreterRuntimeError(Exception):
-    """Custom exception to signal a runtime error in your language."""
+    """Custom exception to signal a runtime error in the language."""
     def __init__(self, message):
         super().__init__(message)
         self.message = message
-        
+
 def report_error(self, message, error_type="Runtime Error"):
+    """Format and report runtime errors with optional error type."""
     formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} {message}{RESET}"
+    
     if getattr(self, "is_in_try_block", False):
         self.last_error = message
-        raise InterpreterRuntimeError(message)
         self._current_exception = message
+        raise InterpreterRuntimeError(message)
     else:
         print(formatted_error)
         sys.exit(1)
 
 class RuntimeVisitor(syntaxVisitor):
+    """
+    Visitor that executes the parsed program statements.
+    Handles variable operations, control flow, functions, and expressions.
+    """
     def __init__(self, symbol_table, max_iterations=1000, timeout=5):
+        """
+        Initialize the runtime visitor with the symbol table and safety limits.
+        
+        Args:
+            symbol_table: The symbol table for variable lookups
+            max_iterations: Maximum iterations allowed in loops
+            timeout: Maximum execution time in seconds
+        """
         super().__init__()
         self.symbol_table = symbol_table
-        self.output = []
-        self.in_function = None
-        self.return_value = None
-        self.function_definitions = {}
-        self.collect_function_definitions()
-        self.break_flag = False
-        self.continue_flag = False
-        self.is_in_try_block = False
-        self.last_error = None
-        self._current_exception = None
-
-        # Add these for loop safety
+        self.output = []                    # Stores program output
+        self.in_function = None             # Current function being executed
+        self.return_value = None            # Return value from functions
+        self.function_definitions = {}      # Map of function names to definitions
+        self.break_flag = False             # Flag for loop break
+        self.continue_flag = False          # Flag for loop continue
+        self.is_in_try_block = False        # Flag for try-except blocks
+        self.last_error = None              # Last error message
+        self._current_exception = None      # Current exception in try-except
+        
+        # Loop safety parameters
         self.max_iterations = max_iterations  # Maximum number of iterations
-        self.timeout = timeout  # Maximum execution time in seconds
+        self.timeout = timeout                # Maximum execution time in seconds
         self.start_time = time.time()
         self.iterations = 0
+        
+        # Collect function definitions from the symbol table
+        self.collect_function_definitions()
 
+    #--------------------------------------------------
+    # Initialization and Helper Methods
+    #--------------------------------------------------
+    
     def collect_function_definitions(self):
-        """Find and store all function definitions from the symbol table"""
+        """Find and store all function definitions from the symbol table."""
         for scope in self.symbol_table.all_scopes:
             for name, info in scope['symbols'].items():
                 if isinstance(info, dict) and info.get('type') == 'function':
                     # Store function definition from global scope
                     self.function_definitions[name] = info
     
+    #--------------------------------------------------
+    # Program Execution
+    #--------------------------------------------------
+    
     def visitProgram(self, ctx:syntaxParser.ProgramContext):
+        """Execute the program by visiting all top-level statements."""
         # Ensure we're in global scope
         self.symbol_table.reset_to_global()
         
@@ -74,7 +102,32 @@ class RuntimeVisitor(syntaxVisitor):
             
         return "\n".join(self.output)
     
+    def visitBlock(self, ctx:syntaxParser.BlockContext):
+        """Execute a block of statements."""
+        if ctx is None:
+            return None
+            
+        # Execute each statement in the block
+        for stmt in ctx.statement():
+            # Skip if the statement is null
+            if stmt is None:
+                continue
+                
+            # Visit the statement
+            self.visit(stmt)
+            
+            # Stop execution if we hit a return, break, or continue
+            if self.return_value is not None or self.break_flag or self.continue_flag:
+                break
+                
+        return None
+    
+    #--------------------------------------------------
+    # Variable Declaration and Assignment
+    #--------------------------------------------------
+    
     def visitVarDeclStmt(self, ctx:syntaxParser.VarDeclStmtContext):
+        """Handle variable declaration statements."""
         if ctx is None or ctx.variable_declaration() is None:
             return None
             
@@ -83,6 +136,7 @@ class RuntimeVisitor(syntaxVisitor):
         data_type = var_decl.DATA_TYPE().getText()
         
         if var_decl.expression():
+            # Initialize with expression value
             value = self.visit(var_decl.expression())
             
             # Handle array types
@@ -93,7 +147,7 @@ class RuntimeVisitor(syntaxVisitor):
             
             self.symbol_table.update(identifier, {'type': data_type, 'value': value})
         else:
-            # Initialize with default values
+            # Initialize with default values based on type
             default_value = None
             if data_type == 'int':
                 default_value = 0
@@ -111,12 +165,14 @@ class RuntimeVisitor(syntaxVisitor):
         return None
 
     def visitAssignStmt(self, ctx:syntaxParser.AssignStmtContext):
+        """Handle variable assignment statements."""
         if ctx is None or ctx.assignment() is None:
             return None
             
         assign = ctx.assignment()
         
         if assign.IDENTIFIER():
+            # Regular variable assignment
             name = assign.IDENTIFIER().getText()
             
             # Find the variable in the symbol table
@@ -131,16 +187,16 @@ class RuntimeVisitor(syntaxVisitor):
                 self.symbol_table.update(name, {'value': value})
         
         elif assign.type_defVar():
+            # Custom type field assignment
             newtype_name = assign.type_defVar().IDENTIFIER(0).getText()
             field_name = assign.type_defVar().IDENTIFIER(1).getText()
             
-            newtype = self.symbol_table.lookup(newtype_name)
-                        
             value = self.visit(assign.expression())
             self.symbol_table.updateField_typedef(newtype_name, field_name, value)
         return None
     
     def visitType_defVar(self, ctx: syntaxParser.Type_defVarContext):
+        """Access a field of a custom type variable."""
         if ctx is None:
             return None
         
@@ -152,34 +208,157 @@ class RuntimeVisitor(syntaxVisitor):
         if newtype and 'fields' in newtype and field_name in newtype['fields']:
             return newtype['fields'][field_name]['value']
         return None
+    
+    #--------------------------------------------------
+    # Control Flow Statements
+    #--------------------------------------------------
+    
+    def visitIfStmt(self, ctx:syntaxParser.IfStmtContext):
+        """Handle if-elif-else statements."""
+        if ctx is None:
+            return None
+            
+        # Get the if_stmt context
+        if_stmt_ctx = ctx.if_stmt()
+        if not if_stmt_ctx:
+            return None
         
-    def visitPrintStmt(self, ctx:syntaxParser.PrintStmtContext):
-        # Get the expression directly
-        expr = None
-        if ctx.print_stmt() and ctx.print_stmt().expression():
-            expr = ctx.print_stmt().expression()
-        elif hasattr(ctx, 'expression') and ctx.expression():
-            expr = ctx.expression()
+        # Find all expressions (conditions) and blocks
+        expressions = []
+        blocks = []
         
-        if expr:
-            # Execute the expression and print the result
-            expr_value = self.visit(expr)
-            self.output.append(str(expr_value))
+        for i in range(if_stmt_ctx.getChildCount()):
+            child = if_stmt_ctx.getChild(i)
+            if isinstance(child, syntaxParser.ExpressionContext):
+                expressions.append(child)
+            elif isinstance(child, syntaxParser.BlockContext):
+                blocks.append(child)
+        
+        # Evaluate conditions and execute appropriate block
+        for i in range(len(expressions)):
+            condition = self.visit(expressions[i])
+            if condition:
+                self.visit(blocks[i])
+                return None
+        
+        # If no conditions matched and there's an else block
+        if len(blocks) > len(expressions):
+            self.visit(blocks[-1])
         
         return None
     
+    def visitWhileStmt(self, ctx:syntaxParser.WhileStmtContext):
+        """Handle while loop statements."""
+        if ctx is None or ctx.while_stmt() is None:
+            return None
+            
+        # Access the while_stmt rule
+        while_stmt = ctx.while_stmt()
+        
+        # Save flags state
+        prev_break = self.break_flag
+        prev_continue = self.continue_flag
+        self.break_flag = False
+        self.continue_flag = False
+
+        # Reset iteration counter for this loop
+        self.iterations = 0     
+
+        # Execute the while loop
+        while True:
+            # Check for timeout or max iterations
+            current_time = time.time()
+            if current_time - self.start_time > self.timeout:
+                report_error(self, f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
+                return None
+                
+            self.iterations += 1
+            if self.iterations > self.max_iterations:
+                report_error(self, f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
+                return None
+
+            # Evaluate condition
+            condition = self.visit(while_stmt.expression())
+            if not condition or self.break_flag:
+                break
+            
+            # Execute the body
+            self.visit(while_stmt.block())
+            
+            # Handle continue
+            if self.continue_flag:
+                self.continue_flag = False
+                continue
+                
+            # Handle return in loop body
+            if self.in_function and self.return_value is not None:
+                break
+        
+        # Restore flags
+        self.break_flag = prev_break
+        self.continue_flag = prev_continue
+        
+        return None
+
+    def visitContinue(self, ctx:syntaxParser.ContinueContext):
+        """Handle continue statements in loops."""
+        if ctx is None:
+            return None
+            
+        # Set continue flag
+        self.continue_flag = True
+        return None
+    
+    def visitBreak(self, ctx:syntaxParser.BreakContext):
+        """Handle break statements in loops."""
+        if ctx is None:
+            return None
+            
+        # Set break flag
+        self.break_flag = True
+        return None
+    
+    def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
+        """Handle try-except statements."""
+        if ctx is None or ctx.try_stmt() is None: 
+            return None 
+        previous_try_flag = getattr(self, "is_in_try_block", False)
+        
+        try: 
+            self.is_in_try_block = True 
+            try_block = ctx.try_stmt().block(0)
+            if try_block:
+                self.visit(try_block)
+        except InterpreterRuntimeError as e: 
+            self._current_exception = str(e)  # Store the exception
+            self._inside_except = True
+            self.is_in_try_block = False  # Errors in except block should crash
+            except_block = ctx.try_stmt().block(1)
+            if except_block:
+                self.visit(except_block)
+            self._inside_except = False
+            self._current_exception = None 
+        finally: 
+            self.is_in_try_block = previous_try_flag  # Restore the previous state
+        return None
+    
+    #--------------------------------------------------
+    # Function Handling
+    #--------------------------------------------------
+    
     def visitFuncStmt(self, ctx:syntaxParser.FuncStmtContext):
+        """Store function definition (already done in semantics phase)."""
         # Just store function definition - this is already done in semantics phase
         return None
     
-    # Fixed function call and return handling in RuntimeVisitor
     def visitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
-        # print("Visiting function:", ctx.IDENTIFIER().getText())
+        """Handle function calls and evaluate arguments."""
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
             
         func_name = ctx.IDENTIFIER().getText()
 
+        # Special handling for get_error function in exception handling
         if func_name == "get_error":
             if self._current_exception:
                 e = str(self._current_exception)
@@ -208,6 +387,16 @@ class RuntimeVisitor(syntaxVisitor):
         return return_value
     
     def execute_function(self, func_name, args):
+        """
+        Execute a function with the given arguments.
+        
+        Args:
+            func_name: Name of the function to execute
+            args: List of argument values
+            
+        Returns:
+            The function's return value
+        """
         # Get function info
         func_info = self.function_definitions.get(func_name)
         if not func_info:
@@ -259,6 +448,7 @@ class RuntimeVisitor(syntaxVisitor):
         return return_val
 
     def visitReturnStmt(self, ctx:syntaxParser.ReturnStmtContext):
+        """Handle return statements in functions."""
         # Check if inside a function
         if not self.in_function:
             report_error(self, "Return statement outside function.")
@@ -278,134 +468,33 @@ class RuntimeVisitor(syntaxVisitor):
             self.return_value = None
             
         return None
-
-    # Make sure the if statement visitor correctly handles conditions and blocks
-    def visitIfStmt(self, ctx:syntaxParser.IfStmtContext):
-        if ctx is None:
-            return None
-            
-        # Get the if_stmt context
-        if_stmt_ctx = ctx.if_stmt()
-        if not if_stmt_ctx:
-            return None
+    
+    #--------------------------------------------------
+    # I/O Operations
+    #--------------------------------------------------
+    
+    def visitPrintStmt(self, ctx:syntaxParser.PrintStmtContext):
+        """Handle print statements."""
+        # Get the expression directly
+        expr = None
+        if ctx.print_stmt() and ctx.print_stmt().expression():
+            expr = ctx.print_stmt().expression()
+        elif hasattr(ctx, 'expression') and ctx.expression():
+            expr = ctx.expression()
         
-        # Find all expressions (conditions) and blocks
-        expressions = []
-        blocks = []
+        if expr:
+            # Execute the expression and print the result
+            expr_value = self.visit(expr)
+            self.output.append(str(expr_value))
         
-        for i in range(if_stmt_ctx.getChildCount()):
-            child = if_stmt_ctx.getChild(i)
-            if isinstance(child, syntaxParser.ExpressionContext):
-                expressions.append(child)
-            elif isinstance(child, syntaxParser.BlockContext):
-                blocks.append(child)
-        
-        # Evaluate conditions and execute appropriate block
-        for i in range(len(expressions)):
-            condition = self.visit(expressions[i])
-            if condition:
-                self.visit(blocks[i])
-                return None
-        
-        # If no conditions matched and there's an else block
-        if len(blocks) > len(expressions):
-            self.visit(blocks[-1])
-        
-        return None
-
-    # Add this comprehensive method for handling blocks
-    def visitBlock(self, ctx:syntaxParser.BlockContext):
-        if ctx is None:
-            return None
-            
-        # Execute each statement in the block
-        for stmt in ctx.statement():
-            # Skip if the statement is null
-            if stmt is None:
-                continue
-                
-            # Visit the statement
-            self.visit(stmt)
-            
-            # Stop execution if we hit a return, break, or continue
-            if self.return_value is not None or self.break_flag or self.continue_flag:
-                break
-                
         return None
     
-    def visitWhileStmt(self, ctx:syntaxParser.WhileStmtContext):
-        if ctx is None or ctx.while_stmt() is None:
-            return None
-            
-        # Access the while_stmt rule
-        while_stmt = ctx.while_stmt()
-        
-        # Save flags state
-        prev_break = self.break_flag
-        prev_continue = self.continue_flag
-        self.break_flag = False
-        self.continue_flag = False
-
-        # Reset iteration counter for this loop
-        self.iterations = 0     
-
-        # Execute the while loop
-        while True:
-
-            # Check for timeout or max iterations
-            current_time = time.time()
-            if current_time - self.start_time > self.timeout:
-                report_error(self, f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
-                return None
-                
-            self.iterations += 1
-            if self.iterations > self.max_iterations:
-                report_error(self, f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
-                return None
-
-            # Evaluate condition
-            condition = self.visit(while_stmt.expression())
-            if not condition or self.break_flag:
-                break
-            
-            # Execute the body
-            self.visit(while_stmt.block())
-            
-            # Handle continue
-            if self.continue_flag:
-                self.continue_flag = False
-                continue
-                
-            # Handle return in loop body
-            if self.in_function and self.return_value is not None:
-                break
-        
-        # Restore flags
-        self.break_flag = prev_break
-        self.continue_flag = prev_continue
-        
-        return None
-
-    def visitContinue(self, ctx:syntaxParser.ContinueContext):
-        if ctx is None:
-            return None
-            
-        # Set continue flag
-        self.continue_flag = True
-        return None
+    #--------------------------------------------------
+    # Array Handling
+    #--------------------------------------------------
     
-    def visitBreak(self, ctx:syntaxParser.BreakContext):
-        if ctx is None:
-            return None
-            
-        # Set break flag
-        self.break_flag = True
-        return None
-    
-    # Improved array handling methods
-    
-    # Fix for int arrays
     def visitIntArray(self, ctx:syntaxParser.IntArrayContext):
+        """Handle integer array literals."""
         if ctx is None:
             return None
             
@@ -436,201 +525,9 @@ class RuntimeVisitor(syntaxVisitor):
                             result.append(int(num_str))
                             
         return result
-       
-    def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
-        if ctx is None or ctx.IDENTIFIER() is None:
-            return None
-            
-        name = ctx.IDENTIFIER().getText()
-        symbol = self.symbol_table.lookup(name)
-        
-        if not symbol:
-            report_error(self, f"Variable '{name}' not defined.")
-            return None
-        
-        return symbol.get('value', None)
     
-    def visitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
-        if ctx is None or ctx.NUMBER() is None:
-            return None
-            
-        text = ctx.NUMBER().getText()
-        if '.' in text:
-            return float(text)
-        else:
-            return int(text)
-    
-    def visitStringExpr(self, ctx:syntaxParser.StringExprContext):
-        if ctx is None or ctx.STRING() is None:
-            return None
-            
-        # Remove quotes and handle escape sequences
-        text = ctx.STRING().getText()
-        return text[1:-1]  # Remove quotes
-    
-    def visitCharExpr(self, ctx:syntaxParser.CharExprContext):
-        if ctx is None or ctx.CHARACTER() is None:
-            return None
-            
-        # Remove quotes and handle escape sequences
-        text = ctx.CHARACTER().getText()
-        return text[1:-1]  # Remove quotes
-    
-    def visitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
-        if ctx is None:
-            return None
-        return True
-    
-    def visitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
-        if ctx is None:
-            return None
-        return False
-    
-    def visitParenExpr(self, ctx:syntaxParser.ParenExprContext):
-        if ctx is None or ctx.expression() is None:
-            return None
-        return self.visit(ctx.expression())
-    
-    def visitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
-        if ctx is None or ctx.unary_expr() is None:
-            return None
-            
-        value = self.visit(ctx.unary_expr())
-        if isinstance(value, (int, float)):
-            return -value
-        else:
-            report_error(self, "Cannot apply unary minus to non-numeric value.")
-            return None
-    
-    def visitNotExpr(self, ctx:syntaxParser.NotExprContext):
-        if ctx is None or ctx.expression() is None:
-            return None
-            
-        value = self.visit(ctx.expression())
-        return not bool(value)
-       
-    def visitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
-        if ctx is None:
-            return None
-            
-        # Handle simple case with just one unary_expr
-        if len(ctx.unary_expr()) == 1:
-            return self.visit(ctx.unary_expr(0))
-            
-        left = self.visit(ctx.unary_expr(0))
-        right = self.visit(ctx.unary_expr(1))
-        op = ctx.getChild(1).getText()
-        
-        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
-            report_error(self, "Invalid operands for multiplication/division.")
-            return None
-        
-        if op == '*':
-            return left * right
-        else:  # op == '/'
-            if right == 0:
-                report_error(self, "Division by zero.")
-                return None
-            return left / right
-    
-    def visitCompExpr(self, ctx:syntaxParser.CompExprContext):
-        if ctx is None:
-            return None
-            
-        # Get all add_expr children
-        add_expressions = ctx.add_expr()
-        if not add_expressions or len(add_expressions) == 0:
-            return None
-            
-        # If only one add_expr, just visit it
-        if len(add_expressions) == 1:
-            return self.visit(add_expressions[0])
-        
-        # Get comparison operators
-        operators = []
-        for i in range(ctx.getChildCount()):
-            child = ctx.getChild(i)
-            if child.getText() in ['<', '<=', '>', '>=', '==', '!=']:
-                operators.append(child.getText())
-        
-        # Evaluate the first expression
-        left = self.visit(add_expressions[0])
-        
-        # Apply operators
-        for i in range(len(operators)):
-            op = operators[i]
-            right = self.visit(add_expressions[i+1])
-            
-            if op == '<':
-                result = left < right
-            elif op == '<=':
-                result = left <= right
-            elif op == '>':
-                result = left > right
-            elif op == '>=':
-                result = left >= right
-            elif op == '==':
-                result = left == right
-            elif op == '!=':
-                result = left != right
-            else:
-                report_error(f"Unknown comparison operator: {op}")
-                return None
-                
-            # Combine results for chained comparisons
-            if i < len(operators) - 1:
-                if not result:
-                    return False
-                left = right
-            else:
-                return result
-                
-        return result
-
-    def visitLogicExpr(self, ctx:syntaxParser.LogicExprContext):
-        if ctx is None:
-            return None
-            
-        # Get all comp_expr children
-        comp_expressions = ctx.comp_expr()
-        if not comp_expressions or len(comp_expressions) == 0:
-            return None
-            
-        # If only one comp_expr, just visit it
-        if len(comp_expressions) == 1:
-            return self.visit(comp_expressions[0])
-        
-        # Get operators (AND/OR)
-        operators = []
-        for i in range(ctx.getChildCount()):
-            child = ctx.getChild(i)
-            if child.getText() in ['and', 'or']:
-                operators.append(child.getText())
-        
-        # Evaluate the first expression
-        result = self.visit(comp_expressions[0])
-        
-        # Apply operators with short-circuit evaluation
-        for i in range(len(operators)):
-            op = operators[i]
-            if op == 'and':
-                if not result:
-                    return False  # Short-circuit AND
-                right = self.visit(comp_expressions[i+1])
-                result = result and right
-            elif op == 'or':
-                if result:
-                    return True   # Short-circuit OR
-                right = self.visit(comp_expressions[i+1])
-                result = result or right
-        
-        return result
-    
-    # Default method for any unimplemented visitor methods
-    def defaultResult(self):
-        return None
-
     def visitCharArray(self, ctx:syntaxParser.CharArrayContext):
+        """Handle character array literals."""
         if ctx is None:
             return None
                 
@@ -680,32 +577,8 @@ class RuntimeVisitor(syntaxVisitor):
                         
         return result
     
-    def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
-        if ctx is None or ctx.try_stmt() is None: 
-            return None 
-        previous_try_flag = getattr(self, "is_in_try_block", False)
-        
-        
-        try: 
-            self.is_in_try_block = True 
-            try_block = ctx.try_stmt().block(0)
-            if try_block:
-                self.visit(try_block)
-        except InterpreterRuntimeError as e: 
-            self._current_exception = str(e)  # Store the exception
-            self._inside_except = True
-            self.is_in_try_block = False  # Errors in except block should crash
-            except_block = ctx.try_stmt().block(1)
-            if except_block:
-                self.visit(except_block)
-            self._inside_except = False
-            self._current_exception = None 
-        finally: 
-            self.is_in_try_block = previous_try_flag  # Restore the previous state
-        return None
-    
-    
     def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
+        """Handle string array literals."""
         if ctx is None:
             return None
                 
@@ -756,6 +629,7 @@ class RuntimeVisitor(syntaxVisitor):
         return result
 
     def visitArrayAccessExpr(self, ctx:syntaxParser.ArrayAccessExprContext):
+        """Handle array access expressions (array[index])."""
         if ctx is None or ctx.IDENTIFIER() is None or ctx.expression() is None:
             return None
                 
@@ -867,9 +741,120 @@ class RuntimeVisitor(syntaxVisitor):
         # Get the element at the index
         element = array_value[index_value]
         
-        return element        
+        return element
+    
+    #--------------------------------------------------
+    # Expression Evaluation
+    #--------------------------------------------------
+    
+    def visitIdExpr(self, ctx:syntaxParser.IdExprContext):
+        """Handle identifier expressions (variable references)."""
+        if ctx is None or ctx.IDENTIFIER() is None:
+            return None
+            
+        name = ctx.IDENTIFIER().getText()
+        symbol = self.symbol_table.lookup(name)
+        
+        if not symbol:
+            report_error(self, f"Variable '{name}' not defined.")
+            return None
+        
+        return symbol.get('value', None)
+    
+    def visitNumberExpr(self, ctx:syntaxParser.NumberExprContext):
+        """Handle numeric literals."""
+        if ctx is None or ctx.NUMBER() is None:
+            return None
+            
+        text = ctx.NUMBER().getText()
+        if '.' in text:
+            return float(text)
+        else:
+            return int(text)
+    
+    def visitStringExpr(self, ctx:syntaxParser.StringExprContext):
+        """Handle string literals."""
+        if ctx is None or ctx.STRING() is None:
+            return None
+            
+        # Remove quotes and handle escape sequences
+        text = ctx.STRING().getText()
+        return text[1:-1]  # Remove quotes
+    
+    def visitCharExpr(self, ctx:syntaxParser.CharExprContext):
+        """Handle character literals."""
+        if ctx is None or ctx.CHARACTER() is None:
+            return None
+            
+        # Remove quotes and handle escape sequences
+        text = ctx.CHARACTER().getText()
+        return text[1:-1]  # Remove quotes
+    
+    def visitTrueExpr(self, ctx:syntaxParser.TrueExprContext):
+        """Handle boolean 'true' literal."""
+        if ctx is None:
+            return None
+        return True
+    
+    def visitFalseExpr(self, ctx:syntaxParser.FalseExprContext):
+        """Handle boolean 'false' literal."""
+        if ctx is None:
+            return None
+        return False
+    
+    def visitParenExpr(self, ctx:syntaxParser.ParenExprContext):
+        """Handle parenthesized expressions."""
+        if ctx is None or ctx.expression() is None:
+            return None
+        return self.visit(ctx.expression())
+    
+    def visitUnaryMinusExpr(self, ctx:syntaxParser.UnaryMinusExprContext):
+        """Handle unary minus expressions."""
+        if ctx is None or ctx.unary_expr() is None:
+            return None
+            
+        value = self.visit(ctx.unary_expr())
+        if isinstance(value, (int, float)):
+            return -value
+        else:
+            report_error(self, "Cannot apply unary minus to non-numeric value.")
+            return None
+    
+    def visitNotExpr(self, ctx:syntaxParser.NotExprContext):
+        """Handle logical NOT expressions."""
+        if ctx is None or ctx.expression() is None:
+            return None
+            
+        value = self.visit(ctx.expression())
+        return not bool(value)
+    
+    def visitMulDivExpr(self, ctx:syntaxParser.MulDivExprContext):
+        """Handle multiplication and division expressions."""
+        if ctx is None:
+            return None
+            
+        # Handle simple case with just one unary_expr
+        if len(ctx.unary_expr()) == 1:
+            return self.visit(ctx.unary_expr(0))
+            
+        left = self.visit(ctx.unary_expr(0))
+        right = self.visit(ctx.unary_expr(1))
+        op = ctx.getChild(1).getText()
+        
+        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
+            report_error(self, "Invalid operands for multiplication/division.")
+            return None
+        
+        if op == '*':
+            return left * right
+        else:  # op == '/'
+            if right == 0:
+                report_error(self, "Division by zero.")
+                return None
+            return left / right
     
     def visitAddSubExpr(self, ctx:syntaxParser.AddSubExprContext):
+        """Handle addition and subtraction expressions."""
         if ctx is None:
             return None
                 
@@ -882,15 +867,12 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if op == '+':
-            # print("left: ", left)
-            # print("right: ", right)
             # String concatenation - convert both operands to strings if either is a string
             if isinstance(left, str) or isinstance(right, str):
                 return str(left) + str(right)
             # Numeric addition
             elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left + right
-            
             else:
                 report_error(self, "Invalid operands for addition.")
                 return None
@@ -900,3 +882,106 @@ class RuntimeVisitor(syntaxVisitor):
             else:
                 report_error(self, "Invalid operands for subtraction.")
                 return None
+    
+    def visitCompExpr(self, ctx:syntaxParser.CompExprContext):
+        """Handle comparison expressions (==, !=, <, >, <=, >=)."""
+        if ctx is None:
+            return None
+            
+        # Get all add_expr children
+        add_expressions = ctx.add_expr()
+        if not add_expressions or len(add_expressions) == 0:
+            return None
+            
+        # If only one add_expr, just visit it
+        if len(add_expressions) == 1:
+            return self.visit(add_expressions[0])
+        
+        # Get comparison operators
+        operators = []
+        for i in range(ctx.getChildCount()):
+            child = ctx.getChild(i)
+            if child.getText() in ['<', '<=', '>', '>=', '==', '!=']:
+                operators.append(child.getText())
+        
+        # Evaluate the first expression
+        left = self.visit(add_expressions[0])
+        
+        # Apply operators
+        for i in range(len(operators)):
+            op = operators[i]
+            right = self.visit(add_expressions[i+1])
+            
+            if op == '<':
+                result = left < right
+            elif op == '<=':
+                result = left <= right
+            elif op == '>':
+                result = left > right
+            elif op == '>=':
+                result = left >= right
+            elif op == '==':
+                result = left == right
+            elif op == '!=':
+                result = left != right
+            else:
+                report_error(f"Unknown comparison operator: {op}")
+                return None
+                
+            # Combine results for chained comparisons
+            if i < len(operators) - 1:
+                if not result:
+                    return False
+                left = right
+            else:
+                return result
+                
+        return result
+
+    def visitLogicExpr(self, ctx:syntaxParser.LogicExprContext):
+        """Handle logical expressions (and, or)."""
+        if ctx is None:
+            return None
+            
+        # Get all comp_expr children
+        comp_expressions = ctx.comp_expr()
+        if not comp_expressions or len(comp_expressions) == 0:
+            return None
+            
+        # If only one comp_expr, just visit it
+        if len(comp_expressions) == 1:
+            return self.visit(comp_expressions[0])
+        
+        # Get operators (AND/OR)
+        operators = []
+        for i in range(ctx.getChildCount()):
+            child = ctx.getChild(i)
+            if child.getText() in ['and', 'or']:
+                operators.append(child.getText())
+        
+        # Evaluate the first expression
+        result = self.visit(comp_expressions[0])
+        
+        # Apply operators with short-circuit evaluation
+        for i in range(len(operators)):
+            op = operators[i]
+            if op == 'and':
+                if not result:
+                    return False  # Short-circuit AND
+                right = self.visit(comp_expressions[i+1])
+                result = result and right
+            elif op == 'or':
+                if result:
+                    return True   # Short-circuit OR
+                right = self.visit(comp_expressions[i+1])
+                result = result or right
+        
+        return result
+    
+    #--------------------------------------------------
+    # Default Method
+    #--------------------------------------------------
+    
+    def defaultResult(self):
+        """Default method for any unimplemented visitor methods."""
+        return None
