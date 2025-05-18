@@ -1,4 +1,3 @@
-# Fixed StatementAnalyzer.py
 from syntaxParser import syntaxParser
 from syntaxVisitor import syntaxVisitor
 from ExpressionAnalyzer import ExpressionAnalyzer
@@ -7,9 +6,9 @@ import sys
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler()
-handler.setFormatter(logging.Formatter('%(message)s'))  # Only show the message, no prefix
+handler.setFormatter(logging.Formatter('%(message)s')) 
 logger.addHandler(handler)
-logger.propagate = False  # Prevent the message from being handled by the root logger too
+logger.propagate = False
 
 # ANSI color codes
 RED = "\033[91m"
@@ -37,7 +36,7 @@ class StatementAnalyzer(syntaxVisitor):
         return None
     
     def visitBlockStmt(self, ctx:syntaxParser.BlockStmtContext):
-        # Create a new scope for this block
+        # Create a new scope for block
         self.symbol_table.push_scope("Block")
         for stmt in ctx.block().statement():
             self.visit(stmt)
@@ -50,7 +49,8 @@ class StatementAnalyzer(syntaxVisitor):
         
         assign = ctx.assignment()
         
-        if assign.IDENTIFIER(): # Simple variable assignment
+        # Variable assignment
+        if assign.IDENTIFIER():
             name = assign.IDENTIFIER().getText()
             symbol = self.symbol_table.lookup(name)
             
@@ -66,6 +66,7 @@ class StatementAnalyzer(syntaxVisitor):
                 else:
                     self.symbol_table.update(name, {'value': assign.expression().getText()})
         
+        # Typedef assignment
         elif assign.type_defVar():
             newtype_name = assign.type_defVar().IDENTIFIER(0).getText()
             field_name = assign.type_defVar().IDENTIFIER(1).getText()
@@ -257,7 +258,7 @@ class StatementAnalyzer(syntaxVisitor):
         
         return_type = func_info.get('return_type', 'void')
         
-        # Access the expression directly
+        # Access the expression
         expr = ctx.return_stmt().expression() if hasattr(ctx, 'return_stmt') and ctx.return_stmt() else None
         if not expr:
             # If no expression but non-void function
@@ -277,7 +278,7 @@ class StatementAnalyzer(syntaxVisitor):
         return None
 
     def visitIfStmt(self, ctx: syntaxParser.IfStmtContext):
-        # Extract and analyze condition directly from if_stmt rule
+        # Extract and analyze condition from if_stmt rule
         if_stmt_ctx = ctx.if_stmt()
         if not if_stmt_ctx:
             return None

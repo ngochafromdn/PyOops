@@ -6,7 +6,7 @@ type newtype {
     // char z;
 }
 
-newtype sth; // đang viết visit của cái này
+newtype sth;
 int x;
 
 x = 1;
