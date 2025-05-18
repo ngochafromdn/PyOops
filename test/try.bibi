@@ -6,3 +6,23 @@ try {
 except {
     print(get_error());
 }
+
+int x = 0;
+try {
+    // print(1/0); 
+    print("huhu");
+    try {
+        print(1/x);
+        print("in try block");
+    }
+    except {
+        print(1);
+        print("error");
+        print(get_error());
+    }
+    print("hehe");
+} except {
+    print(get_error());
+    print("caught an error");
+}
+print("yay");
