@@ -39,13 +39,14 @@ def main(input_file):
     if error_listener.error_count == 0:
         # Tạo bảng ký hiệu
         symbol_table = SymbolTableVisitor()
+        symbol_table.define("get_error", {"type": "str"})
         
         # Phân tích ngữ nghĩa
         try:
             analyzer = StatementAnalyzer(symbol_table)
             analyzer.visit(tree)
-            print("\nSymbol Table after semantic analysis:")
-            symbol_table.printSymbols()
+            # print("\nSymbol Table after semantic analysis:")
+            # symbol_table.printSymbols()
         except Exception as e:
             print(f"Semantic analysis failed: {e}")
             return

@@ -10,10 +10,24 @@ BLUE = "\033[34m"
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
-def report_error(message, error_type="Runtime Error"):
+class InterpreterRuntimeError(Exception):
+    """Custom exception to signal a runtime error in your language."""
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+        
+def report_error(self, message, error_type="Runtime Error"):
     formatted_error = f"{RED}{BOLD}[{error_type}]{RESET}{RED} {message}{RESET}"
-    print(formatted_error)
-    sys.exit(1)
+    if getattr(self, "is_in_try_block", False):
+        # print(formatted_error)
+        self.last_error = message
+        # print(self.last_error)
+        # print(message)
+        raise InterpreterRuntimeError(message)
+        self._current_exception = message
+    else:
+        print(formatted_error)
+        sys.exit(1)
 
 class RuntimeVisitor(syntaxVisitor):
     def __init__(self, symbol_table, max_iterations=1000, timeout=5):
@@ -26,6 +40,9 @@ class RuntimeVisitor(syntaxVisitor):
         self.collect_function_definitions()
         self.break_flag = False
         self.continue_flag = False
+        self.is_in_try_block = False
+        self.last_error = None
+        self._current_exception = None
 
         # Add these for loop safety
         self.max_iterations = max_iterations  # Maximum number of iterations
@@ -160,10 +177,20 @@ class RuntimeVisitor(syntaxVisitor):
     
     # Fixed function call and return handling in RuntimeVisitor
     def visitFuncCallExpr(self, ctx:syntaxParser.FuncCallExprContext):
+        # print("Visiting function:", ctx.IDENTIFIER().getText())
         if ctx is None or ctx.IDENTIFIER() is None:
             return None
             
         func_name = ctx.IDENTIFIER().getText()
+
+        if func_name == "get_error":
+            if self._current_exception:
+                e = str(self._current_exception)
+                self.symbol_table.update(func_name, {"type": "str", "value": e})
+                return e
+            else:
+                raise RuntimeError("get_error() called outside of except block")
+            return None
         
         # Lookup function definition
         func_def = self.function_definitions.get(func_name)
@@ -237,7 +264,7 @@ class RuntimeVisitor(syntaxVisitor):
     def visitReturnStmt(self, ctx:syntaxParser.ReturnStmtContext):
         # Check if inside a function
         if not self.in_function:
-            report_error("Return statement outside function.")
+            report_error(self, "Return statement outside function.")
             return None
         
         # Get the expression directly
@@ -331,12 +358,12 @@ class RuntimeVisitor(syntaxVisitor):
             # Check for timeout or max iterations
             current_time = time.time()
             if current_time - self.start_time > self.timeout:
-                report_error(f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
+                report_error(self, f"Program execution exceeded {self.timeout} seconds timeout. Possible infinite loop.")
                 return None
                 
             self.iterations += 1
             if self.iterations > self.max_iterations:
-                report_error(f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
+                report_error(self, f"Loop exceeded {self.max_iterations} iterations. Possible infinite loop.")
                 return None
 
             # Evaluate condition
@@ -421,7 +448,7 @@ class RuntimeVisitor(syntaxVisitor):
         symbol = self.symbol_table.lookup(name)
         
         if not symbol:
-            report_error(f"Variable '{name}' not defined.")
+            report_error(self, f"Variable '{name}' not defined.")
             return None
         
         return symbol.get('value', None)
@@ -475,7 +502,7 @@ class RuntimeVisitor(syntaxVisitor):
         if isinstance(value, (int, float)):
             return -value
         else:
-            report_error("Cannot apply unary minus to non-numeric value.")
+            report_error(self, "Cannot apply unary minus to non-numeric value.")
             return None
     
     def visitNotExpr(self, ctx:syntaxParser.NotExprContext):
@@ -498,14 +525,14 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
-            report_error("Invalid operands for multiplication/division.")
+            report_error(self, "Invalid operands for multiplication/division.")
             return None
         
         if op == '*':
             return left * right
         else:  # op == '/'
             if right == 0:
-                report_error("Division by zero.")
+                report_error(self, "Division by zero.")
                 return None
             return left / right
     
@@ -657,53 +684,31 @@ class RuntimeVisitor(syntaxVisitor):
         return result
     
     def visitTryStmt(self, ctx:syntaxParser.TryStmtContext):
-        """Handle try-except statements by properly executing try and except blocks."""
-        if ctx is None:
-            return None
-            
-        # Access the try and except blocks properly
-        # Based on the grammar: try_stmt: TRY block EXCEPT block;
-        try:
-            # Save current output state
-            output_before_try = list(self.output)
-            return_value_before = self.return_value
-            break_flag_before = self.break_flag
-            continue_flag_before = self.continue_flag
-            
-            # Execute try block with exception handling
-            try:
-                # The first block should be the try block
-                # In the parse tree, the structure is likely:
-                # TRY (index 0) -> block (index 1) -> EXCEPT (index 2) -> block (index 3)
-                if hasattr(ctx, 'try_stmt'):
-                    # If try_stmt is nested inside the context
-                    try_block = ctx.try_stmt().block(0)
-                else:
-                    # Direct access
-                    try_block = ctx.block(0)
-                    
-                if try_block:
-                    self.visit(try_block)
-            except Exception as e:
-                # If an exception occurs, restore state
-                self.output = output_before_try
-                self.return_value = return_value_before
-                self.break_flag = break_flag_before
-                self.continue_flag = continue_flag_before
-                
-                # Then execute the except block
-                if hasattr(ctx, 'try_stmt'):
-                    except_block = ctx.try_stmt().block(1)
-                else:
-                    except_block = ctx.block(1)
-                    
-                if except_block:
-                    self.visit(except_block)
-        except Exception as e:
-            # If there's an error in how we're accessing blocks, report it
-            report_error(f"Try-except error: {str(e)}")
-            
+        if ctx is None or ctx.try_stmt() is None: 
+            return None 
+        previous_try_flag = getattr(self, "is_in_try_block", False)
+        
+        
+        try: 
+            self.is_in_try_block = True 
+            try_block = ctx.try_stmt().block(0)
+            if try_block:
+                self.visit(try_block)
+        except InterpreterRuntimeError as e: 
+            # print("Error: " + str(e))
+            self._current_exception = str(e)  # Store the exception
+            # print("self._current_exception: ", self._current_exception)
+            self._inside_except = True
+            self.is_in_try_block = False  # Errors in except block should crash
+            except_block = ctx.try_stmt().block(1)
+            if except_block:
+                self.visit(except_block)
+            self._inside_except = False
+            self._current_exception = None 
+        finally: 
+            self.is_in_try_block = previous_try_flag  # Restore the previous state
         return None
+    
     
     def visitStringArray(self, ctx:syntaxParser.StringArrayContext):
         if ctx is None:
@@ -765,7 +770,7 @@ class RuntimeVisitor(syntaxVisitor):
         # Find the array in symbol table
         symbol = self.symbol_table.lookup(array_name)
         if not symbol:
-            report_error(f"Array '{array_name}' not defined.")
+            report_error(self, f"Array '{array_name}' not defined.")
             return None
                 
         # Get the array value
@@ -847,21 +852,21 @@ class RuntimeVisitor(syntaxVisitor):
                     # Update the symbol table with parsed array
                     self.symbol_table.update(array_name, {'value': array_value})
                 except Exception as e:
-                    report_error(f"Failed to parse array: {str(e)}")
+                    report_error(self, f"Failed to parse array: {str(e)}")
                     return None
             else:
-                report_error(f"Variable '{array_name}' is not an array.")
+                report_error(self, f"Variable '{array_name}' is not an array.")
                 return None
                 
         # Calculate the index
         index_value = self.visit(ctx.expression())
         if not isinstance(index_value, int):
-            report_error(f"Array index must be an integer, got '{type(index_value).__name__}'.")
+            report_error(self, f"Array index must be an integer, got '{type(index_value).__name__}'.")
             return None
                 
         # Check for index out of bounds
         if index_value < 0 or index_value >= len(array_value):
-            report_error(f"Index {index_value} out of bounds for array '{array_name}'.")
+            report_error(self, f"Index {index_value} out of bounds for array '{array_name}'.")
             return None
                 
         # Get the element at the index
@@ -882,18 +887,21 @@ class RuntimeVisitor(syntaxVisitor):
         op = ctx.getChild(1).getText()
         
         if op == '+':
+            # print("left: ", left)
+            # print("right: ", right)
             # String concatenation - convert both operands to strings if either is a string
             if isinstance(left, str) or isinstance(right, str):
                 return str(left) + str(right)
             # Numeric addition
             elif isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left + right
+            
             else:
-                report_error("Invalid operands for addition.")
+                report_error(self, "Invalid operands for addition.")
                 return None
         else:  # op == '-'
             if isinstance(left, (int, float)) and isinstance(right, (int, float)):
                 return left - right
             else:
-                report_error("Invalid operands for subtraction.")
+                report_error(self, "Invalid operands for subtraction.")
                 return None

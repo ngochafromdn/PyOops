@@ -1,10 +1,9 @@
 import sys
 from antlr4.error.ErrorListener import ErrorListener
 
-# ANSI color codes
+
 RED = "\033[91m"
-BLUE = "\033[34m"        # Darker blue (readable on white, visible on black)
-# MAGENTA = "\033[35m"     # Darker magenta (readable on both)
+BLUE = "\033[34m"     
 BOLD = "\033[1m"
 RESET = "\033[0m"
 
@@ -15,11 +14,10 @@ class SyntaxErrorHandling(ErrorListener):
         super().__init__()
         self.error_count = 0
 
-    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg):
         self.error_count += 1
         print(f"{RED}{BOLD}[Syntax Error]{RESET}{RED} Line {line}:{column} - {msg}{RESET}")
         
-        # Try to get the CharStream from recognizer's token source
         try:
             char_stream = recognizer._input.tokenSource.inputStream
             lines = char_stream.strdata.splitlines()
@@ -31,11 +29,9 @@ class SyntaxErrorHandling(ErrorListener):
         except Exception as ex:
             print(f"{BLUE}(Could not retrieve input stream: {ex}){RESET}\n")
 
-        # Print offending symbol
         if offendingSymbol:
             print(f"{BOLD}{RED}Offending symbol: '{offendingSymbol.text}'{RESET}")
 
-        # Print expected tokens
         try:
             expected_tokens = recognizer.getExpectedTokens()
             if expected_tokens:

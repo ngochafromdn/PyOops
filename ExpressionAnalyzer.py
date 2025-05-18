@@ -315,6 +315,9 @@ class ExpressionAnalyzer(syntaxVisitor):
         line = ctx.start.line
         column = ctx.start.column
         func_name = ctx.IDENTIFIER().getText()
+        if func_name == "get_error":
+            self.symbol_table.update("get_error", {"type": "str"})
+            return str
         func_info = self.symbol_table.lookup(func_name)
         
         if not func_info or func_info.get('type') != 'function':
