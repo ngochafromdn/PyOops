@@ -45,10 +45,10 @@ print("Hello, PyOops!");
 
 Run the program:
 ```bash
-python pyoops-cmd.py hello.bibi
+python pyoops-cmd.py test/hello.bibi
 ```
 ```bash
-python3 pyoops-cmd.py hello.bibi
+python3 pyoops-cmd.py test/hello.bibi
 ```
 
 ## Language Syntax
