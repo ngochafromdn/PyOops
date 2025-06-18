@@ -1,4 +1,4 @@
-# PyOops Language User Manual
+# PyOops language user manual
 
 ## Table of Contents
 1. [Introduction](#introduction)
